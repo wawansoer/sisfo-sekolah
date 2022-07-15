@@ -397,78 +397,76 @@ class Tatausaha extends BaseController
             ->save(WRITEPATH . '../public/assets/upload/guru/thumbs/' . $namabaru);
 
             if($this->request->getVar('jabatan') == 1){
-            $data = [
-                'nama'              => $this->request->getVar('nama'),
-                'nik'               => $this->request->getVar('nik'),
-                'nip'               => $this->request->getVar('nip'),
-                'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
-                'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                'foto'              => $namabaru,
-                'agama'             => $this->request->getVar('agama'),
-                'pendidikan'        => $this->request->getVar('pendidikan'),
-                'status'            => $this->request->getVar('status'),
-                'mapel'             => $this->request->getVar('mapel'),
-                'alamat'            => $this->request->getVar('alamat'),
-                'pos'               => $this->request->getVar('pos'),
-                'kontak'            => $this->request->getVar('kontak'),
-                'jabatan'           => $this->request->getVar('jabatan'),
-            ];
-        }elseif($this->request->getVar('jabatan') == 2){
-            $data = [
-                'nama'              => $this->request->getVar('nama'),
-                'nik'               => $this->request->getVar('nik'),
-                'nip'               => $this->request->getVar('nip'),
-                'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
-                'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                'foto'              => $namabaru,
-                'agama'             => $this->request->getVar('agama'),
-                'pendidikan'        => $this->request->getVar('pendidikan'),
-                'status'            => $this->request->getVar('status'),
-                'alamat'            => $this->request->getVar('alamat'),
-                'pos'               => $this->request->getVar('pos'),
-                'kontak'            => $this->request->getVar('kontak'),
-                'jabatan'           => $this->request->getVar('jabatan'),
-            ];
-        }        
-
-
+                $data = [
+                    'nama'              => $this->request->getVar('nama'),
+                    'nik'               => $this->request->getVar('nik'),
+                    'nip'               => $this->request->getVar('nip'),
+                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
+                    'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
+                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
+                    'foto'              => $namabaru,
+                    'agama'             => $this->request->getVar('agama'),
+                    'pendidikan'        => $this->request->getVar('pendidikan'),
+                    'status'            => $this->request->getVar('status'),
+                    'mapel'             => $this->request->getVar('mapel'),
+                    'alamat'            => $this->request->getVar('alamat'),
+                    'pos'               => $this->request->getVar('pos'),
+                    'kontak'            => $this->request->getVar('kontak'),
+                    'jabatan'           => $this->request->getVar('jabatan'),
+                ];
+            }elseif($this->request->getVar('jabatan') == 2){
+                $data = [
+                    'nama'              => $this->request->getVar('nama'),
+                    'nik'               => $this->request->getVar('nik'),
+                    'nip'               => $this->request->getVar('nip'),
+                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
+                    'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
+                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
+                    'foto'              => $namabaru,
+                    'agama'             => $this->request->getVar('agama'),
+                    'pendidikan'        => $this->request->getVar('pendidikan'),
+                    'status'            => $this->request->getVar('status'),
+                    'alamat'            => $this->request->getVar('alamat'),
+                    'pos'               => $this->request->getVar('pos'),
+                    'kontak'            => $this->request->getVar('kontak'),
+                    'jabatan'           => $this->request->getVar('jabatan'),
+                ];
+            }        
         }else{
             if($this->request->getVar('jabatan') == 1){
-            $data = [
-                'nama'              => $this->request->getVar('nama'),
-                'nik'               => $this->request->getVar('nik'),
-                'nip'               => $this->request->getVar('nip'),
-                'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
-                'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                'agama'             => $this->request->getVar('agama'),
-                'pendidikan'        => $this->request->getVar('pendidikan'),
-                'status'            => $this->request->getVar('status'),
-                'mapel'             => $this->request->getVar('mapel'),
-                'alamat'            => $this->request->getVar('alamat'),
-                'pos'               => $this->request->getVar('pos'),
-                'kontak'            => $this->request->getVar('kontak'),
-                'jabatan'           => $this->request->getVar('jabatan'),
-            ];
-        }elseif($this->request->getVar('jabatan') == 2){
-            $data = [
-                'nama'              => $this->request->getVar('nama'),
-                'nik'               => $this->request->getVar('nik'),
-                'nip'               => $this->request->getVar('nip'),
-                'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
-                'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                'agama'             => $this->request->getVar('agama'),
-                'pendidikan'        => $this->request->getVar('pendidikan'),
-                'status'            => $this->request->getVar('status'),
-                'alamat'            => $this->request->getVar('alamat'),
-                'pos'               => $this->request->getVar('pos'),
-                'kontak'            => $this->request->getVar('kontak'),
-                'jabatan'           => $this->request->getVar('jabatan'),
-            ];
-        }        
+                $data = [
+                    'nama'              => $this->request->getVar('nama'),
+                    'nik'               => $this->request->getVar('nik'),
+                    'nip'               => $this->request->getVar('nip'),
+                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
+                    'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
+                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
+                    'agama'             => $this->request->getVar('agama'),
+                    'pendidikan'        => $this->request->getVar('pendidikan'),
+                    'status'            => $this->request->getVar('status'),
+                    'mapel'             => $this->request->getVar('mapel'),
+                    'alamat'            => $this->request->getVar('alamat'),
+                    'pos'               => $this->request->getVar('pos'),
+                    'kontak'            => $this->request->getVar('kontak'),
+                    'jabatan'           => $this->request->getVar('jabatan'),
+                ];
+            }elseif($this->request->getVar('jabatan') == 2){
+                $data = [
+                    'nama'              => $this->request->getVar('nama'),
+                    'nik'               => $this->request->getVar('nik'),
+                    'nip'               => $this->request->getVar('nip'),
+                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
+                    'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
+                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
+                    'agama'             => $this->request->getVar('agama'),
+                    'pendidikan'        => $this->request->getVar('pendidikan'),
+                    'status'            => $this->request->getVar('status'),
+                    'alamat'            => $this->request->getVar('alamat'),
+                    'pos'               => $this->request->getVar('pos'),
+                    'kontak'            => $this->request->getVar('kontak'),
+                    'jabatan'           => $this->request->getVar('jabatan'),
+                ];
+            }        
         }
         $builder = $this->db->table('guru');
         $builder->where('id_guru', $id);
@@ -599,7 +597,17 @@ class Tatausaha extends BaseController
         $query = $this->db->table('daftarBerkas');
         $query->select('*');
         $hasilQuery = $query->get();
+        $data['daftarBerkas'] = $hasilQuery->getResult();
+
+        $query = $this->db->table('berkas');
+        $query->select('*');
+        $hasilQuery = $query->get();
         $data['berkas'] = $hasilQuery->getResult();
+
+        $query = $this->db->table('guru');
+        $query->select('*');
+        $hasilQuery = $query->get();
+        $data['guru'] = $hasilQuery->getResult();
 
         return view('/tatausaha/berkasguru/berkasguru', $data);
     }
