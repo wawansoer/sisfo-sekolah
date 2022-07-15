@@ -46,6 +46,13 @@
               </a>
             </li>
 
+            <li class="sidebar-item <?= ($tatausaha == 4 ? "active" : ""); ?>">
+              <a href="<?= base_url('tatausaha/berkasguru');?>" class="sidebar-link">
+                <i class="fas fa-file-archive"></i>
+                <span>Berkas Guru/Tendik</span>
+              </a>
+            </li>
+
             <li class="sidebar-item">
               <a href="<?= base_url('logout');?>" class="sidebar-link">
                 <i class="bi bi-box-arrow-left"></i>

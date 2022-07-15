@@ -8,7 +8,7 @@
     <h2 class="alert-heading">Silahkan Periksa Entrian Form</h2>
     <?php echo session()->getFlashdata('error'); ?>
   </div>
-<?php endif; ?>
+<?php endif;?>
 
 <?php if (!empty(session()->getFlashdata('message'))) : ?>
 <div class="alert alert-success">

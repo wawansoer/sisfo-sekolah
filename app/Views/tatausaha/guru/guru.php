@@ -23,6 +23,7 @@
 		</a>
 	</div>
 </div>
+
 <div class="row">
 	<div class="card">
 		<div class="card-header">
@@ -46,7 +47,28 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<?php foreach ($guru as $detGuru):?>
+					<tr>
+						<td class="text-center"> <?=$detGuru->nama;?> </td>
+						<td class="text-center"> <?=$detGuru->jenis_kelamin;?> </td>
+						<td class="text-center"> <?=$detGuru->pendidikan;?> </td> 
+						<td class="text-center"> <?=$detGuru->status;?> </td>
+						<td class="text-center"> <?=$detGuru->jabatan;?> </td>
+						<td class="text-center">  
+							<a href="<?= base_url('/tatausaha/detailguru/'.$detGuru->id_guru); ?>">
+								<button class="btn btn-success btn-sm">
+									<i class="fas fa-eye"></i> Detail
+								</button>
+							</a>
+							&nbsp;&nbsp;
+							<a href="<?= base_url('/tatausaha/ubahguru/'.$detGuru->id_guru); ?>">
+								<button class="btn btn-primary btn-sm">
+									<i class="bi bi-pencil-square"></i> Ubah
+								</button>
+							</a>
+						</td>
+					</tr>
+				<?php endforeach;?>
 			</tbody>
 		</table>
 	</div>
