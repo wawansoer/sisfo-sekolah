@@ -4,17 +4,18 @@
 <div class="row" align="center">
 	<div class="col-lg-12 col-md-12 mb-3">
 		<div class="d-grid gap-2">
-			<!-- Button trigger modal -->
+			<!-- Button trigger modal Tambah Data berkas -->
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 				<i class="fas fa-plus-square"></i>
 				Tambah Berkas Guru/Tendik
 			</button>
-		</div> 
+		</div>
 
-		<!-- Modal -->
+		<!-- Modal Tambah Data Berkas  -->
 		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
+					<!-- form Tambah Data Berkas  -->
 					<form action="<?= base_url('tatausaha/prosestambahberkasguru') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 						<?= csrf_field(); ?>
 						<div class="modal-header">
@@ -26,36 +27,35 @@
 								<label for="id_guru" class="col-sm-3 col-form-label">Nama Guru</label>
 								<div class="col-sm-9">
 									<select name="id_guru" class="form-control" required>
-										<option <?= (old('id_guru') == "" ? "selected" : "");?>> -- Pilih Guru/Tendik -- </option>
-										<?php foreach ($guru as $detGuru):?>
-											<option 
-												value="<?= $detGuru->id_guru;?>" 
-												<?= (old('id_guru') == "$detGuru->id_guru" ? "selected" : "");?>>
-												<?= $detGuru->nama;?>
-											</option>   
-										<?php endforeach;?>
+										<option <?= (old('id_guru') == "" ? "selected" : ""); ?>> -- Pilih Guru/Tendik -- </option>
+										<!-- Ambil Data Guru  -->
+										<?php foreach ($guru as $detGuru) : ?>
+											<option value="<?= $detGuru->id_guru; ?>" <?= (old('id_guru') == "$detGuru->id_guru" ? "selected" : ""); ?>>
+												<?= $detGuru->nama; ?>
+											</option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<label for="id_berkas" class="col-sm-3 col-form-label">Nama Berkas</label>
 								<div class="col-sm-9">
+									<!-- Ambil Data Berkas  -->
 									<select name="idBerkas" class="form-control" required>
-										<option <?= (old('idBerkas') == "" ? "selected" : "");?>> -- Pilih Nama Berkas -- </option>
-										<?php foreach ($berkas as $detBerkas):?>
-											<option 
-												value="<?= $detBerkas->idBerkas;?>" 
-												<?= (old('idBerkas') == "$detBerkas->idBerkas" ? "selected" : "");?>>
-												<?= $detBerkas->namaBerkas;?>
-											</option>   
-										<?php endforeach;?>
+										<option <?= (old('idBerkas') == "" ? "selected" : ""); ?>> -- Pilih Nama Berkas -- </option>
+										<?php foreach ($berkas as $detBerkas) : ?>
+											<option value="<?= $detBerkas->idBerkas; ?>" <?= (old('idBerkas') == "$detBerkas->idBerkas" ? "selected" : ""); ?>>
+												<?= $detBerkas->namaBerkas; ?>
+											</option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<label for="ket" class="col-sm-3 col-form-label">Berkas</label>
 								<div class="col-sm-9">
-									<textarea name="ket" id="ket" class="form-control" rows="4"></textarea>
+									<input type="file" name="fileBerkas" class="form-control" required>
+									<small class="text-secondary">Maksimal 512 Kb, Dengan Ekstensi PDF</small>
 								</div>
 							</div>
 						</div>
@@ -76,32 +76,30 @@
 		</div>
 		<div class="card-body">
 			<?php if (!empty(session()->getFlashdata('message'))) : ?>
-			<div class="alert alert-success" role="alert">
-				<strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
-			</div>
-		<?php endif; ?>
-		<table class="table table-striped" id="berkas">
-			<thead>
-				<tr>
-					<th class="text-center">Nama Guru/Tendik</th>
-					<th class="text-center">Nama Berkas</th>
-					<th class="text-center">Berkas</th>
-					<th class="text-center">Aksi</th>
-				</tr>
-			</thead>
-			<tbody>
-				
-			</tbody>
-		</table>
+				<div class="alert alert-success" role="alert">
+					<strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
+				</div>
+			<?php endif; ?>
+			<table class="table table-striped" id="berkas">
+				<thead>
+					<tr>
+						<th class="text-center">Nama Guru/Tendik</th>
+						<th class="text-center">Nama Berkas</th>
+						<th class="text-center">Berkas</th>
+						<th class="text-center">Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
-</div>
-<script src="<?= base_url('assets/vendors/simple-datatables/simple-datatables.js');?>"></script>
+<script src="<?= base_url('assets/vendors/simple-datatables/simple-datatables.js'); ?>"></script>
 <script>
-    // Simple Datatable
-    let table1 = document.querySelector('#berkas');
-    let dataTable = new simpleDatatables.DataTable(table1);
+	// Simple Datatable
+	let table1 = document.querySelector('#berkas');
+	let dataTable = new simpleDatatables.DataTable(table1);
 </script>
 <?= $this->endSection() ?>
-
-

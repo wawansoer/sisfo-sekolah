@@ -69,49 +69,49 @@ class Tatausaha extends BaseController
                 'rules' => 'required|is_unique[guru.nama]',
                 'errors' => [
                     'required' => 'Nama Harus diisi',
-                    'is_unique'=> 'Nama Tidak Boleh Sama',
+                    'is_unique' => 'Nama Tidak Boleh Sama',
                 ]
             ],
             'nik' => [
                 'rules' => 'required|is_unique[guru.nik]|numeric',
                 'errors' => [
                     'required' => 'NIK Harus diisi',
-                    'is_unique'=> 'NIK Tidak Boleh Sama',
-                    'numeric'=> 'Format NIK Tidak Dikenali',                    
+                    'is_unique' => 'NIK Tidak Boleh Sama',
+                    'numeric' => 'Format NIK Tidak Dikenali',
                 ]
             ],
             'nip' => [
                 'rules' => 'required|is_unique[guru.nip]|numeric',
                 'errors' => [
                     'required' => 'NIP Harus diisi',
-                    'is_unique'=> 'NIP Tidak Boleh Sama',
-                    'numeric'=> 'Format NIP Tidak Dikenali',                    
+                    'is_unique' => 'NIP Tidak Boleh Sama',
+                    'numeric' => 'Format NIP Tidak Dikenali',
                 ]
             ],
             'tempat_lahir' => [
                 'rules' => 'required|alpha_space',
                 'errors' => [
                     'required' => 'Tempat Lahir Harus diisi',
-                    'alpha_space'=> 'Format Tempat Lahir Tidak Dikenali',                    
+                    'alpha_space' => 'Format Tempat Lahir Tidak Dikenali',
                 ]
             ],
             'tanggal_lahir' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Lahir Harus diisi',                    
+                    'required' => 'Tanggal Lahir Harus diisi',
                 ]
             ],
             'jenis_kelamin' => [
                 'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'Jenis Kelamin Harus diisi',
-                    'numeric'=> 'Format Jenis Kelamin Tidak Dikenali',                    
+                    'numeric' => 'Format Jenis Kelamin Tidak Dikenali',
                 ]
             ],
             'agama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => ' Agama Harus diisi',                    
+                    'required' => ' Agama Harus diisi',
                 ]
             ],
             'pendidikan' => [
@@ -144,14 +144,13 @@ class Tatausaha extends BaseController
                 'errors' => [
                     'required' => 'Nomor Kontak Harus diisi',
                     'numeric' => 'Format Nomor Kontak Tidak Sesuai Format',
-                    'is_unique'=> 'Nomor Kontak Tidak Boleh Sama',
+                    'is_unique' => 'Nomor Kontak Tidak Boleh Sama',
                 ]
             ],
             'jabatan' => [
                 'rules' => 'required|numeric',
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -159,13 +158,13 @@ class Tatausaha extends BaseController
         $avatar   = $this->request->getFile('foto');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/guru/', $namabaru);
-                        // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/guru/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/guru/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/guru/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/guru/thumbs/' . $namabaru);
 
-        if($this->request->getVar('jabatan') == 1){
+        if ($this->request->getVar('jabatan') == 1) {
             $data = [
                 'nama'              => $this->request->getVar('nama'),
                 'nik'               => $this->request->getVar('nik'),
@@ -183,7 +182,7 @@ class Tatausaha extends BaseController
                 'kontak'            => $this->request->getVar('kontak'),
                 'jabatan'           => $this->request->getVar('jabatan'),
             ];
-        }elseif($this->request->getVar('jabatan') == 2){
+        } elseif ($this->request->getVar('jabatan') == 2) {
             $data = [
                 'nama'              => $this->request->getVar('nama'),
                 'nik'               => $this->request->getVar('nik'),
@@ -200,7 +199,7 @@ class Tatausaha extends BaseController
                 'kontak'            => $this->request->getVar('kontak'),
                 'jabatan'           => $this->request->getVar('jabatan'),
             ];
-        }        
+        }
 
         $builder = $this->db->table('guru');
         $builder->insert($data);
@@ -255,8 +254,7 @@ class Tatausaha extends BaseController
         $hasilQuery = $query->get();
         $dataGuru = $hasilQuery->getResult();
 
-        if (empty($hasilQuery)) 
-        {
+        if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
 
@@ -298,52 +296,52 @@ class Tatausaha extends BaseController
                 'max_size[foto,512]',
             ],
             'nama' => [
-                'rules' => 'required|is_unique[guru.nama, id_guru,'.$id.']',
+                'rules' => 'required|is_unique[guru.nama, id_guru,' . $id . ']',
                 'errors' => [
                     'required' => 'Nama Harus diisi',
-                    'is_unique'=> 'Nama Tidak Boleh Sama',
+                    'is_unique' => 'Nama Tidak Boleh Sama',
                 ]
             ],
             'nik' => [
-                'rules' => 'required|is_unique[guru.nik, id_guru,'.$id.']|numeric',
+                'rules' => 'required|is_unique[guru.nik, id_guru,' . $id . ']|numeric',
                 'errors' => [
                     'required' => 'NIK Harus diisi',
-                    'is_unique'=> 'NIK Tidak Boleh Sama',
-                    'numeric'=> 'Format NIK Tidak Dikenali',                    
+                    'is_unique' => 'NIK Tidak Boleh Sama',
+                    'numeric' => 'Format NIK Tidak Dikenali',
                 ]
             ],
             'nip' => [
-                'rules' => 'required|is_unique[guru.nip, id_guru,'.$id.']|numeric',
+                'rules' => 'required|is_unique[guru.nip, id_guru,' . $id . ']|numeric',
                 'errors' => [
                     'required' => 'NIP Harus diisi',
-                    'is_unique'=> 'NIP Tidak Boleh Sama',
-                    'numeric'=> 'Format NIP Tidak Dikenali',                    
+                    'is_unique' => 'NIP Tidak Boleh Sama',
+                    'numeric' => 'Format NIP Tidak Dikenali',
                 ]
             ],
             'tempat_lahir' => [
                 'rules' => 'required|alpha_space',
                 'errors' => [
                     'required' => 'Tempat Lahir Harus diisi',
-                    'alpha_space'=> 'Format Tempat Lahir Tidak Dikenali',                    
+                    'alpha_space' => 'Format Tempat Lahir Tidak Dikenali',
                 ]
             ],
             'tanggal_lahir' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Lahir Harus diisi',                    
+                    'required' => 'Tanggal Lahir Harus diisi',
                 ]
             ],
             'jenis_kelamin' => [
                 'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'Jenis Kelamin Harus diisi',
-                    'numeric'=> 'Format Jenis Kelamin Tidak Dikenali',                    
+                    'numeric' => 'Format Jenis Kelamin Tidak Dikenali',
                 ]
             ],
             'agama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => ' Agama Harus diisi',                    
+                    'required' => ' Agama Harus diisi',
                 ]
             ],
             'pendidikan' => [
@@ -372,31 +370,30 @@ class Tatausaha extends BaseController
                 ]
             ],
             'kontak' => [
-                'rules' => 'required|numeric|is_unique[guru.kontak, id_guru,'.$id.']',
+                'rules' => 'required|numeric|is_unique[guru.kontak, id_guru,' . $id . ']',
                 'errors' => [
                     'required' => 'Nomor Kontak Harus diisi',
                     'numeric' => 'Format Nomor Kontak Tidak Sesuai Format',
-                    'is_unique'=> 'Kontak Tidak Boleh Sama',
+                    'is_unique' => 'Kontak Tidak Boleh Sama',
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        if (! empty($_FILES['foto']['name'])) {
+        if (!empty($_FILES['foto']['name'])) {
             $avatar   = $this->request->getFile('foto');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/guru/', $namabaru);
-                        // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/guru/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/guru/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/guru/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/guru/thumbs/' . $namabaru);
 
-            if($this->request->getVar('jabatan') == 1){
+            if ($this->request->getVar('jabatan') == 1) {
                 $data = [
                     'nama'              => $this->request->getVar('nama'),
                     'nik'               => $this->request->getVar('nik'),
@@ -414,7 +411,7 @@ class Tatausaha extends BaseController
                     'kontak'            => $this->request->getVar('kontak'),
                     'jabatan'           => $this->request->getVar('jabatan'),
                 ];
-            }elseif($this->request->getVar('jabatan') == 2){
+            } elseif ($this->request->getVar('jabatan') == 2) {
                 $data = [
                     'nama'              => $this->request->getVar('nama'),
                     'nik'               => $this->request->getVar('nik'),
@@ -431,9 +428,9 @@ class Tatausaha extends BaseController
                     'kontak'            => $this->request->getVar('kontak'),
                     'jabatan'           => $this->request->getVar('jabatan'),
                 ];
-            }        
-        }else{
-            if($this->request->getVar('jabatan') == 1){
+            }
+        } else {
+            if ($this->request->getVar('jabatan') == 1) {
                 $data = [
                     'nama'              => $this->request->getVar('nama'),
                     'nik'               => $this->request->getVar('nik'),
@@ -450,7 +447,7 @@ class Tatausaha extends BaseController
                     'kontak'            => $this->request->getVar('kontak'),
                     'jabatan'           => $this->request->getVar('jabatan'),
                 ];
-            }elseif($this->request->getVar('jabatan') == 2){
+            } elseif ($this->request->getVar('jabatan') == 2) {
                 $data = [
                     'nama'              => $this->request->getVar('nama'),
                     'nik'               => $this->request->getVar('nik'),
@@ -466,7 +463,7 @@ class Tatausaha extends BaseController
                     'kontak'            => $this->request->getVar('kontak'),
                     'jabatan'           => $this->request->getVar('jabatan'),
                 ];
-            }        
+            }
         }
         $builder = $this->db->table('guru');
         $builder->where('id_guru', $id);
@@ -474,12 +471,12 @@ class Tatausaha extends BaseController
 
         $data['tatausaha'] = 2;
 
-        if(!$builder){
+        if (!$builder) {
             session()->setFlashdata('error', 'Silahkan Cek Inputan Anda');
             return redirect()->back()->withInput();
-        }else{
+        } else {
             return redirect()->to(base_url('tatausaha/guru/'))->with('message', 'Data Berhasil Diubah');
-        }  
+        }
     }
 
     public function hapusguru($id)
@@ -487,7 +484,7 @@ class Tatausaha extends BaseController
         $query = $this->db->table('guru');
         $query->where('id_guru', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
@@ -513,17 +510,17 @@ class Tatausaha extends BaseController
         return view('/tatausaha/berkas/berkas', $data);
     }
 
-    public function prosestambahberkas(){
+    public function prosestambahberkas()
+    {
         if (!$this->validate([
             'namaBerkas' => [
                 'rules' => 'required|is_unique[berkas.namaBerkas]',
                 'errors' => [
                     'required' => 'Nama berkas Harus diisi',
-                    'is_unique'=> 'Nama berkas Tidak Boleh Sama'
+                    'is_unique' => 'Nama berkas Tidak Boleh Sama'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back();
         }
@@ -545,18 +542,17 @@ class Tatausaha extends BaseController
     {
         if (!$this->validate([
             'namaBerkas' => [
-                'rules' => 'required|is_unique[berkas.namaBerkas, idBerkas,'.$id.']',
+                'rules' => 'required|is_unique[berkas.namaBerkas, idBerkas,' . $id . ']',
                 'errors' => [
                     'required' => 'Nama berkas Harus diisi',
-                    'is_unique'=> 'Nama berkas Tidak Boleh Sama'
+                    'is_unique' => 'Nama berkas Tidak Boleh Sama'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
-        
+
         $data = [
             'namaBerkas'        => $this->request->getVar('namaBerkas'),
             'ket'               => $this->request->getVar('ket'),
@@ -576,7 +572,7 @@ class Tatausaha extends BaseController
         $query = $this->db->table('berkas');
         $query->where('idBerkas', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
@@ -595,7 +591,7 @@ class Tatausaha extends BaseController
         $data['tatausaha'] = 4;
 
         $builder = $this->db->table('daftarBerkas');
-        $builder->select('guru.nama, ket.berkas, daftarBerkas.fileberkas, daftarBerkas.idDaftarBerkas');
+        $builder->select('guru.nama, berkas.ket, daftarBerkas.fileberkas, daftarBerkas.idDaftarBerkas');
         $builder->join('berkas', 'daftarBerkas.idBerkas = berkas.idBerkas');
         $builder->join('guru', 'guru.id_guru = daftarBerkas.idBerkas');
         $query = $builder->get();
@@ -614,5 +610,54 @@ class Tatausaha extends BaseController
         return view('/tatausaha/berkasguru/berkasguru', $data);
     }
 
+    public function prosestambahberkasguru()
+    {
+        if (!$this->validate([
+            'id_guru' => [
+                'rules' => 'required|number',
+                'errors' => [
+                    'required'  => 'Silahkan Isi Guru/Tendik',
+                    'number'    => 'Guru/Tendik Tidak Dikenali',
+                ]
+            ],
+            'idBerkas' => [
+                'rules' => 'required|number',
+                'errors' => [
+                    'required'  => 'Silahkan Isi Nama Berkas',
+                    'number'    => 'Nama Berkas Tidak Dikenali',
+                ]
+            ],
+            'fileBerkas' => [
+                'rules' => 'required|
+                            mime_in[fileBerkas,application/pdf]|
+                            max_size[fileBerkas,512]',
+                'errors' => [
+                    'required'  => 'Anda Harus Mengunggah File Berkas',
+                    'mime_in'   => 'Format Berkas Tidak Dikenali',
+                    'max_size'  => 'Berkas Anda Melebihi Kapasitas Yang Ditentukan'
+                ]
+            ],
 
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
+
+        $avatar   = $this->request->getFile('fileBerkas');
+        $namabaru = str_replace(' ', '-', $avatar->getName());
+        $avatar->move(WRITEPATH . '../public/assets/upload/berkasGuru/', $namabaru);
+        // Create thumb
+
+        $data = [
+            'id_guru'                   => $this->request->getVar('id_guru'),
+            'idBerkas'                  => $this->request->getVar('idBerkas'),
+            'fileBerkas'                => $namabaru,
+            'tanggal'                   => date("Y-m-d H:i:s")
+        ];
+
+        $builder = $this->db->table('daftarBerkas');
+        $builder->insert($data);
+
+        return redirect()->to(base_url('tatausaha/berkasguru'))->with('message', 'Data Berhasil Ditambahkan');
+    }
 }
