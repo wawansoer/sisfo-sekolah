@@ -594,10 +594,12 @@ class Tatausaha extends BaseController
         $data['title'] = "Berkas Guru/Tendik | Tatausaha";
         $data['tatausaha'] = 4;
 
-        $query = $this->db->table('daftarBerkas');
-        $query->select('*');
-        $hasilQuery = $query->get();
-        $data['daftarBerkas'] = $hasilQuery->getResult();
+        $builder = $this->db->table('daftarBerkas');
+        $builder->select('guru.nama, ket.berkas, daftarBerkas.fileberkas, daftarBerkas.idDaftarBerkas');
+        $builder->join('berkas', 'daftarBerkas.idBerkas = berkas.idBerkas');
+        $builder->join('guru', 'guru.id_guru = daftarBerkas.idBerkas');
+        $query = $builder->get();
+        $data['daftarBerkas'] = $query->getResult();
 
         $query = $this->db->table('berkas');
         $query->select('*');
