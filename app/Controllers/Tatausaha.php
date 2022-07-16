@@ -590,12 +590,15 @@ class Tatausaha extends BaseController
         $data['title'] = "Berkas Guru/Tendik | Tatausaha";
         $data['tatausaha'] = 4;
 
-        $builder = $this->db->table('daftarBerkas');
-        $builder->select('guru.nama, berkas.ket, daftarBerkas.fileberkas, daftarBerkas.idDaftarBerkas');
-        $builder->join('berkas', 'daftarBerkas.idBerkas = berkas.idBerkas');
-        $builder->join('guru', 'guru.id_guru = daftarBerkas.idBerkas');
-        $query = $builder->get();
-        $data['daftarBerkas'] = $query->getResult();
+        $query = $this->db->table('daftarBerkas');
+        $query->select('guru.nama as namaGuru, berkas.ket as keterangan, 
+                            daftarBerkas.fileberkas as fileBerkas, 
+                            daftarBerkas.idDaftarBerkas as idBerkas,
+                            berkas.namaBerkas');
+        $query->join('berkas', 'daftarBerkas.idBerkas = berkas.idBerkas');
+        $query->join('guru', 'daftarBerkas.id_guru =guru.id_guru');
+        $hasilQuery = $query->get();
+        $data['daftarBerkas'] =  $hasilQuery->getResult();
 
         $query = $this->db->table('berkas');
         $query->select('*');
@@ -614,49 +617,46 @@ class Tatausaha extends BaseController
     {
         if (!$this->validate([
             'id_guru' => [
-                'rules' => 'required|number',
+                'rules' => 'required|integer',
                 'errors' => [
                     'required'  => 'Silahkan Isi Guru/Tendik',
-                    'number'    => 'Guru/Tendik Tidak Dikenali',
+                    'integer'    => 'Guru/Tendik Tidak Dikenali',
                 ]
             ],
             'idBerkas' => [
-                'rules' => 'required|number',
+                'rules' => 'required|integer',
                 'errors' => [
                     'required'  => 'Silahkan Isi Nama Berkas',
-                    'number'    => 'Nama Berkas Tidak Dikenali',
+                    'integer'    => 'Nama Berkas Tidak Dikenali',
                 ]
             ],
             'fileBerkas' => [
-                'rules' => 'required|
-                            mime_in[fileBerkas,application/pdf]|
-                            max_size[fileBerkas,512]',
+                'rules' => 'mime_in[fileBerkas,application/pdf]|max_size[fileBerkas,512]',
                 'errors' => [
-                    'required'  => 'Anda Harus Mengunggah File Berkas',
-                    'mime_in'   => 'Format Berkas Tidak Dikenali',
-                    'max_size'  => 'Berkas Anda Melebihi Kapasitas Yang Ditentukan'
+                    'mime_in'   => 'Format file berkas tidak dikenali',
+                    'max_size'  =>  'Ukuran File Berkas Terlalu Besar'
                 ]
             ],
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
+        } else {
+            $avatar   = $this->request->getFile('fileBerkas');
+            $namabaru = str_replace(' ', '-', $avatar->getName());
+            $avatar->move(WRITEPATH . '../public/assets/upload/berkasGuru/', $namabaru);
+
+            // simpan data ke array 
+            $data = [
+                'id_guru'                   => $this->request->getVar('id_guru'),
+                'idBerkas'                  => $this->request->getVar('idBerkas'),
+                'fileBerkas'                => $namabaru,
+                'tanggal'                   => date("Y-m-d H:i:s")
+            ];
+            // input data daftar berkas dari array 
+            $builder = $this->db->table('daftarBerkas');
+            $builder->insert($data);
         }
-
-        $avatar   = $this->request->getFile('fileBerkas');
-        $namabaru = str_replace(' ', '-', $avatar->getName());
-        $avatar->move(WRITEPATH . '../public/assets/upload/berkasGuru/', $namabaru);
-        // Create thumb
-
-        $data = [
-            'id_guru'                   => $this->request->getVar('id_guru'),
-            'idBerkas'                  => $this->request->getVar('idBerkas'),
-            'fileBerkas'                => $namabaru,
-            'tanggal'                   => date("Y-m-d H:i:s")
-        ];
-
-        $builder = $this->db->table('daftarBerkas');
-        $builder->insert($data);
 
         return redirect()->to(base_url('tatausaha/berkasguru'))->with('message', 'Data Berhasil Ditambahkan');
     }

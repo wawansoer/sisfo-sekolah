@@ -26,7 +26,7 @@
 							<div class="row mb-3">
 								<label for="id_guru" class="col-sm-3 col-form-label">Nama Guru</label>
 								<div class="col-sm-9">
-									<select name="id_guru" class="form-control" required>
+									<select name="id_guru" id="id_guru" class="form-control" required>
 										<option <?= (old('id_guru') == "" ? "selected" : ""); ?>> -- Pilih Guru/Tendik -- </option>
 										<!-- Ambil Data Guru  -->
 										<?php foreach ($guru as $detGuru) : ?>
@@ -41,7 +41,7 @@
 								<label for="id_berkas" class="col-sm-3 col-form-label">Nama Berkas</label>
 								<div class="col-sm-9">
 									<!-- Ambil Data Berkas  -->
-									<select name="idBerkas" class="form-control" required>
+									<select name="idBerkas" id="idBerkas" class="form-control" required>
 										<option <?= (old('idBerkas') == "" ? "selected" : ""); ?>> -- Pilih Nama Berkas -- </option>
 										<?php foreach ($berkas as $detBerkas) : ?>
 											<option value="<?= $detBerkas->idBerkas; ?>" <?= (old('idBerkas') == "$detBerkas->idBerkas" ? "selected" : ""); ?>>
@@ -54,7 +54,7 @@
 							<div class="row mb-3">
 								<label for="ket" class="col-sm-3 col-form-label">Berkas</label>
 								<div class="col-sm-9">
-									<input type="file" name="fileBerkas" class="form-control" required>
+									<input type="file" name="fileBerkas" id="fileBerkas" class="form-control" required>
 									<small class="text-secondary">Maksimal 512 Kb, Dengan Ekstensi PDF</small>
 								</div>
 							</div>
@@ -80,17 +80,33 @@
 					<strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
 				</div>
 			<?php endif; ?>
+
+			<?php if (!empty(session()->getFlashdata('error'))) : ?>
+				<div class="alert alert-light-danger">
+					<h6 class="alert-heading">Silahkan Periksa Entrian Form</h6>
+					<?php echo session()->getFlashdata('error'); ?>
+				</div>
+			<?php endif; ?>
 			<table class="table table-striped" id="berkas">
 				<thead>
 					<tr>
 						<th class="text-center">Nama Guru/Tendik</th>
+						<th class="text-center">Kode Berkas</th>
 						<th class="text-center">Nama Berkas</th>
-						<th class="text-center">Berkas</th>
 						<th class="text-center">Aksi</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="text-center">
+					<?php foreach ($daftarBerkas as $det) : ?>
+						<tr>
+							<td> <?= $det->namaGuru; ?></td>
+							<td> <?= $det->namaBerkas; ?></td>
+							<td> <?= $det->keterangan; ?></td>
+							<td>
 
+							</td>
+						</tr>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
