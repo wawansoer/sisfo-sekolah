@@ -9,7 +9,6 @@ class Kurikulum extends BaseController
         $this->db = \Config\Database::connect();
         helper('tgl');
         helper('auth');
-        
     }
 
     public function index()
@@ -18,7 +17,6 @@ class Kurikulum extends BaseController
         $data['kurikulum'] = 1;
 
         return view('/kurikulum/dashboard', $data);
-
     }
 
     public function kelas()
@@ -42,13 +40,14 @@ class Kurikulum extends BaseController
         return view('/kurikulum/kelas/tambahkelas', $data);
     }
 
-    public function prosestambahkelas(){
+    public function prosestambahkelas()
+    {
         if (!$this->validate([
             'nama_kelas' => [
                 'rules' => 'required|is_unique[kelas.nama_kelas]',
                 'errors' => [
                     'required' => 'Nama Kelas Harus diisi',
-                    'is_unique'=> 'Nama Kelas Tidak Boleh Sama'
+                    'is_unique' => 'Nama Kelas Tidak Boleh Sama'
                 ]
             ],
             'deskripsi_kelas' => [
@@ -57,8 +56,7 @@ class Kurikulum extends BaseController
                     'required' => 'Deskripsi Kelas Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -91,14 +89,13 @@ class Kurikulum extends BaseController
                     'required' => 'Deskripsi Kelas Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        
+
         $data = [
             'nama_kelas'              => $this->request->getVar('nama_kelas'),
             'deskripsi_kelas'         => $this->request->getVar('deskripsi_kelas'),
@@ -118,7 +115,7 @@ class Kurikulum extends BaseController
         $query = $this->db->table('kelas');
         $query->where('id_kelas', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
@@ -154,7 +151,8 @@ class Kurikulum extends BaseController
         return view('/kurikulum/pengumuman/tambahpengumuman', $data);
     }
 
-    public function prosestambahpengumuman(){
+    public function prosestambahpengumuman()
+    {
         if (!$this->validate([
             'gambar' => [
                 'mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
@@ -168,7 +166,7 @@ class Kurikulum extends BaseController
                 'rules' => 'required|is_unique[pengumuman.pengumuman]',
                 'errors' => [
                     'required' => 'Nama Pengumuman Harus diisi',
-                    'is_unique'=> 'Nama Pengumuman Tidak Boleh Sama'
+                    'is_unique' => 'Nama Pengumuman Tidak Boleh Sama'
                 ]
             ],
             'deskripsi' => [
@@ -183,8 +181,7 @@ class Kurikulum extends BaseController
                     'required' => 'Keyword Pengumuman Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -192,11 +189,11 @@ class Kurikulum extends BaseController
         $avatar   = $this->request->getFile('gambar');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
         $dokumen   = $this->request->getFile('berkas');
         $namaDok = str_replace(' ', '-', $dokumen->getName());
@@ -244,7 +241,7 @@ class Kurikulum extends BaseController
             $data['keyword'] = $det->keyword;
             $data['created_at'] = $det->created_at;
         endforeach;
-        
+
         $data['kurikulum'] = 5;
 
         $data['title'] = "Detail Pengumuman | Kurikulum";
@@ -273,7 +270,7 @@ class Kurikulum extends BaseController
             $data['keyword'] = $det->keyword;
             $data['created_at'] = $det->created_at;
         endforeach;
-        
+
         $data['kurikulum'] = 5;
 
         $data['title'] = "Ubah Pengumuman | Kurikulum";
@@ -313,8 +310,7 @@ class Kurikulum extends BaseController
                     'required' => 'Keyword Pengumuman Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -323,11 +319,11 @@ class Kurikulum extends BaseController
             $avatar   = $this->request->getFile('gambar');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $dokumen   = $this->request->getFile('berkas');
             $namaDok = str_replace(' ', '-', $dokumen->getName());
@@ -343,10 +339,7 @@ class Kurikulum extends BaseController
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
-
-        }
-
-        elseif(! empty($_FILES['berkas']['name'])){
+        } elseif (!empty($_FILES['berkas']['name'])) {
             $dokumen   = $this->request->getFile('berkas');
             $namaDok = str_replace(' ', '-', $dokumen->getName());
             $dokumen->move(WRITEPATH . '../public/assets/upload/doc/', $namaDok);
@@ -359,37 +352,34 @@ class Kurikulum extends BaseController
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
-
-        }
-
-        elseif(! empty($_FILES['gambar']['name'])){
+        } elseif (!empty($_FILES['gambar']['name'])) {
             $avatar   = $this->request->getFile('gambar');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $data = [
-                'id_user'           => 1,
+                'id_user'           => $idUser,
                 'pengumuman'        => $this->request->getVar('pengumuman'),
                 'deskripsi'         => $this->request->getVar('deskripsi'),
                 'gambar'            => $namabaru,
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
-        }else{
+        } else {
             $data = [
-                'id_user'           => 1,
+                'id_user'           => $idUser,
                 'pengumuman'        => $this->request->getVar('pengumuman'),
                 'deskripsi'         => $this->request->getVar('deskripsi'),
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
         }
-        
+
 
         $builder = $this->db->table('pengumuman');
         $builder->where('id_pengumuman', $id);
@@ -405,7 +395,7 @@ class Kurikulum extends BaseController
         $query = $this->db->table('pengumuman');
         $query->where('id_pengumuman', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
@@ -441,13 +431,14 @@ class Kurikulum extends BaseController
         return view('/kurikulum/mapel/tambahmapel', $data);
     }
 
-    public function prosestambahmapel(){
+    public function prosestambahmapel()
+    {
         if (!$this->validate([
             'nama_mapel' => [
                 'rules' => 'required|is_unique[mapel.nama_mapel]',
                 'errors' => [
                     'required' => 'Nama Mata Pelajaran Harus diisi',
-                    'is_unique'=> 'Nama Mata Pelajaran Tidak Boleh Sama'
+                    'is_unique' => 'Nama Mata Pelajaran Tidak Boleh Sama'
                 ]
             ],
             'deskripsi_mapel' => [
@@ -456,8 +447,7 @@ class Kurikulum extends BaseController
                     'required' => 'Deskripsi Mata Pelajaran Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -490,12 +480,11 @@ class Kurikulum extends BaseController
                     'required' => 'Deskripsi Mata Pelajaran Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
-        
+
         $data = [
             'nama_mapel'            => $this->request->getVar('nama_mapel'),
             'deskripsi_mapel'       => $this->request->getVar('deskripsi_mapel')
@@ -515,7 +504,7 @@ class Kurikulum extends BaseController
         $query = $this->db->table('mapel');
         $query->where('id_mapel', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
@@ -527,5 +516,4 @@ class Kurikulum extends BaseController
         $data['title'] = "Mata Pelajaran | Kurikulum";
         return redirect()->to(base_url('kurikulum/mapel/'))->with('message', 'Data Berhasil Dihapus');
     }
-
 }
