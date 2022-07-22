@@ -11,7 +11,7 @@
 			</button>
 		</div>
 
-		<!-- Modal -->
+		<!-- Modal Form tambah berkas -->
 		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -82,14 +82,14 @@
 							<td> <?= $det->namaBerkas; ?> </td>
 							<td> <?= $det->ket; ?> </td>
 							<td class="text-center">
-								<!-- Button trigger modal -->
+								<!-- tombol modal ubah berkas -->
 								<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#ubah<?= $det->idBerkas; ?>">
 									<i class="fas fa-edit"></i>
 									Ubah
 								</button>
 
 
-								<!-- Modal -->
+								<!-- Modal form Ubah data berkas-->
 								<div class="modal fade" id="ubah<?= $det->idBerkas; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">

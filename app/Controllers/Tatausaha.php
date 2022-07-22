@@ -591,10 +591,14 @@ class Tatausaha extends BaseController
         $data['tatausaha'] = 4;
 
         $query = $this->db->table('daftarBerkas');
-        $query->select('guru.nama as namaGuru, berkas.ket as keterangan, 
-                            daftarBerkas.fileberkas as fileBerkas, 
-                            daftarBerkas.idDaftarBerkas as idBerkas,
-                            berkas.namaBerkas');
+        $query->select('daftarBerkas.fileberkas as fileBerkas, 
+                        daftarBerkas.idDaftarBerkas as idDaftarBerkas,
+                        daftarBerkas.idBerkas as idBerkas,
+                        daftarBerkas.id_guru as idGuru,
+                        daftarBerkas.tanggal as tgl,
+                        guru.nama as namaGuru, 
+                        berkas.ket as keterangan, berkas.namaBerkas,
+                        ');
         $query->join('berkas', 'daftarBerkas.idBerkas = berkas.idBerkas');
         $query->join('guru', 'daftarBerkas.id_guru =guru.id_guru');
         $hasilQuery = $query->get();
@@ -656,6 +660,59 @@ class Tatausaha extends BaseController
             // input data daftar berkas dari array 
             $builder = $this->db->table('daftarBerkas');
             $builder->insert($data);
+        }
+
+        return redirect()->to(base_url('tatausaha/berkasguru'))->with('message', 'Data Berhasil Ditambahkan');
+    }
+
+    public function hapusberkasguru($id)
+    {
+        $query = $this->db->table('daftarBerkas');
+        $query->where('idDaftarBerkas', $id);
+        $hasilQuery = $query->get();
+
+        if (empty($hasilQuery)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
+        } else {
+            $query = $this->db->table('daftarBerkas');
+            $query->delete(['idDaftarBerkas' => $id]);
+
+            if ($query) {
+                return redirect()->to(base_url('tatausaha/berkasguru/'))->with('message', 'Data Berhasil Dihapus');
+            } else {
+                return redirect()->to(base_url('tatausaha/berkasguru/'))->with('error', 'Data Tidak Dapat Dihapus');
+            }
+        }
+    }
+
+    public function prosesubahberkasguru($id)
+    {
+        if (!$this->validate([
+            'fileBerkas' => [
+                'rules' => 'mime_in[fileBerkas,application/pdf]|max_size[fileBerkas,512]',
+                'errors' => [
+                    'mime_in'   => 'Format file berkas tidak dikenali',
+                    'max_size'  =>  'Ukuran File Berkas Terlalu Besar'
+                ]
+            ],
+
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        } else {
+            $avatar   = $this->request->getFile('fileBerkas');
+            $namabaru = str_replace(' ', '-', $avatar->getName());
+            $avatar->move(WRITEPATH . '../public/assets/upload/berkasGuru/', $namabaru);
+
+            // simpan data ke array 
+            $data = [
+                'fileBerkas'                => $namabaru,
+                'tanggal'                   => date("Y-m-d H:i:s")
+            ];
+            // input data daftar berkas dari array 
+            $builder = $this->db->table('daftarBerkas');
+            $builder->where('idDaftarBerkas', $id);
+            $builder->update($data);
         }
 
         return redirect()->to(base_url('tatausaha/berkasguru'))->with('message', 'Data Berhasil Ditambahkan');
