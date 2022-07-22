@@ -1,16 +1,16 @@
-<?= $this->extend('kesiswaan/layout') ?>
+<?= $this->extend('tatausaha/layout') ?>
 <?= $this->section('content') ?>
 <div class="row">
 	<?php if (!empty(session()->getFlashdata('error'))) : ?>
-	<div class="alert alert-light-danger">
-		<h4 class="alert-heading">Silahkan Periksa Entrian Form</h4>
-		<?php echo session()->getFlashdata('error'); ?>
-	</div>
-<?php endif; ?>
+		<div class="alert alert-light-danger">
+			<h4 class="alert-heading">Silahkan Periksa Entrian Form</h4>
+			<?php echo session()->getFlashdata('error'); ?>
+		</div>
+	<?php endif; ?>
 
 </div>
 <div class="row">
-	<form action="<?= base_url('kesiswaan/prosestambahpengumuman') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form action="<?= base_url('tatausaha/prosestambahpengumuman') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<?= csrf_field(); ?>
 		<div class="form-group row">
 			<label class="col-md-3">Nama Pengumuman</label>
@@ -58,10 +58,12 @@
 	</form>
 </div>
 
-<script src="<?= base_url('assets/vendors/tinymce/tinymce.min.js');?>"></script>
-<script src="<?= base_url('assets/vendors/tinymce/plugins/code/plugin.min.js');?>"></script>
+<script src="<?= base_url('assets/vendors/tinymce/tinymce.min.js'); ?>"></script>
+<script src="<?= base_url('assets/vendors/tinymce/plugins/code/plugin.min.js'); ?>"></script>
 <script>
-	tinymce.init({ selector: '#deskripsi' });
+	tinymce.init({
+		selector: '#deskripsi'
+	});
 </script>
 
 <?= $this->endSection() ?>

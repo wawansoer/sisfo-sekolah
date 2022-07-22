@@ -1,50 +1,50 @@
-<?= $this->extend('kesiswaan/layout') ?>
+<?= $this->extend('tatausaha/layout') ?>
 <?= $this->section('content') ?>
 <div class="row">
 	<div class="card">
 		<div class="card-content">
 			<div class="card-body">
-				<img class="img-fluid w-80 rounded-3 rounded mx-auto d-block" src="<?= base_url('assets/upload/image/'.$gambar);?>">
+				<img class="img-fluid w-80 rounded-3 rounded mx-auto d-block" src="<?= base_url('assets/upload/image/' . $gambar); ?>">
 			</div>
 			<br>
-			<p class="text-center"> 
+			<p class="text-center">
 				<small>
-					<?= $username;?> | 
-					<?= tgl_indo($created_at);?>
+					<?= $username; ?> |
+					<?= tgl_indo($created_at); ?>
 				</small>
 			</p>
-			
+
 			<hr>
-			<h3 class="card-title text-center"><?= $pengumuman;?></h3>
+			<h3 class="card-title text-center"><?= $pengumuman; ?></h3>
 			<p class="card-text">
-				<?= $deskripsi;?>
+				<?= $deskripsi; ?>
 			</p>
-			<p class="text-center"> 
+			<p class="text-center">
 				<br>
-				<a href="<?= base_url('assets/upload/doc/'.$berkas); ?>">
-					<span class="badge bg-primary" >
+				<a href="<?= base_url('assets/upload/doc/' . $berkas); ?>">
+					<span class="badge bg-primary">
 						<i class="fas fa-file-pdf"></i> Lampiran Berkas
 					</span>
 				</a>
 			</p>
 
-			<br>		
+			<br>
 		</div>
 		<div class="card-footer d-flex justify-content-center">
-			<a href="<?= base_url('/kesiswaan/pengumuman'); ?>">
-				<button class="btn btn-primary" >
+			<a href="<?= base_url('/tatausaha/pengumuman'); ?>">
+				<button class="btn btn-primary">
 					<i class="bi bi-arrow-left-square-fill"></i> Kembali
 				</button>
 			</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="<?= base_url('/kesiswaan/ubahpengumuman/'.$id_pengumuman); ?>">
+			<a href="<?= base_url('/tatausaha/ubahpengumuman/' . $id_pengumuman); ?>">
 				<button class="btn btn-success">
 					<i class="bi bi-pencil-square"></i> Ubah
 				</button>
 			</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="<?= base_url('/kesiswaan/hapuspengumuman/'.$id_pengumuman); ?>">
-				<button class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus <?= $pengumuman;?> ?')">
+			<a href="<?= base_url('/tatausaha/hapuspengumuman/' . $id_pengumuman); ?>">
+				<button class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus <?= $pengumuman; ?> ?')">
 					<i class="bi bi-trash-fill"></i> Hapus
 				</button>
 			</a>
