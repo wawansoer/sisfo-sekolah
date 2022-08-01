@@ -22,35 +22,35 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Tambah Periode SPP</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body text-start">
                 <div class="row mb-3">
-                  <label for="namaPeriode" class="col-sm-3 col-form-label">Nama Periode</label>
-                  <div class="col-sm-9">
+                  <label for="namaPeriode" class="col-sm-4 col-form-label">Nama Periode</label>
+                  <div class="col-sm-8">
                     <input type="text" class="form-control" id="namaPeriode" name="namaPeriode" required>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="awalPeriode" class="col-sm-3 col-form-label">Awal Waktu Bayar</label>
-                  <div class="col-sm-9">
+                  <label for="awalPeriode" class="col-sm-4 col-form-label">Awal Waktu Bayar</label>
+                  <div class="col-sm-8">
                     <input type="date" class="form-control" id="awalPeriode" name="awalPeriode" required>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="akhirPeriode" class="col-sm-3 col-form-label">Akhir Waktu Bayar</label>
-                  <div class="col-sm-9">
+                  <label for="akhirPeriode" class="col-sm-4 col-form-label">Akhir Waktu Bayar</label>
+                  <div class="col-sm-8">
                     <input type="date" class="form-control" id="akhirPeriode" name="akhirPeriode" required>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="jumlah" class="col-sm-3 col-form-label">Jumlah</label>
-                  <div class="col-sm-9">
+                  <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
+                  <div class="col-sm-8">
                     <input type="number" class="form-control" id="jumlah" name="jumlah" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="ket" class="col-sm-3 col-form-label">Keterangan</label>
-                  <div class="col-sm-9">
+                  <label for="ket" class="col-sm-4 col-form-label">Keterangan</label>
+                  <div class="col-sm-8">
                     <input type="text" class="form-control" id="ket" name="ket" required>
                   </div>
                 </div>

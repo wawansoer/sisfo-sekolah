@@ -33,33 +33,11 @@
             </li>
 
             <li class="sidebar-item <?= ($keuangan == 2 ? "active" : ""); ?>">
-              <a href="<?= base_url('keuangan/kelas'); ?>" class="sidebar-link">
-                <i class="fas fa-university"></i>
-                <span>Kelas</span>
+              <a href="<?= base_url('keuangan/periodespp'); ?>" class="sidebar-link">
+                <i class="fas fa-money-check-alt"></i>
+                <span>Periode SPP</span>
               </a>
             </li>
-
-            <li class="sidebar-item <?= ($keuangan == 3 ? "active" : ""); ?>">
-              <a href="<?= base_url('keuangan/mapel'); ?>" class="sidebar-link">
-                <i class="fab fa-leanpub"></i>
-                <span>Mata Pelajaran</span>
-              </a>
-            </li>
-
-            <li class="sidebar-item <?= ($keuangan == 4 ? "active" : ""); ?>">
-              <a href="<?= base_url('keuangan/'); ?>" class="sidebar-link">
-                <i class="fas fa-calendar-week"></i>
-                <span>Jadwal Pelajaran</span>
-              </a>
-            </li>
-
-            <li class="sidebar-item <?= ($keuangan == 5 ? "active" : ""); ?>">
-              <a href="<?= base_url('keuangan/pengumuman'); ?>" class="sidebar-link">
-                <i class="fas fa-bullhorn"></i>
-                <span>Berkas & Pengumuman</span>
-              </a>
-            </li>
-
 
             <li class="sidebar-item">
               <a href="<?= base_url('logout'); ?>" class="sidebar-link">
