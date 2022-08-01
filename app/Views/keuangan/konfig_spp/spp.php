@@ -3,14 +3,67 @@
 
 <div class="row" align="center">
   <div class="col-lg-12 col-md-12 mb-3">
-    <a href="<?= base_url('keuangan/tambahkonfigspp'); ?>">
+    <div class="col-lg-12 col-md-12 mb-3">
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button">
+        <!-- tombol modal tambah berkas-->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           <i class="fas fa-plus-square"></i>
           Tambah Periode SPP
         </button>
       </div>
-    </a>
+
+      <!-- Modal Form tambah berkas -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action="<?= base_url('keuangan/prosestambahperiodespp') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+              <?= csrf_field(); ?>
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambah Periode SPP</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row mb-3">
+                  <label for="namaPeriode" class="col-sm-3 col-form-label">Nama Periode</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="namaPeriode" name="namaPeriode" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="awalPeriode" class="col-sm-3 col-form-label">Awal Waktu Bayar</label>
+                  <div class="col-sm-9">
+                    <input type="date" class="form-control" id="awalPeriode" name="awalPeriode" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="akhirPeriode" class="col-sm-3 col-form-label">Akhir Waktu Bayar</label>
+                  <div class="col-sm-9">
+                    <input type="date" class="form-control" id="akhirPeriode" name="akhirPeriode" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="jumlah" class="col-sm-3 col-form-label">Jumlah</label>
+                  <div class="col-sm-9">
+                    <input type="number" class="form-control" id="jumlah" name="jumlah" required>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="ket" class="col-sm-3 col-form-label">Keterangan</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="ket" name="ket" required>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">

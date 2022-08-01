@@ -23,7 +23,6 @@
     </div>
   </div>
 
-
   <div class="col-6 col-lg-6 col-md-12">
     <div class="card">
       <div class="card-body px-3 py-4-5">
