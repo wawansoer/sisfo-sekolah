@@ -7,13 +7,13 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="stats-icon blue">
-							<i class="fas fa-university fa-2x text-white"></i>
+							<i class="fas fa-chalkboard-teacher fa-2x text-white"></i>
 						</div>
 					</div>
 					<div class="col-md-8">
-						<h5 class="text-muted font-semibold">Kelas</h5>
+						<h5 class="text-muted font-semibold">Guru/Tendik</h5>
 						<h6 class="font-extrabold mb-0">
-							<a href="<?= base_url('/tatausaha/kelas/'); ?>">
+							<a href="<?= base_url('/tatausaha/guru/'); ?>">
 								Detail <i class="fas fa-arrow-right"></i>
 							</a>
 						</h6>
@@ -30,13 +30,13 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="stats-icon blue">
-							<i class="fab fa-leanpub fa-2x text-white"></i>
+							<i class="fas fa-file-alt fa-2x text-white"></i>
 						</div>
 					</div>
 					<div class="col-md-8">
-						<h5 class="text-muted font-semibold">Mata Pelajaran</h5>
+						<h5 class="text-muted font-semibold">Berkas</h5>
 						<h6 class="font-extrabold mb-0">
-							<a href="<?= base_url('/tatausaha/mapel/'); ?>">
+							<a href="<?= base_url('/tatausaha/berkas/'); ?>">
 								Detail <i class="fas fa-arrow-right"></i>
 							</a>
 						</h6>
@@ -52,13 +52,13 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="stats-icon blue">
-							<i class="fas fa-calendar-week fa-2x text-white"></i>
+							<i class="fas fa-file-archive fa-2x text-white"></i>
 						</div>
 					</div>
 					<div class="col-md-8">
-						<h5 class="text-muted font-semibold">Jadwal Pelajaran</h5>
+						<h5 class="text-muted font-semibold">Berkas Guru</h5>
 						<h6 class="font-extrabold mb-0">
-							<a href="<?= base_url('/tatausaha/jadwal/'); ?>">
+							<a href="<?= base_url('/tatausaha/berkasguru/'); ?>">
 								Detail <i class="fas fa-arrow-right"></i>
 							</a>
 						</h6>
@@ -89,6 +89,6 @@
 			</div>
 		</div>
 	</div>
-	
+
 </div>
 <?= $this->endSection() ?>

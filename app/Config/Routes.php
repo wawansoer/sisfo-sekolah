@@ -100,6 +100,31 @@ $routes->post('/kurikulum/prosestambahmapel', 'Kurikulum::prosestambahmapel', ['
 $routes->post('/kurikulum/prosesubahmapel/(:any)', 'Kurikulum::prosesubahmapel/$1', ['filter' => 'role:Kurikulum']);
 $routes->get('/kurikulum/hapusmapel/(:any)', 'Kurikulum::hapusmapel/$1', ['filter' => 'role:Kurikulum']);
 
+// tatausaha
+$routes->get('/tatausaha', 'Tatausaha::index', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/guru', 'Tatausaha::guru', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/tambahguru', 'Tatausaha::tambahguru', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/tambahtendik', 'Tatausaha::tambahtendik', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosestambahguru', 'Tatausaha::prosestambahguru', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/detailguru/(:any)', 'Tatausaha::detailguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/ubahguru/(:any)', 'Tatausaha::ubahguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosesubahguru/(:any)', 'Tatausaha::prosesubahguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/detailguru/(:any)', 'Tatausaha::detailguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/ubahguru/(:any)', 'Tatausaha::ubahguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosesubahguru/(:any)', 'Tatausaha::prosesubahguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/hapusguru/(:any)', 'Tatausaha::hapusguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/berkas', 'Tatausaha::berkas', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosestambahberkas', 'Tatausaha::prosestambahberkas', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosesubahberkas/(:any)', 'Tatausaha::prosesubahberkas/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/hapusberkas/(:any)', 'Tatausaha::hapusberkas/$1', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosesubahberkasguru/(:any)', 'Tatausaha::prosesubahberkasguru/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/pengumuman', 'Tatausaha::pengumuman', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/tambahpengumuman', 'Tatausaha::tambahpengumuman', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosestambahpengumuman', 'Tatausaha::prosestambahpengumuman', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/detailpengumuman/(:any)', 'Tatausaha::detailpengumuman/$1', ['filter' => 'role:Tata Usaha']);
+$routes->get('/tatausaha/ubahpengumuman/(:any)', 'Tatausaha::ubahpengumuman/$1', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/prosesubahpengumuman/(:any)', 'Tatausaha::prosesubahpengumuman/$1', ['filter' => 'role:Tata Usaha']);
+$routes->post('/tatausaha/hapuspengumuman/(:any)', 'Tatausaha::hapuspengumuman/$1', ['filter' => 'role:Tata Usaha']);
 
 // calon siswa
 $routes->get('/calonsiswa', 'Calonsiswa::index', ['filter' => 'role:Casis']);

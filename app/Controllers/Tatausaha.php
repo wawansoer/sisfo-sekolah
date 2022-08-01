@@ -731,7 +731,6 @@ class Tatausaha extends BaseController
         return view('/tatausaha/pengumuman/pengumuman', $data);
     }
 
-
     public function tambahpengumuman()
     {
         $data['title'] = "Pengumuman & Berkas| tatausaha";
@@ -865,8 +864,6 @@ class Tatausaha extends BaseController
         $data['title'] = "Ubah Pengumuman | tatausaha";
         return view('/tatausaha/pengumuman/ubahpengumuman', $data);
     }
-
-
 
     public function prosesubahpengumuman($id)
     {

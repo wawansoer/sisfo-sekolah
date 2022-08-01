@@ -15,33 +15,22 @@ class ProsesLogin extends BaseController
         $query = $builder->get();
 
         $data['user'] = $query->getResult();
-        foreach ($data['user'] as $dPengguna):
+        foreach ($data['user'] as $dPengguna) :
             $idRole = $dPengguna->idRole;
         endforeach;
 
-        if($idRole == 1) {
-
+        if ($idRole == 1) {
             return redirect()->to('calonsiswa');
-
-        }elseif($idRole == 2){
-
+        } elseif ($idRole == 2) {
             echo "Ini Admin PMB";
-
-        }elseif($idRole == 3){
-
+        } elseif ($idRole == 3) {
             return redirect()->to('adminWeb');
-
-        }elseif($idRole == 4){
-
+        } elseif ($idRole == 4) {
             return redirect()->to('kurikulum');
-
-        }elseif($idRole == 5)
-
-        {
-
+        } elseif ($idRole == 5) {
             return redirect()->to('kesiswaan');
-            
+        } elseif ($idRole == 6) {
+            return redirect()->to('tatausaha');
         }
-        
     }
 }
