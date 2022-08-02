@@ -81,8 +81,10 @@
         <thead>
           <tr>
             <th>#</th>
-            <th class="text-center">Berkas/Pengumuman</th>
-            <th class="text-center">Deskripsi</th>
+            <th class="text-center">Nama Periode</th>
+            <th class="text-center">Jumlah Tagihan</th>
+            <th class="text-center">Waktu Pembayaran</th>
+            <th class="text-center">Keterangan</th>
             <th class="text-center">Aksi</th>
           </tr>
         </thead>
