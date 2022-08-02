@@ -87,7 +87,6 @@
       <table class="table table-striped" id="periode">
         <thead>
           <tr>
-            <th>#</th>
             <th class="text-center">Nama Periode</th>
             <th class="text-center">Jumlah Tagihan</th>
             <th class="text-center">Waktu Pembayaran</th>
@@ -96,7 +95,20 @@
           </tr>
         </thead>
         <tbody>
+          <?php foreach ($periode as $det) : ?>
+            <tr>
+              <td> <?= $det->namaPeriode; ?> </td>
+              <td> <?= rp($det->jumlah); ?> </td>
+              <td>
+                <?= tgl_indo($det->awalPeriode); ?> s/d
+                <?= tgl_indo($det->akhirPeriode); ?>
+              </td>
+              <td> <?= $det->keterangan; ?> </td>
+              <td>
 
+              </td>
+            </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>

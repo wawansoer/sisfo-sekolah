@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use App\Models\CalonSiswaModel;
 use Myth\Auth\Entities\User;
 use Dompdf\Dompdf;
+
 /**
  * Class BaseController
  *
@@ -37,8 +38,8 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helper = ['auth', 'tgl'];
-      /**
+    protected $helper = ['auth', 'rp', 'tgl_indo'];
+    /**
      * Constructor.
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -50,6 +51,4 @@ class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
-
-
 }

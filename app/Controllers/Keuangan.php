@@ -9,6 +9,7 @@ class Keuangan extends BaseController
     $this->db = \Config\Database::connect();
     helper('auth');
     helper('tgl');
+    helper('rp');
   }
 
   public function index()
@@ -23,6 +24,11 @@ class Keuangan extends BaseController
   {
     $data['title'] = "Periode SPP | Keuangan";
     $data['keuangan'] = 2;
+
+    $query = $this->db->table('periode_spp');
+    $query->select('*');
+    $hasilQuery = $query->get();
+    $data['periode'] = $hasilQuery->getResult();
 
     return view('/keuangan/konfig_spp/spp', $data);
   }
