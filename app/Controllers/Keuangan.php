@@ -31,11 +31,10 @@ class Keuangan extends BaseController
   {
     if (!$this->validate([
       'namaPeriode' => [
-        'rules' => 'required|is_unique[periode_spp.namaPeriode]|numeric',
+        'rules' => 'required|is_unique[periode_spp.namaPeriode]',
         'errors' => [
           'required' => 'Nama Periode Harus diisi',
           'is_unique' => 'Nama Periode Tidak Boleh Sama',
-          'numeric' => 'Format Nama Periode Tidak Dikenali',
         ]
       ],
       'jumlah' => [
@@ -70,12 +69,17 @@ class Keuangan extends BaseController
       'jumlah'             => $this->request->getVar('jumlah'),
       'awalPeriode'        => $this->request->getVar('awalPeriode'),
       'akhirPeriode'       => $this->request->getVar('akhirPeriode'),
-      'keterangan'         => $this->request->getVar('keterangan'),
+      'keterangan'         => $this->request->getVar('keterangan')
     ];
 
     $builder = $this->db->table('periode_spp');
     $builder->insert($data);
 
-    return redirect()->to(base_url('keuangan/periodespp'))->with('message', 'Data Berhasil Ditambahkan');
+    if ($builder) {
+      return redirect()->to(base_url('keuangan/periodespp'))->with('message', 'Data Berhasil Ditambahkan');
+    } else {
+      session()->setFlashdata('error', "Silahkan cek kembali inputan anda");
+      return redirect()->back()->withInput();
+    }
   }
 }

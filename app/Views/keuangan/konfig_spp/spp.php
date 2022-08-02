@@ -72,6 +72,13 @@
       <h4> Daftar Periode SPP </h4>
     </div>
     <div class="card-body">
+      <?php if (!empty(session()->getFlashdata('error'))) : ?>
+        <div class="alert alert-danger" role="alert">
+          <strong>Mohon maaf ! </strong> <?php echo session()->getFlashdata('error'); ?>
+          <p> Silahkan cek kembali inputan anda.</p>
+        </div>
+      <?php endif; ?>
+
       <?php if (!empty(session()->getFlashdata('message'))) : ?>
         <div class="alert alert-success" role="alert">
           <strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
