@@ -49,9 +49,9 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="ket" class="col-sm-4 col-form-label">Keterangan</label>
+                  <label for="keterangan" class="col-sm-4 col-form-label">Keterangan</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="ket" name="ket" required>
+                    <input type="text" class="form-control" id="keterangan" name="keterangan" required>
                   </div>
                 </div>
               </div>
@@ -77,7 +77,7 @@
           <strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
         </div>
       <?php endif; ?>
-      <table class="table table-striped" id="siswa">
+      <table class="table table-striped" id="periode">
         <thead>
           <tr>
             <th>#</th>
@@ -98,7 +98,7 @@
 <script src="<?= base_url('assets/vendors/simple-datatables/simple-datatables.js'); ?>"></script>
 <script>
   // Simple Datatable
-  let table1 = document.querySelector('#siswa');
+  let table1 = document.querySelector('#periode');
   let dataTable = new simpleDatatables.DataTable(table1);
 </script>
 <?= $this->endSection() ?>
