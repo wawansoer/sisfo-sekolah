@@ -1,4 +1,4 @@
-__ci_last_regenerate|i:1659793816;_ci_previous_url|s:41:"http://localhost:8080/keuangan/periodespp";redirect_url|s:37:"http://localhost:8080/kesiswaan/siswa";error|s:235:"<!-- DEBUG-VIEW START 1 SYSTEMPATH/Validation/Views/list.php -->
+__ci_last_regenerate|i:1659794247;_ci_previous_url|s:41:"http://localhost:8080/keuangan/periodespp";redirect_url|s:37:"http://localhost:8080/kesiswaan/siswa";error|s:235:"<!-- DEBUG-VIEW START 1 SYSTEMPATH/Validation/Views/list.php -->
 	<div class="errors" role="alert">
 		<ul>
 					<li>Nama Periode Tidak Boleh Sama</li>

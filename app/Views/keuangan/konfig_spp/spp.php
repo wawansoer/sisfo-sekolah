@@ -105,10 +105,9 @@
               </td>
               <td> <?= $det->keterangan; ?> </td>
               <td class="text-center">
-                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-backdrop="false" data-bs-target="#a<?= $det->idPeriode; ?>">
+                <button class="btn btn-success btn-sm mt-1 mb-1" data-bs-toggle="modal" data-bs-backdrop="false" data-bs-target="#a<?= $det->idPeriode; ?>">
                   <i class="fas fa-edit"></i> Ubah
                 </button>
-                &nbsp; &nbsp;
 
                 <!-- modal form ubah periodespp -->
                 <div class="modal fade text-left" id="a<?= $det->idPeriode; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
@@ -168,7 +167,7 @@
                 </form>
 
                 <a href="<?= base_url('/keuangan/hapusperiodespp/' . $det->idPeriode); ?>">
-                  <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus periodespp <?= $det->namaPeriode; ?> ?')">
+                  <button class="btn btn-danger btn-sm mt-1 mb-1" onclick="return confirm('Apakah Anda yakin ingin menghapus periodespp <?= $det->namaPeriode; ?> ?')">
                     <i class="fas fa-trash-alt"></i> Hapus
                   </button>
                 </a>
