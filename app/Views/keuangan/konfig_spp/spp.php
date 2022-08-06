@@ -104,7 +104,74 @@
                 <?= tgl_indo($det->akhirPeriode); ?>
               </td>
               <td> <?= $det->keterangan; ?> </td>
-              <td>
+              <td class="text-center">
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-backdrop="false" data-bs-target="#a<?= $det->idPeriode; ?>">
+                  <i class="fas fa-edit"></i> Ubah
+                </button>
+                &nbsp; &nbsp;
+
+                <!-- modal form ubah periodespp -->
+                <div class="modal fade text-left" id="a<?= $det->idPeriode; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <form action="<?= base_url('keuangan/prosesubahperiodespp/' . $det->idPeriode) ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                        <?= csrf_field(); ?>
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Ubah Periode SPP</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                          <div class="row mb-3">
+                            <label for="namaPeriode" class="col-sm-4 col-form-label">Nama Periode</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="namaPeriode" name="namaPeriode" required value="<?= $det->namaPeriode; ?>">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="awalPeriode" class="col-sm-4 col-form-label">Awal Waktu Bayar</label>
+                            <div class="col-sm-8">
+                              <input type="date" class="form-control" id="awalPeriode" name="awalPeriode" required value="<?= $det->awalPeriode; ?>">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="akhirPeriode" class="col-sm-4 col-form-label">Akhir Waktu Bayar</label>
+                            <div class="col-sm-8">
+                              <input type="date" class="form-control" id="akhirPeriode" name="akhirPeriode" required value="<?= $det->akhirPeriode; ?>">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
+                            <div class="col-sm-8">
+                              <input type="number" class="form-control" id="jumlah" name="jumlah" required value="<?= $det->jumlah; ?>">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="keterangan" class="col-sm-4 col-form-label">Keterangan</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="keterangan" name="keterangan" required value="<?= $det->keterangan; ?>">
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-success">Simpan</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                </form>
+
+                <a href="<?= base_url('/keuangan/hapusperiodespp/' . $det->idPeriode); ?>">
+                  <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus periodespp <?= $det->namaPeriode; ?> ?')">
+                    <i class="fas fa-trash-alt"></i> Hapus
+                  </button>
+                </a>
 
               </td>
             </tr>
