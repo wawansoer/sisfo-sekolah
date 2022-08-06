@@ -166,4 +166,17 @@ class Keuangan extends BaseController
       return redirect()->back()->withInput();
     }
   }
+
+  public function bayarspp()
+  {
+    $data['title'] = "Pembayaran SPP | Keuangan";
+    $data['keuangan'] = 3;
+
+    $query = $this->db->table('pembSPP');
+    $query->select('*');
+    $hasilQuery = $query->get();
+    $data['pembSPP'] = $hasilQuery->getResult();
+
+    return view('/keuangan/pembayaran_spp/pembayaran', $data);
+  }
 }

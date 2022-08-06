@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/simple-datatables/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-icons/bootstrap-icons.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/app.css'); ?>">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -36,6 +39,13 @@
               <a href="<?= base_url('keuangan/periodespp'); ?>" class="sidebar-link">
                 <i class="fas fa-money-check-alt"></i>
                 <span>Periode SPP</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item <?= ($keuangan == 3 ? "active" : ""); ?>">
+              <a href="<?= base_url('keuangan/bayarspp'); ?>" class="sidebar-link">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Pembayaran SPP</span>
               </a>
             </li>
 
