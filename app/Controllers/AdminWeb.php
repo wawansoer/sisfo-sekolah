@@ -44,11 +44,12 @@ class AdminWeb extends BaseController
         $data['nama'] = "Admin WEB";
         $data['jabatan'] = "Admin WEB";
         $data['adminWeb'] = 2;
-        
+
         return view('/adminWeb/berita/tambahBerita', $data);
     }
 
-    public function prosestambahberita(){
+    public function prosestambahberita()
+    {
         if (!$this->validate([
             'gambar' => [
                 'mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
@@ -58,7 +59,7 @@ class AdminWeb extends BaseController
                 'rules' => 'required|is_unique[berita.judul_berita]',
                 'errors' => [
                     'required' => 'Judul Berita Harus diisi',
-                    'is_unique'=> 'Judul Berita Tidak Boleh Sama'
+                    'is_unique' => 'Judul Berita Tidak Boleh Sama'
                 ]
             ],
             'kategori' => [
@@ -103,8 +104,7 @@ class AdminWeb extends BaseController
                     'required' => 'Jam Publish Berita Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -112,11 +112,11 @@ class AdminWeb extends BaseController
         $avatar   = $this->request->getFile('gambar');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
         $idUser = user_id();
 
@@ -169,7 +169,7 @@ class AdminWeb extends BaseController
             $data['stat'] = $berita->stat;
             $data['prioritas'] = $berita->prioritas;
         endforeach;
-        
+
         $data['adminWeb'] = 2;
 
         $data['title'] = "Detail Berita | Admin WEB";
@@ -181,7 +181,7 @@ class AdminWeb extends BaseController
         $query = $this->db->table('berita');
         $query->where('slug_judul', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Berita Tidak ditemukan !');
         }
@@ -227,7 +227,8 @@ class AdminWeb extends BaseController
         return view('/adminWeb/berita/ubahberita', $data);
     }
 
-    public function prosesubahberita($id){
+    public function prosesubahberita($id)
+    {
         if (!$this->validate([
             'gambar' => [
                 'mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
@@ -281,22 +282,21 @@ class AdminWeb extends BaseController
                     'required' => 'Jam Publish Berita Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        if (! empty($_FILES['gambar']['name'])) {
+        if (!empty($_FILES['gambar']['name'])) {
             $avatar   = $this->request->getFile('gambar');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $data = [
                 'judul_berita'      => $this->request->getVar('judul_berita'),
@@ -312,9 +312,7 @@ class AdminWeb extends BaseController
                 'waktu_post'        => $this->request->getVar('jam'),
                 'tanggal'           => date('Y-m-d H-i-s'),
             ];
-
-            
-        }else{
+        } else {
             $data = [
                 'judul_berita'      => $this->request->getVar('judul_berita'),
                 'slug_judul'        => strtolower(url_title($this->request->getVar('judul_berita'))),
@@ -368,8 +366,7 @@ class AdminWeb extends BaseController
         if (empty($hasilQuery)) {
 
             return view('/adminWeb/profilsekolah/formsambutan', $data);
-
-        }else{
+        } else {
 
             foreach ($databerita as $berita) :
                 $data['namakepsek'] = $berita->namakepsek;
@@ -380,7 +377,7 @@ class AdminWeb extends BaseController
             endforeach;
 
             return view('/adminWeb/profilsekolah/sambutankepsek', $data);
-        }    
+        }
     }
 
     public function prosesinputsambutan()
@@ -394,7 +391,7 @@ class AdminWeb extends BaseController
                 'rules' => 'required|is_unique[kepsek.namakepsek]',
                 'errors' => [
                     'required' => 'Nama Kepala Sekolah Harus diisi',
-                    'is_unique'=> 'Nama Kepala Sekolah Tidak Boleh Sama'
+                    'is_unique' => 'Nama Kepala Sekolah Tidak Boleh Sama'
                 ]
             ],
             'ringkasan' => [
@@ -415,8 +412,7 @@ class AdminWeb extends BaseController
                     'required' => 'Keyword Kepala Sekolah Berita Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -424,11 +420,11 @@ class AdminWeb extends BaseController
         $avatar   = $this->request->getFile('foto');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
         $data = [
             'namakepsek'        => $this->request->getVar('namakepsek'),
@@ -444,7 +440,7 @@ class AdminWeb extends BaseController
         $data['adminWeb'] = 3;
 
         session()->setFlashdata('message', 'Selamat. Data anda telah disimpan.');
-        return redirect()->to(base_url('adminWeb/sambutankepsek'))->with('message', 'Data Sambutan Kepala Sekolah Berhasil Disimpan');     
+        return redirect()->to(base_url('adminWeb/sambutankepsek'))->with('message', 'Data Sambutan Kepala Sekolah Berhasil Disimpan');
     }
 
     public function ubahsambutan($id)
@@ -470,7 +466,7 @@ class AdminWeb extends BaseController
         $data['adminWeb'] = 3;
 
         $data['title'] = "Ubah Sambutan Kepala Sekolah | Admin WEB";
-        return view('/adminWeb/profilsekolah/ubahsambutan', $data);     
+        return view('/adminWeb/profilsekolah/ubahsambutan', $data);
     }
 
     public function prosesubahsambutan($id)
@@ -504,22 +500,21 @@ class AdminWeb extends BaseController
                     'required' => 'Keyword Kepala Sekolah Berita Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        if (! empty($_FILES['foto']['name'])) {
+        if (!empty($_FILES['foto']['name'])) {
             $avatar   = $this->request->getFile('foto');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $data = [
                 'namakepsek'        => $this->request->getVar('namakepsek'),
@@ -528,9 +523,7 @@ class AdminWeb extends BaseController
                 'foto'              => $namabaru,
                 'keyword'           => $this->request->getVar('keyword'),
             ];
-
-            
-        }else{
+        } else {
             $data = [
                 'namakepsek'        => $this->request->getVar('namakepsek'),
                 'isi'               => $this->request->getVar('isi'),
@@ -550,7 +543,7 @@ class AdminWeb extends BaseController
     public function tendik()
     {
         $data['title'] = "Tenaga Pendidik | Admin WEB";
-        
+
         $query = $this->db->table('tendik');
         $query->select('*');
         $hasilQuery = $query->get();
@@ -565,7 +558,7 @@ class AdminWeb extends BaseController
     {
         $data['title'] = "Tambah Tenaga Pendidik| Admin WEB";
         $data['adminWeb'] = 4;
-        
+
         return view('/adminWeb/tendik/tambahtendik', $data);
     }
 
@@ -580,7 +573,7 @@ class AdminWeb extends BaseController
                 'rules' => 'required|is_unique[tendik.nama]',
                 'errors' => [
                     'required' => 'Nama tenaga pendidik Harus diisi',
-                    'is_unique'=> 'Nama tenaga pendidik Tidak Boleh Sama'
+                    'is_unique' => 'Nama tenaga pendidik Tidak Boleh Sama'
                 ]
             ],
             'prioritas' => [
@@ -601,8 +594,7 @@ class AdminWeb extends BaseController
                     'required' => 'Alamat Instgaram Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -610,11 +602,11 @@ class AdminWeb extends BaseController
         $avatar   = $this->request->getFile('foto');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
         $idUser = user_id();
 
@@ -653,7 +645,7 @@ class AdminWeb extends BaseController
             $data['instagram'] = $tendik->instagram;
             $data['prioritas'] = $tendik->prioritas;
         endforeach;
-        
+
         $data['adminWeb'] = 4;
 
         $data['title'] = "Detail Tenaga Pendidik | Admin WEB";
@@ -679,7 +671,7 @@ class AdminWeb extends BaseController
             $data['instagram'] = $tendik->instagram;
             $data['prioritas'] = $tendik->prioritas;
         endforeach;
-        
+
         $data['adminWeb'] = 4;
 
         $data['title'] = "Detail Tenaga Pendidik | Admin WEB";
@@ -717,22 +709,21 @@ class AdminWeb extends BaseController
                     'required' => 'Alamat Instgaram Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        if (! empty($_FILES['foto']['name'])) {
+        if (!empty($_FILES['foto']['name'])) {
             $avatar   = $this->request->getFile('foto');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $data = [
                 'nama'              => $this->request->getVar('nama'),
@@ -741,8 +732,7 @@ class AdminWeb extends BaseController
                 'facebook'          => $this->request->getVar('facebook'),
                 'instagram'         => $this->request->getVar('instagram'),
             ];
-            
-        }else{
+        } else {
             $data = [
                 'nama'              => $this->request->getVar('nama'),
                 'prioritas'         => $this->request->getVar('prioritas'),
@@ -764,7 +754,7 @@ class AdminWeb extends BaseController
         $query = $this->db->table('tendik');
         $query->where('idTendik', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tenaga Pendidik Tidak ditemukan !');
         }
@@ -780,7 +770,7 @@ class AdminWeb extends BaseController
     public function sarpras()
     {
         $data['title'] = "Sarana & Prasarana | Admin WEB";
-        
+
         $query = $this->db->table('sarpras');
         $query->select('*');
         $hasilQuery = $query->get();
@@ -810,11 +800,10 @@ class AdminWeb extends BaseController
                 'rules' => 'required|is_unique[tendik.nama]',
                 'errors' => [
                     'required' => 'Nama tenaga pendidik Harus diisi',
-                    'is_unique'=> 'Nama tenaga pendidik Tidak Boleh Sama'
+                    'is_unique' => 'Nama tenaga pendidik Tidak Boleh Sama'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -822,11 +811,11 @@ class AdminWeb extends BaseController
         $avatar   = $this->request->getFile('foto');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
         $data = [
             'nama'              => $this->request->getVar('nama'),
@@ -857,7 +846,7 @@ class AdminWeb extends BaseController
             $data['nama'] = $sarpras->nama;
             $data['foto'] = $sarpras->foto;
         endforeach;
-        
+
         $data['adminWeb'] = 5;
 
         $data['title'] = "Ubah Data Sarana & Prasarana | Admin WEB";
@@ -877,30 +866,27 @@ class AdminWeb extends BaseController
                     'required' => 'Nama Sarana & Prasarana Harus diisi',
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        if (! empty($_FILES['foto']['name'])) {
+        if (!empty($_FILES['foto']['name'])) {
             $avatar   = $this->request->getFile('foto');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $data = [
                 'nama'        => $this->request->getVar('nama'),
                 'foto'              => $namabaru,
             ];
-
-            
-        }else{
+        } else {
             $data = [
                 'nama'        => $this->request->getVar('nama'),
             ];
@@ -919,7 +905,7 @@ class AdminWeb extends BaseController
         $query = $this->db->table('sarpras');
         $query->where('idSarpras', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Sarana & Prasarana Tidak ditemukan !');
         }
@@ -931,5 +917,4 @@ class AdminWeb extends BaseController
         $data['title'] = "Sarana & Prasarana | Admin WEB";
         return redirect()->to(base_url('adminWeb/sarpras/'))->with('message', 'Data Sarana & Prasarana Berhasil Dihapus');
     }
-
 }
