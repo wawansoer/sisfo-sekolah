@@ -14,9 +14,10 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/simple-datatables/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-icons/bootstrap-icons.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/app.css'); ?>">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <!-- jQuery -->
+  <script src="<?= base_url('assets/vendors/jquery/jquery.min.js'); ?>"></script>
+  <link href="<?= base_url('assets/vendors/select2/select2.min.css'); ?>" rel="stylesheet" />
+  <script src="<?= base_url('assets/vendors/select2/select2.min.js'); ?>"></script>
 </head>
 
 <body>

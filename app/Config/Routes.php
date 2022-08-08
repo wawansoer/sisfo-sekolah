@@ -126,6 +126,10 @@ $routes->get('/tatausaha/ubahpengumuman/(:any)', 'Tatausaha::ubahpengumuman/$1',
 $routes->post('/tatausaha/prosesubahpengumuman/(:any)', 'Tatausaha::prosesubahpengumuman/$1', ['filter' => 'role:Tata Usaha']);
 $routes->post('/tatausaha/hapuspengumuman/(:any)', 'Tatausaha::hapuspengumuman/$1', ['filter' => 'role:Tata Usaha']);
 
+
+// keuangan 
+$routes->get('/keuangan/carisiswa', 'Keuangan::carisiswa');
+$routes->post('keuangan/pembayaran', 'Keuangan::pembayaranSPP');
 // calon siswa
 $routes->get('/calonsiswa', 'Calonsiswa::index', ['filter' => 'role:Casis']);
 $routes->get('/calonsiswa/ubahData/(:num)', 'Calonsiswa::ubahData/$1', ['filter' => 'role:Casis']);
