@@ -192,13 +192,11 @@ class Keuangan extends BaseController
 	{
 		helper(['form', 'url']);
 		$data = [];
-		$builder = $this->db->table('siswa');
+		$builder = $this->db->table('siswa')->select('idSiswa as id, nama as text');
 		if (empty($this->request->getVar('q'))) {
-			$query = $builder->select('idSiswa as id, nama as text')
-				->limit(10)->get();
+			$query = $builder->limit(10)->get();
 		} else {
-			$query = $builder->select('idSiswa as id, nama as text')
-				->like('nama', $this->request->getVar('q'))
+			$query = $builder->like('nama', $this->request->getVar('q'))
 				->limit(10)->get();
 		}
 
