@@ -221,18 +221,31 @@ class Keuangan extends BaseController
 		}
 
 		echo $this->request->getVar('search');
-		// $data = [
-		// 	'search'        => $this->request->getVar('search'),
-		// ];
+	}
 
-		// $builder = $this->db->table('periode_spp');
-		// $builder->insert($data);
+	public function generatetagihan()
+	{
+		$builder = $this->db->table('siswa')
+			->select('idSiswa')
+			->where('status', 'Aktif')
+			->get();
+		$dataSiswa = $builder->getResult();
 
-		// if (!$builder) {
-		// 	return redirect()->to(base_url('keuangan/periodespp'))->with('message', 'Data Berhasil Ditambahkan');
-		// } else {
-		// 	session()->setFlashdata('error', "");
-		// 	return redirect()->back()->withInput();
-		// }
+		$tahun = date('Y');
+		$bulan = date('m');
+		$tarikPeriode = $this->db->query("SELECT idPeriode  from periode_spp
+		WHERE YEAR(awalPeriode) = $tahun 
+		AND MONTH(awalPeriode) = $bulan
+		AND YEAR (akhirPeriode) = $tahun
+		AND MONTH (akhirPeriode) = $bulan")
+			->getResult();
+
+		foreach ($tarikPeriode as $periode) :
+			$usePeriode = $periode->idPeriode;
+		endforeach;
+
+		foreach ($dataSiswa as $siswa) :
+			echo $siswa->idSiswa . "-> " . $usePeriode . "<br>";
+		endforeach;
 	}
 }

@@ -5,16 +5,24 @@
         <div class="card-header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 text-start">
+                    <div class="col-lg-6 col-md-12 ">
                         <h4> Daftar Periode SPP </h4>
                     </div>
-                    <div class="col-lg-6 col-md-12 text-end ">
+                    <div class="col-lg-6 col-md-12 d-grid gap-2 d-md-flex justify-content-md-end ">
                         <a href="<?= base_url('/keuangan/pembayaranspp/'); ?>">
-                            <button type="button" class="btn btn-primary bg-gradient">
+                            <button type="button" class="btn btn-primary bg-gradient mx-auto">
                                 <i class="fas fa-plus-square"></i>
                                 Pembayaran SPP
                             </button>
                         </a>
+
+                        <a href="<?= base_url('/keuangan/generatetagihan/'); ?>">
+                            <button type="button" class="btn btn-success bg-gradient mx-auto">
+                                <i class="fas fa-tasks"></i>
+                                Buat Tagihan
+                            </button>
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -48,6 +56,7 @@
             </table>
         </div>
     </div>
+
 </div>
 <script src="<?= base_url('assets/vendors/simple-datatables/simple-datatables.js'); ?>"></script>
 <script>

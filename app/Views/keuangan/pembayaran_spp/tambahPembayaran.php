@@ -16,21 +16,11 @@
                 <div class="row mb-3">
                     <label for="idSiswa" class="col-sm-4 col-form-label">Nama Siswa</label>
                     <div class="col-sm-8">
-                        <select class="idSiswa form-control" name="idSiswa"></select>
+                        <select class="idSiswa form-control" name="idSiswa" id="idSiswa"></select>
+                        <small class="text-secondary" id="cetak"></small>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="awalPeriode" class="col-sm-4 col-form-label">Awal Waktu Bayar</label>
-                    <div class="col-sm-8">
-                        <input type="date" class="form-control" id="awalPeriode" name="awalPeriode" required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="akhirPeriode" class="col-sm-4 col-form-label">Akhir Waktu Bayar</label>
-                    <div class="col-sm-8">
-                        <input type="date" class="form-control" id="akhirPeriode" name="akhirPeriode" required>
-                    </div>
-                </div>
+
                 <div class="row mb-3">
                     <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
                     <div class="col-sm-8">
@@ -67,8 +57,18 @@
                     results: data
                 };
             },
+
             cache: true
         }
+
+    });
+    $(document).ready(function() {
+        $("#idSiswa").change(function() {
+            // var selectedVal = $("#myselect option:selected").text();
+            const id = $("#idSiswa option:selected").val();
+            const nama = $("#idSiswa option:selected").text();
+            document.getElementById("cetak").innerHTML = "Anda telah memilih " + nama + " dengan NIS " + id;
+        });
     });
 </script>
 <?= $this->endSection() ?>

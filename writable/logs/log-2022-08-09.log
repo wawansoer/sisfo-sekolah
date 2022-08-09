@@ -1,0 +1,133 @@
+ERROR - 2022-08-09 05:09:05 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.date('Y'). 
+		AND MONTH(awalPeriode) = .date('m').
+		AND YEAR (akhirPeriode) = ' at line 2
+CRITICAL - 2022-08-09 05:09:05 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.date('Y'). 
+		AND MONTH(awalPeriode) = .date('m').
+		AND YEAR (akhirPeriode) = ' at line 2
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(292): mysqli->query()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(234): CodeIgniter\Database\BaseConnection->query()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#9 {main}
+ERROR - 2022-08-09 05:15:55 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.date('Y'). 
+		AND MONTH(awalPeriode) = .date('m').
+		AND YEAR (akhirPeriode) = ' at line 2
+CRITICAL - 2022-08-09 05:15:55 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.date('Y'). 
+		AND MONTH(awalPeriode) = .date('m').
+		AND YEAR (akhirPeriode) = ' at line 2
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(292): mysqli->query()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(234): CodeIgniter\Database\BaseConnection->query()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#9 {main}
+ERROR - 2022-08-09 05:17:39 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '. 
+		AND MONTH(awalPeriode) = .08.
+		AND YEAR (akhirPeriode) = .2022.
+		AND MONT' at line 2
+CRITICAL - 2022-08-09 05:17:39 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '. 
+		AND MONTH(awalPeriode) = .08.
+		AND YEAR (akhirPeriode) = .2022.
+		AND MONT' at line 2
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(292): mysqli->query()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(239): CodeIgniter\Database\BaseConnection->query()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#9 {main}
+CRITICAL - 2022-08-09 05:18:00 --> Call to undefined method CodeIgniter\Database\MySQLi\Result::result()
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
+CRITICAL - 2022-08-09 05:19:00 --> Call to undefined method CodeIgniter\Database\MySQLi\Result::result()
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
+CRITICAL - 2022-08-09 05:20:27 --> Call to a member function getResult() on array
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
+CRITICAL - 2022-08-09 05:20:32 --> Call to a member function getResult() on array
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
+CRITICAL - 2022-08-09 05:21:23 --> Undefined property: stdClass::$id
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(243): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#6 {main}
+CRITICAL - 2022-08-09 05:21:42 --> Undefined property: mysqli::$id
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(247): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#6 {main}
+CRITICAL - 2022-08-09 05:22:33 --> Undefined property: mysqli::$id
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(247): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#6 {main}
+CRITICAL - 2022-08-09 05:22:53 --> Undefined property: mysqli::$id
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(247): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#6 {main}
+CRITICAL - 2022-08-09 05:23:16 --> Call to undefined method CodeIgniter\Database\MySQLi\Builder::getResult()
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
+ERROR - 2022-08-09 05:24:57 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'm')
+		AND YEAR (akhirPeriode) = date('Y)
+		AND MONTH (akhirPeriode) = date('m')' at line 3
+CRITICAL - 2022-08-09 05:24:57 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'm')
+		AND YEAR (akhirPeriode) = date('Y)
+		AND MONTH (akhirPeriode) = date('m')' at line 3
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(292): mysqli->query()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(234): CodeIgniter\Database\BaseConnection->query()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#9 {main}
