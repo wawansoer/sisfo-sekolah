@@ -38,7 +38,8 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helper = ['auth', 'rp', 'tgl_indo'];
+    // protected $helper = ['auth', 'rp', 'tgl_indo'];
+    protected $helper = (['form', 'url', 'auth', 'rp', 'tgl_indo']);
     /**
      * Constructor.
      */
