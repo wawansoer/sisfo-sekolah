@@ -98,13 +98,12 @@ class Keuangan extends BaseController
 		if (empty($hasilQuery)) {
 			throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
 		} else {
-			$query = $this->db->table('periode_spp');
-			$query->delete(['idPeriode' => $id]);
+			$query = $this->db->table('periode_spp')->delete(['idPeriode' => $id]);
 
-			if ($query) {
+			if ($query == TRUE) {
 				return redirect()->to(base_url('keuangan/periodespp/'))->with('message', 'Data Berhasil Dihapus');
 			} else {
-				session()->setFlashdata('error', "Silahkan cek kembali inputan anda");
+				session()->setFlashdata('error', "Periode SPP Telah Digunakan");
 				return redirect()->back()->withInput();
 			}
 		}
@@ -180,14 +179,6 @@ class Keuangan extends BaseController
 		return view('/keuangan/pembayaran_spp/pembayaran', $data);
 	}
 
-	public function pembayaranspp()
-	{
-		$data['title'] = "Pembayaran SPP | Keuangan";
-		$data['keuangan'] = 3;
-
-		return view('/keuangan/pembayaran_spp/tambahPembayaran', $data);
-	}
-
 	public function carisiswa()
 	{
 		helper(['form', 'url']);
@@ -205,22 +196,58 @@ class Keuangan extends BaseController
 		echo json_encode($data);
 	}
 
+	public function pembayaranspp()
+	{
+		$data['title'] = "Pembayaran SPP | Keuangan";
+		$data['keuangan'] = 3;
+		$query = $this->db->table('periode_spp')->select('idPeriode, namaPeriode')
+			->orderBy('awalPeriode',  'DESC')->limit(12);
+		$hasilQuery = $query->get();
+		$data['periode'] = $hasilQuery->getResult();
+
+		return view('/keuangan/pembayaran_spp/tambahPembayaran', $data);
+	}
+
 	public function prosestambahpembayaran()
 	{
 		if (!$this->validate([
-			'search' => [
+			'idSiswa' => [
 				'rules' => 'required',
 				'errors' => [
 					'required' => 'Silahkan Pilih Siswa ',
 				]
 			],
-
+			'jumlah' => [
+				'rules' => 'required|numeric',
+				'errors' => [
+					'required' => 'Jumlah Bayar SPP Harus diisi',
+					'numeric' => 'Format Jumlah Bayar SPP Tidak Dikenali',
+				]
+			],
 		])) {
 			session()->setFlashdata('error', $this->validator->listErrors());
 			return redirect()->back()->withInput();
-		}
+		} else {
+			$idTime = date('Ymd');
+			$idPembayaran = md5($this->request->getVar('idSiswa') . "" . $this->request->getVar('jumlah') . "" . $this->request->getVar('idSpp') . "2" . $idTime);
+			$data = [
+				'idPembayaran' 	=> $idPembayaran,
+				'idSiswa'        		=> $this->request->getVar('idSiswa'),
+				'idSpp'        		=> $this->request->getVar('idSpp'),
+				'jumlah'             => $this->request->getVar('jumlah'),
+				'waktu'             	=> date('Y-m-d h:i:s'),
+				'keterangan' 		=> $this->request->getVar('keterangan')
+			];
 
-		echo $this->request->getVar('search');
+			$builder = $this->db->table('pembSPP')->insert($data);
+
+			if ($builder) {
+				return redirect()->to(base_url('keuangan/bayarspp'))->with('message', 'Data Berhasil Ditambahkan');
+			} else {
+				session()->setFlashdata('error', "Silahkan Periksa Kembali Inputan Anda");
+				return redirect()->back()->withInput();
+			}
+		}
 	}
 
 	public function generatetagihan()
@@ -243,9 +270,24 @@ class Keuangan extends BaseController
 		foreach ($tarikPeriode as $periode) :
 			$usePeriode = $periode->idPeriode;
 		endforeach;
+		$waktuTransaksi = date('Y-m-d h:i:s');
+
+		$this->db->transBegin();
 
 		foreach ($dataSiswa as $siswa) :
-			echo $siswa->idSiswa . "-> " . $usePeriode . "<br>";
+			$idTime = date('Ymd');
+			$idPembayaran = md5($siswa->idSiswa . "0" . $usePeriode . "1" . $idTime);
+			$this->db->query("INSERT INTO  pembSPP 
+												(idPembayaran, idSiswa, idSpp, jumlah, waktu, keterangan) VALUES
+												('$idPembayaran', $siswa->idSiswa, $usePeriode, 0, '$waktuTransaksi', 'Inisiasi Tagihan')");
 		endforeach;
+
+		if ($this->db->transStatus() === false) {
+			$this->db->transRollback();
+			return redirect()->to(base_url('keuangan/bayarspp'))->with('error', 'Tidak dapat membuat tagihan. Anda Telah Membuat Tagihan Bulan Ini');
+		} else {
+			$this->db->transCommit();
+			return redirect()->to(base_url('keuangan/bayarspp'))->with('message', 'Anda Telah Membuat Tagihan Bulan Ini');
+		}
 	}
 }

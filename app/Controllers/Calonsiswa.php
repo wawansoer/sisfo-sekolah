@@ -16,18 +16,17 @@ class Calonsiswa extends Controller
 		$this->db = \Config\Database::connect();
 		$this->calonSiswa = new CalonSiswaModel();
 		helper('tgl');
-		
 	}
 
 	public function index()
 	{
-    //model initialize
+		//model initialize
 		$data['title'] = "Pendaftaran Siswa Baru";
 
 		$idUser = user_id();
-		
 
-    //ambil data pengguna
+
+		//ambil data pengguna
 		$builder = $this->db->table('users');
 		$builder->select('users.id as idUser, auth_groups.id as idRole, users.username as nama,
 			auth_groups.description as jabatan');
@@ -37,13 +36,13 @@ class Calonsiswa extends Controller
 		$dataPengguna = $builder->get();
 		$data['user'] = $dataPengguna->getResult();
 
-    //ambil data pendaftaran
+		//ambil data pendaftaran
 		$builder = $this->db->table('CalonSiswa');
 		$builder->select('*');
 		$builder->where('idUser', $idUser);
 		$dataReg = $builder->get();
 
-    //cek data pendaftar
+		//cek data pendaftar
 		if ($dataReg->getResult()) {
 
 			foreach ($data['user'] as $pengguna) :
@@ -54,7 +53,7 @@ class Calonsiswa extends Controller
 
 			$data['pendaftar'] = $dataReg->getResult();
 
-			foreach ($data['pendaftar'] as $pendaftar):
+			foreach ($data['pendaftar'] as $pendaftar) :
 				$data['idUser'] = $pendaftar->idUser;
 				$data['idCalonSiswa'] = $pendaftar->idCalonSiswa;
 				$data['noPendaftaran'] = $pendaftar->noPendaftaran;
@@ -77,14 +76,13 @@ class Calonsiswa extends Controller
 			endforeach;
 
 			return view('/siswabaru/statusRegistrasi', $data);
-
 		} else {
 			foreach ($data['user'] as $pengguna) :
 				$data['nama'] = $pengguna->nama;
 				$data['jabatan'] = $pengguna->jabatan;
 				$data['idUser'] = $pengguna->idUser;
 			endforeach;
-			
+
 			return view('/siswabaru/formulirRegistrasi', $data);
 		}
 	}
@@ -231,8 +229,8 @@ class Calonsiswa extends Controller
 			throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Calon Siswa Tidak ditemukan !');
 		}
 		$idUser = user_id();
-		
-    //ambil data pengguna
+
+		//ambil data pengguna
 		$builder = $this->db->table('users');
 		$builder->select('users.id as idUser, auth_groups.id as idRole, users.username as nama,
 			auth_groups.description as jabatan');
@@ -250,7 +248,7 @@ class Calonsiswa extends Controller
 
 		$data['casis'] = $dataCasis;
 
-		foreach ($data['casis'] as $casis):
+		foreach ($data['casis'] as $casis) :
 			$data['idCalonSiswa'] = $casis['idCalonSiswa'];
 			$data['noPendaftaran'] = $casis['noPendaftaran'];
 			$data['namaLengkap'] = $casis['namaLengkap'];
@@ -269,7 +267,7 @@ class Calonsiswa extends Controller
 			$data['pekerjaanWali'] = $casis['pekerjaanWali'];
 			$data['pendapatanWali'] = $casis['pendapatanWali'];
 		endforeach;
-		
+
 		$data['title'] = "Perbaharui Data Pendaftaran";
 
 		return view('/siswabaru/ubahRegistrasi', $data);
@@ -398,13 +396,12 @@ class Calonsiswa extends Controller
 		$builder->where('noPendaftaran', $this->request->getVar('noPendaftaran'));
 		$builder->where('idCalonSiswa', $this->request->getVar('idCalonSiswa'));
 		$builder->update($data);
-				
 
-		if($builder->update($data) === TRUE){
+
+		if ($builder->update($data) === TRUE) {
 			session()->setFlashdata('message', 'Selamat. Data anda telah diubah.');
 			return redirect()->back()->withInput();
-
-		}else{
+		} else {
 			session()->setFlashdata('error', $this->validator->listErrors());
 			session()->setFlashdata('gagal', 'Mohon Maaf ! Silahkan Cek Kembali Data Anda.');
 			return redirect()->back()->withInput();
@@ -412,15 +409,15 @@ class Calonsiswa extends Controller
 	}
 
 	public function cetak($id)
-    {
-    	$dataCasis = $this->calonSiswa->where('noPendaftaran', $id)->findall();
+	{
+		$dataCasis = $this->calonSiswa->where('noPendaftaran', $id)->findall();
 		if (empty($dataCasis)) {
 			throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Calon Siswa Tidak ditemukan !');
 		}
 
 		$data['casis'] = $dataCasis;
 
-		foreach ($data['casis'] as $casis):
+		foreach ($data['casis'] as $casis) :
 			$data['idCalonSiswa'] = $casis['idCalonSiswa'];
 			$data['noPendaftaran'] = $casis['noPendaftaran'];
 			$data['namaLengkap'] = $casis['namaLengkap'];
@@ -441,21 +438,21 @@ class Calonsiswa extends Controller
 		endforeach;
 
 
-        $filename = $data['namaLengkap']. '-'. $data['noPendaftaran'];
+		$filename = $data['namaLengkap'] . '-' . $data['noPendaftaran'];
 
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
+		// instantiate and use the dompdf class
+		$dompdf = new Dompdf();
 
-        // load HTML content
-        $dompdf->loadHtml(view('siswabaru/cetakFormulir', $data));
+		// load HTML content
+		$dompdf->loadHtml(view('siswabaru/cetakFormulir', $data));
 
-        // (optional) setup the paper size and orientation
-        $dompdf->setPaper('A4', 'portait');
+		// (optional) setup the paper size and orientation
+		$dompdf->setPaper('A4', 'portait');
 
-        // render html as PDF
-        $dompdf->render();
+		// render html as PDF
+		$dompdf->render();
 
-        // output the generated pdf
-        $dompdf->stream($filename);
-    }
+		// output the generated pdf
+		$dompdf->stream($filename);
+	}
 }
