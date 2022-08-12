@@ -16,7 +16,7 @@
                 <div class="row mb-3">
                     <label for="idSiswa" class="col-sm-4 col-form-label">Nama Siswa</label>
                     <div class="col-sm-8">
-                        <select class="idSiswa form-control" name="idSiswa" id="idSiswa"></select>
+                        <select class="form-control idSiswa" name="idSiswa" id="idSiswa"></select>
                         <small class="text-secondary" id="cetak"></small>
                     </div>
                 </div>

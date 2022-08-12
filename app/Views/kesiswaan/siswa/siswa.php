@@ -2,79 +2,81 @@
 <?= $this->section('content') ?>
 
 <div class="row" align="center">
-	<div class="col-12 col-lg-12 col-md-12 mb-3">
-		<a href="<?= base_url('kesiswaan/tambahsiswa');?>">
-			<div class="d-grid gap-2">
-				<button class="btn btn-primary" type="button">
-					<i class="bi bi-plus-square-fill"></i> 
-					Tambah siswa
-				</button>
-			</div> 
-		</a>
-	</div>
+    <div class="col-12 col-lg-12 col-md-12 mb-3">
+        <a href="<?= base_url('kesiswaan/tambahsiswa'); ?>">
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="button">
+                    <i class="bi bi-plus-square-fill"></i>
+                    Tambah siswa
+                </button>
+            </div>
+        </a>
+    </div>
 </div>
 <div class="row">
-	<div class="card">
-		<div class="card-header">
-			<h4 class="text-center"> Daftar siswa </h4>
-		</div>
-		<div class="card-body">
-			<?php if (!empty(session()->getFlashdata('message'))) : ?>
-			<div class="alert alert-success" role="alert">
-				<strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
-			</div>
-		<?php endif; ?>
-		<table class="table table-striped" id="siswa">
-			<thead>
-				<tr>
-					<th class="text-center">Nama</th>
-					<th class="text-center">NIS</th>
-					<th class="text-center">NISN</th>
-					<th class="text-center">Jenis Kelamin</th>
-					<th class="text-center">Angkatan</th>
-					<th class="text-center">Kelas</th>
-					<th class="text-center">Aksi</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php  foreach ($siswa as $det) :?>
-					<tr>
-						<td> <?= $det->nama;?> </td>
-						<td> <?= $det->nis;?> </td>
-						<td> <?= $det->nisn;?> </td>
-						<td> <?= $det->jenis_kelamin;?> </td>
-						<td> <?= $det->angkatan;?> </td>
-						<td> <?= $det->nama_kelas;?> </td>
-						<td class="text-center">
-							<a href="<?= base_url('/kesiswaan/detailsiswa/'.$det->idSiswa); ?>">
-								<span class="badge bg-primary">
-									<i class="bi bi-eye-fill"></i> Detail
-								</span>
-							</a>
-							&nbsp;&nbsp
-							<a href="<?= base_url('/kesiswaan/ubahsiswa/'.$det->idSiswa); ?>">
-								<span class="badge bg-success">
-									<i class="bi bi-trash-fill"></i> Ubah
-								</span>
-							</a>
-							&nbsp;&nbsp
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-center"> Daftar siswa </h4>
+        </div>
+        <div class="card-body">
+            <?php if (!empty(session()->getFlashdata('message'))) : ?>
+                <div class="alert alert-success" role="alert">
+                    <strong>Selamat ! </strong> <?php echo session()->getFlashdata('message'); ?>
+                </div>
+            <?php endif; ?>
+            <table class="table table-striped" id="siswa">
+                <thead>
+                    <tr>
+                        <th class="text-center">Nama</th>
+                        <th class="text-center">NIS</th>
+                        <th class="text-center">NISN</th>
+                        <th class="text-center">Jenis Kelamin</th>
+                        <th class="text-center">Angkatan</th>
+                        <th class="text-center">Kelas</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($siswa as $det) : ?>
+                        <tr>
+                            <td> <?= $det->nama; ?> </td>
+                            <td> <?= $det->nis; ?> </td>
+                            <td> <?= $det->nisn; ?> </td>
+                            <td> <?= $det->jenis_kelamin; ?> </td>
+                            <td> <?= $det->angkatan; ?> </td>
+                            <td> <?= $det->nama_kelas; ?> </td>
+                            <td> <?= $det->status; ?> </td>
+                            <td class="text-center">
+                                <a href="<?= base_url('/kesiswaan/detailsiswa/' . $det->idSiswa); ?>">
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-eye-fill"></i> Detail
+                                    </span>
+                                </a>
+                                &nbsp;&nbsp
+                                <a href="<?= base_url('/kesiswaan/ubahsiswa/' . $det->idSiswa); ?>">
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-trash-fill"></i> Ubah
+                                    </span>
+                                </a>
+                                &nbsp;&nbsp
 
-							<a href="<?= base_url('/kesiswaan/hapussiswa/'.$det->idSiswa); ?>">
-								<span class="badge bg-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus berita ?')">
-									<i class="bi bi-trash-fill"></i> Hapus
-								</span>
-							</a>
+                                <a href="<?= base_url('/kesiswaan/hapussiswa/' . $det->idSiswa); ?>">
+                                    <span class="badge bg-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus berita ?')">
+                                        <i class="bi bi-trash-fill"></i> Hapus
+                                    </span>
+                                </a>
 
 
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-	</div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-</div>
-<script src="<?= base_url('assets/vendors/simple-datatables/simple-datatables.js');?>"></script>
+<script src="<?= base_url('assets/vendors/simple-datatables/simple-datatables.js'); ?>"></script>
 <script>
     // Simple Datatable
     let table1 = document.querySelector('#siswa');

@@ -9,7 +9,6 @@ class Kesiswaan extends BaseController
         $this->db = \Config\Database::connect();
         helper('tgl');
         helper('auth');
-        
     }
 
     public function index()
@@ -75,50 +74,56 @@ class Kesiswaan extends BaseController
                 'rules' => 'required|is_unique[siswa.nama]|alpha_space',
                 'errors' => [
                     'required' => 'Nama Siswa Harus diisi',
-                    'is_unique'=> 'Nama Siswa Tidak Boleh Sama',
-                    'alpha_space'=> 'Format Nama Siswa Tidak Valid',
+                    'is_unique' => 'Nama Siswa Tidak Boleh Sama',
+                    'alpha_space' => 'Format Nama Siswa Tidak Valid',
                 ]
             ],
             'nisn' => [
                 'rules' => 'required|is_unique[siswa.nisn]|numeric',
                 'errors' => [
                     'required' => 'NISN Harus diisi',
-                    'is_unique'=> 'NISN Tidak Boleh Sama',
-                    'numeric'=> 'Format NISN Tidak Dikenali',                    
+                    'is_unique' => 'NISN Tidak Boleh Sama',
+                    'numeric' => 'Format NISN Tidak Dikenali',
                 ]
             ],
             'nis' => [
                 'rules' => 'required|is_unique[siswa.nis]|numeric',
                 'errors' => [
                     'required' => 'NIS Harus diisi',
-                    'is_unique'=> 'NIS Tidak Boleh Sama',
-                    'numeric'=> 'Format NIS Tidak Dikenali',                    
+                    'is_unique' => 'NIS Tidak Boleh Sama',
+                    'numeric' => 'Format NIS Tidak Dikenali',
                 ]
             ],
             'tempat_lahir' => [
                 'rules' => 'required|alpha_space',
                 'errors' => [
                     'required' => 'Tempat Lahir Harus diisi',
-                    'alpha_space'=> 'Format Tempat Lahir Tidak Dikenali',                    
+                    'alpha_space' => 'Format Tempat Lahir Tidak Dikenali',
                 ]
             ],
             'tanggal_lahir' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Lahir Siswa Harus diisi',                    
+                    'required' => 'Tanggal Lahir Siswa Harus diisi',
                 ]
             ],
             'jenis_kelamin' => [
                 'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'Jenis Kelamin Siswa Harus diisi',
-                    'numeric'=> 'Format Jenis Kelamin Siswa Tidak Dikenali',                    
+                    'numeric' => 'Format Jenis Kelamin Siswa Tidak Dikenali',
                 ]
             ],
             'agama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => ' Agama Siswa Harus diisi',                    
+                    'required' => ' Agama Siswa Harus diisi',
+                ]
+            ],
+            'angkatan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => ' Angkatan Siswa Harus diisi',
                 ]
             ],
             'alamat_domisili' => [
@@ -173,8 +178,7 @@ class Kesiswaan extends BaseController
                     'numeric' => 'Format Nomor Kontak Orang Tua Tidak Sesuai Format'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -182,17 +186,17 @@ class Kesiswaan extends BaseController
         $avatar   = $this->request->getFile('foto');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/siswa/', $namabaru);
-                        // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/siswa/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/siswa/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/siswa/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/siswa/thumbs/' . $namabaru);
 
         $data = [
-            'nama'              => $this->request->getVar('nama'),
-            'nisn'              => $this->request->getVar('nisn'),
-            'nis'               => $this->request->getVar('nis'),
-            'id_kelas'          => $this->request->getVar('id_kelas'),
+            'nama'                  => $this->request->getVar('nama'),
+            'nisn'                  => $this->request->getVar('nisn'),
+            'nis'                   => $this->request->getVar('nis'),
+            'id_kelas'                      => $this->request->getVar('id_kelas'),
             'alamat_domisili'   => $this->request->getVar('alamat_domisili'),
             'pos_domisili'      => $this->request->getVar('pos_domisili'),
             'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
@@ -207,15 +211,58 @@ class Kesiswaan extends BaseController
             'pos_orang_tua'     => $this->request->getVar('pos_orang_tua'),
             'kontak_orangtua'   => $this->request->getVar('kontak_orangtua'),
             'pendapatan_ortu'   => $this->request->getVar('pendapatan_ortu'),
-            'angkatan'          => date('Y'),
+            'angkatan'               => $this->request->getVar('angkatan'),
+            'createdAt'           => date('Y-m-d h:i:s'),
+
         ];
 
+        $this->db->transBegin();
         $builder = $this->db->table('siswa');
         $builder->insert($data);
 
-        $data['kesiswaan'] = 2;
+        // ambil data siswa yang baru di input 
+        $builder = $this->db->table('siswa')
+            ->select('idSiswa')
+            ->where('nama',  $this->request->getVar('nama'))
+            ->where('nis',  $this->request->getVar('nis'))
+            ->where('nisn',  $this->request->getVar('nisn'))
+            ->get();
+        $dataSiswa = $builder->getResult();
 
-        return redirect()->to(base_url('kesiswaan/siswa/siswa'))->with('message', 'Data Berhasil Ditambahkan');
+        // ambil bulan dan tahun saat ini 
+        $tahun = date('Y');
+        $bulan = date('m');
+
+        //tarik periode saat ini 
+        $tarikPeriode = $this->db->query("SELECT idPeriode  from periode_spp
+                                                        WHERE YEAR(awalPeriode) = $tahun 
+                                                        AND MONTH(awalPeriode) = $bulan
+                                                        AND YEAR (akhirPeriode) = $tahun
+                                                        AND MONTH (akhirPeriode) = $bulan")
+            ->getResult();
+
+        foreach ($tarikPeriode as $periode) :
+            $usePeriode = $periode->idPeriode;
+        endforeach;
+
+        // input tagihan pertama siswa baru
+        foreach ($dataSiswa as $siswa) :
+            $waktuTransaksi = date('Y-m-d h:i:s');
+            $idTime = date('Ymd');
+            $idPembayaran = md5($siswa->idSiswa . "0" . $usePeriode . "1" . $idTime);
+            $this->db->query("INSERT INTO  pembSPP 
+							(idPembayaran, idSiswa, idSpp, jumlah, waktu, keterangan) VALUES
+							('$idPembayaran', $siswa->idSiswa, $usePeriode, 0, '$waktuTransaksi', 'Inisiasi Tagihan')");
+        endforeach;
+
+
+        if ($this->db->transStatus() === false) {
+            $this->db->transRollback();
+            return redirect()->to(base_url('kesiswaan/siswa/siswa'))->with('error', 'Tidak dapat menambahkan siswa. ');
+        } else {
+            $this->db->transCommit();
+            return redirect()->to(base_url('kesiswaan/siswa/siswa'))->with('message', 'Data Berhasil Ditambahkan');
+        }
     }
 
     public function detailsiswa($id)
@@ -252,6 +299,7 @@ class Kesiswaan extends BaseController
             $data['kontak_orangtua'] = $siswa->kontak_orangtua;
             $data['pendapatan_ortu'] = $siswa->pendapatan_ortu;
             $data['angkatan'] = $siswa->angkatan;
+            $data['status'] = $siswa->status;
         endforeach;
 
         $data['title'] = "Detail Siswa | Kesiswaan";
@@ -269,8 +317,7 @@ class Kesiswaan extends BaseController
         $hasilQuery = $query->get();
         $dataSiswa = $hasilQuery->getResult();
 
-        if (empty($hasilQuery)) 
-        {
+        if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Siswa Tidak ditemukan !');
         }
 
@@ -320,46 +367,46 @@ class Kesiswaan extends BaseController
                 'rules' => 'required|alpha_space',
                 'errors' => [
                     'required' => 'Nama Siswa Harus diisi',
-                    'alpha_space'=> 'Format Nama Siswa Tidak Valid',
+                    'alpha_space' => 'Format Nama Siswa Tidak Valid',
                 ]
             ],
             'nisn' => [
                 'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'NISN Harus diisi',
-                    'numeric'=> 'Format NISN Tidak Dikenali',                    
+                    'numeric' => 'Format NISN Tidak Dikenali',
                 ]
             ],
             'nis' => [
                 'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'NIS Harus diisi',
-                    'numeric'=> 'Format NIS Tidak Dikenali',                    
+                    'numeric' => 'Format NIS Tidak Dikenali',
                 ]
             ],
             'tempat_lahir' => [
                 'rules' => 'required|alpha_space',
                 'errors' => [
                     'required' => 'Tempat Lahir Harus diisi',
-                    'alpha_space'=> 'Format Tempat Lahir Tidak Dikenali',                    
+                    'alpha_space' => 'Format Tempat Lahir Tidak Dikenali',
                 ]
             ],
             'tanggal_lahir' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Lahir Siswa Harus diisi',                    
+                    'required' => 'Tanggal Lahir Siswa Harus diisi',
                 ]
             ],
             'jenis_kelamin' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Jenis Kelamin Siswa Harus diisi',                    
+                    'required' => 'Jenis Kelamin Siswa Harus diisi',
                 ]
             ],
             'agama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => ' Agama Siswa Harus diisi',                    
+                    'required' => ' Agama Siswa Harus diisi',
                 ]
             ],
             'alamat_domisili' => [
@@ -414,22 +461,21 @@ class Kesiswaan extends BaseController
                     'numeric' => 'Format Nomor Kontak Orang Tua Tidak Sesuai Format'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
 
 
-        if (! empty($_FILES['foto']['name'])) {
+        if (!empty($_FILES['foto']['name'])) {
             $avatar   = $this->request->getFile('foto');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/siswa/', $namabaru);
-                        // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/siswa/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/siswa/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/siswa/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/siswa/thumbs/' . $namabaru);
 
             $data = [
                 'nama'              => $this->request->getVar('nama'),
@@ -451,9 +497,7 @@ class Kesiswaan extends BaseController
                 'kontak_orangtua'   => $this->request->getVar('kontak_orangtua'),
                 'pendapatan_ortu'   => $this->request->getVar('pendapatan_ortu'),
             ];
-
-
-        }else{
+        } else {
             $data = [
                 'nama'              => $this->request->getVar('nama'),
                 'nisn'              => $this->request->getVar('nisn'),
@@ -488,17 +532,18 @@ class Kesiswaan extends BaseController
         $query = $this->db->table('siswa');
         $query->where('idSiswa', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Siswa Tidak ditemukan !');
+        } else {
+            $query = $this->db->table('siswa');
+            $query->delete(['idSiswa' => $id]);
+            if ($query) {
+                return redirect()->to(base_url('kesiswaan/siswa/'))->with('message', 'Data Berhasil Dihapus');
+            } else {
+                return redirect()->to(base_url('kesiswaan/siswa/'))->with('error', 'Data Tidak dapat Dihapus');
+            }
         }
-
-        $query = $this->db->table('siswa');
-        $query->delete(['idSiswa' => $id]);
-
-        $data['kesiswaan'] = 2;
-        $data['title'] = "Siswa | Kesiswaan";
-        return redirect()->to(base_url('kesiswaan/siswa/'))->with('message', 'Data Berhasil Dihapus');
     }
 
     public function pengumuman()
@@ -523,7 +568,8 @@ class Kesiswaan extends BaseController
         return view('/kesiswaan/pengumuman/tambahpengumuman', $data);
     }
 
-    public function prosestambahpengumuman(){
+    public function prosestambahpengumuman()
+    {
         if (!$this->validate([
             'gambar' => [
                 'mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
@@ -537,7 +583,7 @@ class Kesiswaan extends BaseController
                 'rules' => 'required|is_unique[pengumuman.pengumuman]',
                 'errors' => [
                     'required' => 'Nama Pengumuman Harus diisi',
-                    'is_unique'=> 'Nama Pengumuman Tidak Boleh Sama'
+                    'is_unique' => 'Nama Pengumuman Tidak Boleh Sama'
                 ]
             ],
             'deskripsi' => [
@@ -552,8 +598,7 @@ class Kesiswaan extends BaseController
                     'required' => 'Keyword Pengumuman Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -561,11 +606,11 @@ class Kesiswaan extends BaseController
         $avatar   = $this->request->getFile('gambar');
         $namabaru = str_replace(' ', '-', $avatar->getName());
         $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+        // Create thumb
         $image = \Config\Services::image()
-        ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-        ->fit(100, 100, 'center')
-        ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
         $dokumen   = $this->request->getFile('berkas');
         $namaDok = str_replace(' ', '-', $dokumen->getName());
@@ -613,7 +658,7 @@ class Kesiswaan extends BaseController
             $data['keyword'] = $det->keyword;
             $data['created_at'] = $det->created_at;
         endforeach;
-        
+
         $data['kesiswaan'] = 3;
 
         $data['title'] = "Detail Pengumuman | kesiswaan";
@@ -642,14 +687,12 @@ class Kesiswaan extends BaseController
             $data['keyword'] = $det->keyword;
             $data['created_at'] = $det->created_at;
         endforeach;
-        
+
         $data['kesiswaan'] = 3;
 
         $data['title'] = "Ubah Pengumuman | Kesiswaan";
         return view('/kesiswaan/pengumuman/ubahpengumuman', $data);
     }
-
-
 
     public function prosesubahpengumuman($id)
     {
@@ -682,8 +725,7 @@ class Kesiswaan extends BaseController
                     'required' => 'Keyword Pengumuman Harus diisi'
                 ]
             ],
-        ])) 
-        {
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
@@ -692,11 +734,11 @@ class Kesiswaan extends BaseController
             $avatar   = $this->request->getFile('gambar');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $dokumen   = $this->request->getFile('berkas');
             $namaDok = str_replace(' ', '-', $dokumen->getName());
@@ -712,10 +754,7 @@ class Kesiswaan extends BaseController
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
-
-        }
-
-        elseif(! empty($_FILES['berkas']['name'])){
+        } elseif (!empty($_FILES['berkas']['name'])) {
             $dokumen   = $this->request->getFile('berkas');
             $namaDok = str_replace(' ', '-', $dokumen->getName());
             $dokumen->move(WRITEPATH . '../public/assets/upload/doc/', $namaDok);
@@ -728,18 +767,15 @@ class Kesiswaan extends BaseController
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
-
-        }
-
-        elseif(! empty($_FILES['gambar']['name'])){
+        } elseif (!empty($_FILES['gambar']['name'])) {
             $avatar   = $this->request->getFile('gambar');
             $namabaru = str_replace(' ', '-', $avatar->getName());
             $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
-                // Create thumb
+            // Create thumb
             $image = \Config\Services::image()
-            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
-            ->fit(100, 100, 'center')
-            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
 
             $data = [
                 'id_user'           => $idUser,
@@ -749,7 +785,7 @@ class Kesiswaan extends BaseController
                 'keyword'           => $this->request->getVar('keyword'),
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
-        }else{
+        } else {
             $data = [
                 'id_user'           => $idUser,
                 'pengumuman'        => $this->request->getVar('pengumuman'),
@@ -758,7 +794,7 @@ class Kesiswaan extends BaseController
                 'updated_at'        => date('Y-m-d H-i-s'),
             ];
         }
-        
+
 
         $builder = $this->db->table('pengumuman');
         $builder->where('id_pengumuman', $id);
@@ -774,7 +810,7 @@ class Kesiswaan extends BaseController
         $query = $this->db->table('pengumuman');
         $query->where('id_pengumuman', $id);
         $hasilQuery = $query->get();
-        
+
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }

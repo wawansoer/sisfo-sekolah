@@ -1,0 +1,13 @@
+CRITICAL - 2022-08-12 08:39:06 --> Undefined variable: title
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Views/kesiswaan/layout.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(210): include('/home/wawan/Doc...')
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(226): CodeIgniter\View\View->render()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Kesiswaan.php(305): view()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Kesiswaan->detailsiswa()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#11 {main}
