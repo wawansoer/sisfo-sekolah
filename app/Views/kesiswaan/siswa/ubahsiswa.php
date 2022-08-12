@@ -54,19 +54,19 @@
                 <small class="text-secondary">Kelas</small>
             </div>
             <div class="col-md-5">
-                <select name="angkatan" class="form-control" required>
-                    <option <?= (old('angkatan') == "" ? "selected" : ""); ?>> -- Pilih Angkatan -- </option>
+                <select name="angka" class="form-control" required>
+                    <option <?= (old('angka') == "" ? "selected" : ""); ?>> -- Pilih Angkatan -- </option>
                     <?php
-                    $angkatan = date('Y');
+                    $angkat = date('Y');
                     $i = 0;
                     while ($i < 5) {
-                        $angkatanPlus = $angkatan + 1;
-                        $cetak = $angkatan . "/" . $angkatanPlus;
+                        $angkatPlus = $angkat + 1;
+                        $cetak = $angkat . "/" . $angkatPlus;
                     ?>
-                        <option value="<?= $angkatan; ?>" <?= (old('angkatan') == "$cetak" ? "selected" : ""); ?>><?= $cetak; ?></option>
+                        <option value="<?= $angkat; ?>" <?= ($angkatanDB == "$cetak" ? "selected" : ""); ?>><?= $cetak; ?></option>
 
                     <?php
-                        $angkatan = $angkatan - 1;
+                        $angkat = $angkat - 1;
                         $i++;
                     }
                     ?>

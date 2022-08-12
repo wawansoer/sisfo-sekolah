@@ -43,7 +43,7 @@
             <label class="col-md-2">Kelas/Angkatan</label>
             <div class="col-md-5">
                 <select name="id_kelas" class="form-control" required>
-                    <option <?= (old('id_kelas') == "" ? "selected" : ""); ?>> -- Pilih Kelas -- </option>
+                    <option value="" <?= (old('id_kelas') == "" ? "selected" : ""); ?>> -- Pilih Kelas -- </option>
                     <?php foreach ($kelas as $detKelas) : ?>
                         <option value="<?= $detKelas->id_kelas; ?>" <?= (old('id_kelas') == "$detKelas->id_kelas" ? "selected" : ""); ?>><?= $detKelas->nama_kelas; ?></option>
                     <?php endforeach; ?>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-5">
                 <select name="angkatan" class="form-control" required>
-                    <option <?= (old('angkatan') == "" ? "selected" : ""); ?>> -- Pilih Angkatan -- </option>
+                    <option value="" <?= (old('angkatan') == "" ? "selected" : ""); ?>> -- Pilih Angkatan -- </option>
                     <?php
                     $angkatan = date('Y');
                     $i = 0;

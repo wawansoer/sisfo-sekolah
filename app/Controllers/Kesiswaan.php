@@ -319,41 +319,42 @@ class Kesiswaan extends BaseController
 
         if (empty($hasilQuery)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Siswa Tidak ditemukan !');
+        } else {
+            foreach ($dataSiswa as $siswa) :
+                $data['idSiswa'] = $siswa->idSiswa;
+                $data['id_kelas'] = $siswa->id_kelas;
+                $data['nis'] = $siswa->nis;
+                $data['nisn'] = $siswa->nisn;
+                $data['nama'] = $siswa->nama;
+                $data['nama_kelas'] = $siswa->nama_kelas;
+                $data['alamat_domisili'] = $siswa->alamat_domisili;
+                $data['pos_domisili'] = $siswa->pos_domisili;
+                $data['tempat_lahir'] = $siswa->tempat_lahir;
+                $data['tanggal_lahir'] = $siswa->tanggal_lahir;
+                $data['kontak_siswa'] = $siswa->kontak_siswa;
+                $data['agama'] = $siswa->agama;
+                $data['jenis_kelamin'] = $siswa->jenis_kelamin;
+                $data['foto'] = $siswa->foto;
+                $data['nama_bapak'] = $siswa->nama_bapak;
+                $data['nama_ibu'] = $siswa->nama_ibu;
+                $data['alamat_ortu'] = $siswa->alamat_ortu;
+                $data['pos_orang_tua'] = $siswa->pos_orang_tua;
+                $data['kontak_orangtua'] = $siswa->kontak_orangtua;
+                $data['pendapatan_ortu'] = $siswa->pendapatan_ortu;
+                $data['angkatanDB'] = $siswa->angkatan;
+                $data['status'] = $siswa->status;
+            endforeach;
+
+            $query = $this->db->table('kelas');
+            $query->select('*');
+            $hasilQuery = $query->get();
+            $data['kelas'] = $hasilQuery->getResult();
+
+            $data['title'] = "Ubah Data Siswa | Kesiswaan";
+            $data['kesiswaan'] = 2;
+
+            return view('/kesiswaan/siswa/ubahsiswa', $data);
         }
-
-        foreach ($dataSiswa as $siswa) :
-            $data['idSiswa'] = $siswa->idSiswa;
-            $data['id_kelas'] = $siswa->id_kelas;
-            $data['nis'] = $siswa->nis;
-            $data['nisn'] = $siswa->nisn;
-            $data['nama'] = $siswa->nama;
-            $data['nama_kelas'] = $siswa->nama_kelas;
-            $data['alamat_domisili'] = $siswa->alamat_domisili;
-            $data['pos_domisili'] = $siswa->pos_domisili;
-            $data['tempat_lahir'] = $siswa->tempat_lahir;
-            $data['tanggal_lahir'] = $siswa->tanggal_lahir;
-            $data['kontak_siswa'] = $siswa->kontak_siswa;
-            $data['agama'] = $siswa->agama;
-            $data['jenis_kelamin'] = $siswa->jenis_kelamin;
-            $data['foto'] = $siswa->foto;
-            $data['nama_bapak'] = $siswa->nama_bapak;
-            $data['nama_ibu'] = $siswa->nama_ibu;
-            $data['alamat_ortu'] = $siswa->alamat_ortu;
-            $data['pos_orang_tua'] = $siswa->pos_orang_tua;
-            $data['kontak_orangtua'] = $siswa->kontak_orangtua;
-            $data['pendapatan_ortu'] = $siswa->pendapatan_ortu;
-            $data['angkatan'] = $siswa->angkatan;
-        endforeach;
-
-        $query = $this->db->table('kelas');
-        $query->select('*');
-        $hasilQuery = $query->get();
-        $data['kelas'] = $hasilQuery->getResult();
-
-        $data['title'] = "Ubah Data Siswa | Kesiswaan";
-        $data['kesiswaan'] = 2;
-
-        return view('/kesiswaan/siswa/ubahsiswa', $data);
     }
 
     public function prosesubahsiswa($id)
