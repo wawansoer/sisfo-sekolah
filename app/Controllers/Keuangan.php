@@ -318,6 +318,16 @@ class Keuangan extends BaseController
 
 	public function transaksi()
 	{
+		if (empty($this->request->getVar('awal')) && empty($this->request->getVar('awal'))) {
+			$awal = date('Y-m-01 00:00:01');
+			$akhir = date('Y-m-01 h:i:s');
+		} else {
+			$awal = $this->request->getVar('awal');
+			$akhir = $this->request->getVar('akhir');
+		}
+
+		$data['awal'] = $awal;
+		$data['akhir'] = $akhir;
 		$data['title'] = "Transaksi | Keuangan";
 		$data['keuangan'] = 4;
 

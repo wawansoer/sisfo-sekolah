@@ -3,27 +3,55 @@
 <div class="row">
     <div class="card">
         <div class="card-header">
+            <h5> Aksi Pelaporan Keuangan </h5>
+        </div>
+        <div class="card-body">
+            <strong> Pilih Periode Pelaporan Keuangan</strong>
+            <form action="<?= base_url('keuangan/transaksi') ?>" method="post" accept-charset="utf-8">
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" name="awal">
+                    <span class="input-group-text">-></span>
+                    <input type="date" class="form-control" name="akhir">
+                    <button type="submit" class="btn btn-success bg-gradient mx-auto">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </form>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 ">
-                        <h4> Laporan Transaksi Keuangan</h4>
-                    </div>
-                    <div class="col-lg-6 col-md-12 d-grid gap-2 d-md-flex justify-content-md-end ">
+                    <div class="col-lg-4 col-md-12 text-center py-1">
                         <a href="<?= base_url('/keuangan/pembayaranspp/'); ?>">
-                            <button type="button" class="btn btn-primary bg-gradient mx-auto">
+                            <button type="button" class="btn btn-success bg-gradient mx-auto">
                                 <i class="fas fa-plus-square"></i>
-                                Tambah Transaksi
+                                Tambah Pendapatan
                             </button>
                         </a>
+                    </div>
+                    <div class="col-lg-4 col-md-12 text-center py-1">
                         <a href="<?= base_url('/keuangan/generatetagihan/'); ?>">
-                            <button type="button" class="btn btn-success bg-gradient mx-auto">
-                                <i class="fas fa-tasks"></i>
+                            <button type="button" class="btn btn-danger bg-gradient mx-auto">
+                                <i class="fas fa-plus-square"></i>
+                                Tambah Pengeluaran
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-12 text-center py-1">
+                        <a href="<?= base_url('/keuangan/generatetagihan/'); ?>">
+                            <button type="button" class="btn btn-primary bg-gradient mx-auto">
+                                <i class="fas fa-plus-square"></i>
                                 Jenis Transaksi
                             </button>
                         </a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h4> Laporan Transaksi Keuangan</h4>
         </div>
         <div class="card-body">
             <?php if (!empty(session()->getFlashdata('error'))) : ?>
