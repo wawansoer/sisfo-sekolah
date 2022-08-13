@@ -171,10 +171,20 @@ class Keuangan extends BaseController
         $data['title'] = "Pembayaran SPP | Keuangan";
         $data['keuangan'] = 3;
 
-        $query = $this->db->table('pembSPP');
-        $query->select('*');
-        $hasilQuery = $query->get();
-        $data['pembSPP'] = $hasilQuery->getResult();
+        $query = $this->db->query('SELECT 
+                                        pembSPP.idSiswa as idSiswa,
+                                        siswa.nis as nis, 
+                                        siswa.nama as namaSiswa,
+                                        kelas.nama_kelas as kelas,
+                                        sum(DISTINCT periode_spp.jumlah) as tagihan,
+                                        sum(pembSPP.jumlah) as bayar,
+                                        (sum(DISTINCT periode_spp.jumlah) - sum(pembSPP.jumlah)) as sisa
+                                    FROM pembSPP 
+                                    INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
+                                    INNER join siswa on siswa.idSiswa = pembSPP.idSiswa
+                                    LEFT JOIN kelas on siswa.id_kelas = kelas.id_kelas 
+                                    GROUP BY pembSPP.idSiswa');
+        $data['pembSPP'] = $query->getResult();
 
         return view('/keuangan/pembayaran_spp/pembayaran', $data);
     }
@@ -200,7 +210,7 @@ class Keuangan extends BaseController
     {
         $data['title'] = "Pembayaran SPP | Keuangan";
         $data['keuangan'] = 3;
-        $query = $this->db->table('periode_spp')->select('idPeriode, namaPeriode')
+        $query = $this->db->query('periode_spp')->select('idPeriode, namaPeriode')
             ->orderBy('awalPeriode',  'DESC')->limit(12);
         $hasilQuery = $query->get();
         $data['periode'] = $hasilQuery->getResult();
@@ -252,11 +262,11 @@ class Keuangan extends BaseController
 
     public function generatetagihan()
     {
+        $sekarang = date('Y-m-d h:i:s');
         $builder = $this->db->table('siswa')
             ->select('idSiswa')
             ->where('status', 'Aktif')
-            ->where('MONTH(createdAt) < ', date('m'))
-            ->where('YEAR(createdAt) <= ', date('Y'))
+            ->where('createdAt <', $sekarang)
             ->get();
         $dataSiswa = $builder->getResult();
 

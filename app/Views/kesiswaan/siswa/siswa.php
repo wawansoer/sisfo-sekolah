@@ -1,22 +1,25 @@
 <?= $this->extend('kesiswaan/layout') ?>
 <?= $this->section('content') ?>
-
-<div class="row" align="center">
-    <div class="col-12 col-lg-12 col-md-12 mb-3">
-        <a href="<?= base_url('kesiswaan/tambahsiswa'); ?>">
-            <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button">
-                    <i class="bi bi-plus-square-fill"></i>
-                    Tambah siswa
-                </button>
-            </div>
-        </a>
-    </div>
-</div>
 <div class="row">
     <div class="card">
         <div class="card-header">
-            <h4 class="text-center"> Daftar siswa </h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 ">
+                        <h4> Daftar siswa </h4>
+                    </div>
+                    <div class="col-lg-6 col-md-12 d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <a href="<?= base_url('kesiswaan/tambahsiswa'); ?>">
+                            <div class="text-end">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="bi bi-plus-square-fill"></i>
+                                    Tambah siswa
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <?php if (!empty(session()->getFlashdata('message'))) : ?>

@@ -22,9 +22,17 @@
     <form action="<?= base_url('kesiswaan/prosesubahsiswa/' . $idSiswa) ?>" method="post" accept-charset="utf-10" enctype="multipart/form-data">
         <?= csrf_field(); ?>
         <div class="form-group row">
-            <label class="col-md-2">Nama</label>
-            <div class="col-md-10">
+            <label class="col-md-2">Nama/Status</label>
+            <div class="col-md-5">
                 <input type="text" name="nama" class="form-control" required value="<?= $nama; ?>">
+                <small class="text-secondary">Nama Lengkap</small>
+            </div>
+            <div class="col-md-5">
+                <select name="status" class="form-control" required>
+                    <option value="Aktif" <?= ($status == "Aktif" ? "selected" : ""); ?>>Aktif</option>
+                    <option value="Tidak" <?= ($status == "Tidak" ? "selected" : ""); ?>>Tidak</option>
+                </select>
+                <small class="text-secondary">Status Siswa</small>
             </div>
         </div>
 
@@ -44,7 +52,7 @@
             <label class="col-md-2">Kelas/Angkatan</label>
             <div class="col-md-5">
                 <select name="id_kelas" class="form-control" required>
-                    <option <?= ($id_kelas == "" ? "selected" : ""); ?>> -- Pilih Kelas -- </option>
+                    <option value="" <?= ($id_kelas == "" ? "selected" : ""); ?>> -- Pilih Kelas -- </option>
                     <?php foreach ($kelas as $detKelas) : ?>
                         <option value="<?= $detKelas->id_kelas; ?>" <?= ($id_kelas == "$detKelas->id_kelas" ? "selected" : ""); ?>>
                             <?= $detKelas->nama_kelas; ?>
@@ -54,19 +62,19 @@
                 <small class="text-secondary">Kelas</small>
             </div>
             <div class="col-md-5">
-                <select name="angka" class="form-control" required>
-                    <option <?= (old('angka') == "" ? "selected" : ""); ?>> -- Pilih Angkatan -- </option>
+                <select name="angkatan" class="form-control" required>
+                    <option value="" <?= (old('angkatan') == "" ? "selected" : ""); ?>> -- Pilih Angkatan -- </option>
                     <?php
-                    $angkat = date('Y');
+                    $angkatan = date('Y');
                     $i = 0;
                     while ($i < 5) {
-                        $angkatPlus = $angkat + 1;
-                        $cetak = $angkat . "/" . $angkatPlus;
+                        $angkatPlus = $angkatan + 1;
+                        $cetak = $angkatan . "/" . $angkatPlus;
                     ?>
-                        <option value="<?= $angkat; ?>" <?= ($angkatanDB == "$cetak" ? "selected" : ""); ?>><?= $cetak; ?></option>
+                        <option value="<?= $cetak; ?>" <?= ($angkatanDB == "$cetak" ? "selected" : ""); ?>><?= $cetak; ?></option>
 
                     <?php
-                        $angkat = $angkat - 1;
+                        $angkatan = $angkatan - 1;
                         $i++;
                     }
                     ?>

@@ -436,6 +436,12 @@ class Kesiswaan extends BaseController
                     'required' => 'Nama Ayah Siswa Harus diisi',
                 ]
             ],
+            'angkatan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Angkatan Siswa Harus diisi',
+                ]
+            ],
             'nama_ibu' => [
                 'rules' => 'required',
                 'errors' => [
@@ -480,6 +486,7 @@ class Kesiswaan extends BaseController
 
             $data = [
                 'nama'              => $this->request->getVar('nama'),
+                'status'              => $this->request->getVar('status'),
                 'nisn'              => $this->request->getVar('nisn'),
                 'nis'               => $this->request->getVar('nis'),
                 'id_kelas'          => $this->request->getVar('id_kelas'),
@@ -490,6 +497,7 @@ class Kesiswaan extends BaseController
                 'kontak_siswa'      => $this->request->getVar('kontak_siswa'),
                 'foto'              => $namabaru,
                 'agama'             => $this->request->getVar('agama'),
+                'angkatan'             => $this->request->getVar('angkatan'),
                 'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
                 'nama_bapak'        => $this->request->getVar('nama_bapak'),
                 'nama_ibu'          => $this->request->getVar('nama_ibu'),
@@ -501,6 +509,7 @@ class Kesiswaan extends BaseController
         } else {
             $data = [
                 'nama'              => $this->request->getVar('nama'),
+                'status'              => $this->request->getVar('status'),
                 'nisn'              => $this->request->getVar('nisn'),
                 'nis'               => $this->request->getVar('nis'),
                 'id_kelas'          => $this->request->getVar('id_kelas'),
@@ -510,6 +519,7 @@ class Kesiswaan extends BaseController
                 'tanggal_lahir'     => $this->request->getVar('tanggal_lahir'),
                 'kontak_siswa'      => $this->request->getVar('kontak_siswa'),
                 'agama'             => $this->request->getVar('agama'),
+                'angkatan'             => $this->request->getVar('angkatan'),
                 'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
                 'nama_bapak'        => $this->request->getVar('nama_bapak'),
                 'nama_ibu'          => $this->request->getVar('nama_ibu'),
@@ -519,13 +529,17 @@ class Kesiswaan extends BaseController
                 'pendapatan_ortu'   => $this->request->getVar('pendapatan_ortu'),
             ];
         }
+
+
         $builder = $this->db->table('siswa');
         $builder->where('idSiswa', $id);
         $builder->update($data);
 
-        $data['kesiswaan'] = 2;
-
-        return redirect()->to(base_url('kesiswaan/siswa/'))->with('message', 'Data Berita Berhasil Diubah');
+        if ($builder) {
+            return redirect()->to(base_url('kesiswaan/siswa/'))->with('message', 'Data Berita Berhasil Diubah');
+        } else {
+            return redirect()->to(base_url('kesiswaan/siswa/'))->with('error', 'Data Berita Berhasil Diubah');
+        }
     }
 
     public function hapussiswa($id)
