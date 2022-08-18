@@ -9,9 +9,9 @@
             <strong> Pilih Periode Pelaporan Keuangan</strong>
             <form action="<?= base_url('keuangan/transaksi') ?>" method="post" accept-charset="utf-8">
                 <div class="input-group mb-3">
-                    <input type="date" class="form-control" name="awal">
+                    <input type="date" class="form-control" name="awal" id="awal">
                     <span class="input-group-text">-></span>
-                    <input type="date" class="form-control" name="akhir">
+                    <input type="date" class="form-control" name="akhir" id="akhir">
                     <button type="submit" class="btn btn-success bg-gradient mx-auto">
                         <i class="fas fa-eye"></i>
                     </button>
@@ -19,25 +19,25 @@
             </form>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 text-center py-1">
-                        <a href="<?= base_url('/keuangan/pembayaranspp/'); ?>">
-                            <button type="button" class="btn btn-success bg-gradient mx-auto">
+                    <div class="col-lg-4 col-md-12 text-center py-1 d-grid gap-3">
+                        <a href="<?= base_url('/keuangan/tambahtransaksi/Pemasukan'); ?>">
+                            <button type="button" class="btn btn-primary bg-gradient mx-auto">
                                 <i class="fas fa-plus-square"></i>
                                 Tambah Pendapatan
                             </button>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-12 text-center py-1">
-                        <a href="<?= base_url('/keuangan/generatetagihan/'); ?>">
+                    <div class="col-lg-4 col-md-12 text-center py-1 d-grid gap-3">
+                        <a href="<?= base_url('/keuangan/tambahtransaksi/Pengeluaran'); ?>">
                             <button type="button" class="btn btn-danger bg-gradient mx-auto">
                                 <i class="fas fa-plus-square"></i>
                                 Tambah Pengeluaran
                             </button>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-12 text-center py-1">
-                        <a href="<?= base_url('/keuangan/generatetagihan/'); ?>">
-                            <button type="button" class="btn btn-primary bg-gradient mx-auto">
+                    <div class="col-lg-4 col-md-12 text-center py-1 d-grid gap-3">
+                        <a href="<?= base_url('/keuangan/tambahjenistrx'); ?>">
+                            <button type="button" class="btn btn-warning bg-gradient mx-auto text-dark">
                                 <i class="fas fa-plus-square"></i>
                                 Jenis Transaksi
                             </button>
@@ -73,11 +73,18 @@
                         <th class="text-center">Waktu</th>
                         <th class="text-center">Jumlah</th>
                         <th class="text-center">Keterangan</th>
-                        <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    <?php foreach ($transaksi as $detTrans) : ?>
+                        <tr class="text-center">
+                            <td> ""</td>
+                            <td> <?= $detTrans->nama; ?></td>
+                            <td> <?= $detTrans->waktu; ?></td>
+                            <td> <?= rp($detTrans->jumlah); ?></td>
+                            <td> <?= $detTrans->ket; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

@@ -318,19 +318,38 @@ class Keuangan extends BaseController
 
 	public function transaksi()
 	{
-		if (empty($this->request->getVar('awal')) && empty($this->request->getVar('awal'))) {
-			$awal = date('Y-m-01 00:00:01');
-			$akhir = date('Y-m-01 h:i:s');
+		if (empty($this->request->getVar('awal')) && empty($this->request->getVar('akhir'))) {
+			$awal = date('Y-m-01 00:i:s');
+			$akhir = date('Y-m-d 23:i:s');
 		} else {
-			$awal = $this->request->getVar('awal');
-			$akhir = $this->request->getVar('akhir');
+			$awal = $this->request->getVar('awal') . " 00:00:01";
+			$akhir = $this->request->getVar('akhir') . " 23:59:59";
 		}
 
-		$data['awal'] = $awal;
-		$data['akhir'] = $akhir;
+		$builder = $this->db->query("SELECT namaTrx.namaTransaksi  as nama,  
+												trx_keuangan.jumlah as jumlah, 
+												trx_keuangan.waktu as waktu, 
+												trx_keuangan.keterangan as ket 
+												FROM trx_keuangan 
+												INNER JOIN namaTrx on namaTrx.idNamaTrx = trx_keuangan.namaTrx 
+												WHERE trx_keuangan.waktu  BETWEEN  '$awal' AND '$akhir'
+												ORDER BY waktu ASC ");
+
+		$data['transaksi'] = $builder->getResult();
 		$data['title'] = "Transaksi | Keuangan";
 		$data['keuangan'] = 4;
 
 		return view('/keuangan/transaksi/transaksi', $data);
+	}
+	public function tambahtransaksi($id)
+	{
+		$builder = $this->db->table('namaTrx')
+			->select("*")->where('jenisTrx', $id)
+			->get();
+		$data['namaTrx'] = $builder->getResult();
+		$data['id'] = $id;
+		$data['title'] = "Penambahan Transaksi" . $id . " | Keuangan";
+		$data['keuangan'] = 4;
+		return view('/keuangan/transaksi/tambahtransaksi', $data);
 	}
 }
