@@ -36,7 +36,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-12 text-center py-1 d-grid gap-3">
-                        <a href="<?= base_url('/keuangan/tambahjenistrx'); ?>">
+                        <a href="<?= base_url('/keuangan/tambahjenistransaksi'); ?>">
                             <button type="button" class="btn btn-warning bg-gradient mx-auto text-dark">
                                 <i class="fas fa-plus-square"></i>
                                 Jenis Transaksi

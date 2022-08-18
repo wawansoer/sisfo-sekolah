@@ -404,4 +404,53 @@ class Keuangan extends BaseController
             }
         }
     }
+
+    public function tambahjenistransaksi()
+    {
+        $data['title'] = "Penambahan Jenis Transaksi | Keuangan";
+        $data['keuangan'] = 4;
+        return view('/keuangan/transaksi/tambahjenistransaksi', $data);
+    }
+
+    public function prosestambahjenistransaksi()
+    {
+        if (!$this->validate([
+            'jenisTransaksi' => [
+                'rules' => 'required|in_list[Pemasukan,Pengeluaran]',
+                'errors' => [
+                    'required' => 'Silahkan Pilih Jenis Pengeluaran',
+                    'in_list'   => 'Jenis Pengeluaran Tidak Valid'
+                ]
+            ],
+            'namaTransaksi' => [
+                'rules' => 'required|is_unique[namaTrx.namaTransaksi]',
+                'errors' => [
+                    'required' => 'Keterangan Transaksi Harus Di isi',
+                    'is_unique' => 'Keterangan Transaksi Tidak Boleh Sama'
+                ]
+            ],
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        } else {
+
+            $data = [
+                'jenisTrx'                      => $this->request->getVar('jenisTransaksi'),
+                'namaTransaksi'          => $this->request->getVar('namaTransaksi'),
+            ];
+
+            $this->db->transBegin();
+
+            $this->db->table('namaTrx')->insert($data);
+
+            if ($this->db->transStatus() === false) {
+                $this->db->transRollback();
+                session()->setFlashdata('error', "Silahkan Periksa Kembali Inputan Anda");
+                return redirect()->back()->withInput();
+            } else {
+                $this->db->transCommit();
+                return redirect()->to(base_url('keuangan/transaksi'))->with('message', 'Berhasil Simpan Data Jenis Transaksi');
+            }
+        }
+    }
 }
