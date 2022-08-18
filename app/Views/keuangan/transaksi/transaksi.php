@@ -10,10 +10,10 @@
             <form action="<?= base_url('keuangan/transaksi') ?>" method="post" accept-charset="utf-8">
                 <div class="input-group mb-3">
                     <input type="date" class="form-control" name="awal" id="awal">
-                    <span class="input-group-text">-></span>
+                    <span class="input-group-text">s / d</span>
                     <input type="date" class="form-control" name="akhir" id="akhir">
                     <button type="submit" class="btn btn-success bg-gradient mx-auto">
-                        <i class="fas fa-eye"></i>
+                        Tampilkan <i class="fas fa-eye"></i>
                     </button>
                 </div>
             </form>
@@ -68,21 +68,23 @@
             <table class="table table-striped" id="periode">
                 <thead>
                     <tr>
-                        <th class="text-center">Jenis </th>
-                        <th class="text-center">Nama </th>
-                        <th class="text-center">Waktu</th>
+                        <th class="text-center">Jenis Transaksi </th>
+                        <th class="text-center">Nama Transaksi</th>
                         <th class="text-center">Jumlah</th>
                         <th class="text-center">Keterangan</th>
+                        <th class="text-center">Waktu</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($transaksi as $detTrans) : ?>
                         <tr class="text-center">
-                            <td> ""</td>
+                            <td>
+                                <?= $detTrans->jenis == "Pemasukan"  ? "<strong class='text-success'> Pemasukan </strong>" : "<strong class='text-danger'> Pengeluaran </strong>"; ?>
+                            </td>
                             <td> <?= $detTrans->nama; ?></td>
-                            <td> <?= $detTrans->waktu; ?></td>
                             <td> <?= rp($detTrans->jumlah); ?></td>
                             <td> <?= $detTrans->ket; ?></td>
+                            <td> <?= $detTrans->waktu; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -11,11 +11,11 @@
                     <strong>Mohon maaf Gagal Simpan Data ! </strong> <?php echo session()->getFlashdata('error'); ?>
                 </div>
             <?php endif; ?>
-            <form action="<?= base_url('keuangan/prosestambahpembayaran') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <form action="<?= base_url('keuangan/prosestambahtransaksi') ?>" method="post" accept-charset="utf-8">
                 <?= csrf_field(); ?>
 
                 <div class="row mb-3">
-                    <label for="idNamaTrx" class="col-sm-4 col-form-label">Periode SPP</label>
+                    <label for="idNamaTrx" class="col-sm-4 col-form-label">Pilih Transaksi</label>
                     <div class="col-sm-8">
                         <select name="idNamaTrx" class="form-control" required>
                             <option <?= (old('idNamaTrx') == "" ? "selected" : ""); ?>> -- Pilih Nama Transaksi -- </option>
