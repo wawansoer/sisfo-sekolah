@@ -189,6 +189,29 @@ class Keuangan extends BaseController
         return view('/keuangan/pembayaran_spp/pembayaran', $data);
     }
 
+    public function detailtagihan()
+    {
+        $data['title'] = "Detail Tagihan SPP | Keuangan";
+        $data['keuangan'] = 3;
+
+        $query = $this->db->query('SELECT 
+                                        pembSPP.idSiswa as idSiswa,
+                                        siswa.nis as nis, 
+                                        siswa.nama as namaSiswa,
+                                        kelas.nama_kelas as kelas,
+                                        sum(DISTINCT periode_spp.jumlah) as tagihan,
+                                        sum(pembSPP.jumlah) as bayar,
+                                        (sum(DISTINCT periode_spp.jumlah) - sum(pembSPP.jumlah)) as sisa
+                                    FROM pembSPP 
+                                    INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
+                                    INNER join siswa on siswa.idSiswa = pembSPP.idSiswa
+                                    LEFT JOIN kelas on siswa.id_kelas = kelas.id_kelas 
+                                    GROUP BY pembSPP.idSiswa');
+        $data['pembSPP'] = $query->getResult();
+
+        return view('/keuangan/pembayaran_spp/detailtagihan', $data);
+    }
+
     public function carisiswa()
     {
         helper(['form', 'url']);
