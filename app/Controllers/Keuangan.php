@@ -172,42 +172,41 @@ class Keuangan extends BaseController
         $data['keuangan'] = 3;
 
         $query = $this->db->query('SELECT 
-                                        pembSPP.idSiswa as idSiswa,
-                                        siswa.nis as nis, 
-                                        siswa.nama as namaSiswa,
-                                        kelas.nama_kelas as kelas,
-                                        sum(DISTINCT periode_spp.jumlah) as tagihan,
-                                        sum(pembSPP.jumlah) as bayar,
-                                        (sum(DISTINCT periode_spp.jumlah) - sum(pembSPP.jumlah)) as sisa
-                                    FROM pembSPP 
-                                    INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
-                                    INNER join siswa on siswa.idSiswa = pembSPP.idSiswa
-                                    LEFT JOIN kelas on siswa.id_kelas = kelas.id_kelas 
-                                    GROUP BY pembSPP.idSiswa');
+                                    pembSPP.idSiswa as idSiswa,
+                                    siswa.nis as nis, 
+                                    siswa.nama as namaSiswa,
+                                    kelas.nama_kelas as kelas,
+                                    ABS(SUM(IF(pembSPP.jumlah < 0, pembSPP.jumlah,0))) as tagihan,
+                                    SUM(IF(pembSPP.jumlah > 0, pembSPP.jumlah,0)) as bayar, 
+                                    ((ABS(SUM(IF(pembSPP.jumlah < 0, pembSPP.jumlah,0))))-
+                                    (SUM(IF(pembSPP.jumlah > 0, pembSPP.jumlah,0)))) as sisa
+                                FROM pembSPP 
+                                INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
+                                INNER join siswa on siswa.idSiswa = pembSPP.idSiswa
+                                LEFT JOIN kelas on siswa.id_kelas = kelas.id_kelas 
+                                GROUP BY pembSPP.idSiswa');
         $data['pembSPP'] = $query->getResult();
 
         return view('/keuangan/pembayaran_spp/pembayaran', $data);
     }
 
-    public function detailtagihan()
+    public function detailtagihan($id)
     {
         $data['title'] = "Detail Tagihan SPP | Keuangan";
         $data['keuangan'] = 3;
 
-        $query = $this->db->query('SELECT 
-                                        pembSPP.idSiswa as idSiswa,
-                                        siswa.nis as nis, 
-                                        siswa.nama as namaSiswa,
-                                        kelas.nama_kelas as kelas,
-                                        sum(DISTINCT periode_spp.jumlah) as tagihan,
-                                        sum(pembSPP.jumlah) as bayar,
-                                        (sum(DISTINCT periode_spp.jumlah) - sum(pembSPP.jumlah)) as sisa
-                                    FROM pembSPP 
-                                    INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
-                                    INNER join siswa on siswa.idSiswa = pembSPP.idSiswa
-                                    LEFT JOIN kelas on siswa.id_kelas = kelas.id_kelas 
-                                    GROUP BY pembSPP.idSiswa');
-        $data['pembSPP'] = $query->getResult();
+        $query = $this->db->query('SELECT periode_spp.idPeriode  as idPeriode,
+                                    periode_spp.namaPeriode as periode,
+                                    pembSPP.idSiswa as idSiswa, 
+                                    ABS(SUM(IF(pembSPP.jumlah < 0, pembSPP.jumlah,0))) as tagihan,
+                                    SUM(IF(pembSPP.jumlah > 0, pembSPP.jumlah,0)) as bayar, 
+                                    ((ABS(SUM(IF(pembSPP.jumlah < 0, pembSPP.jumlah,0))))-
+                                    (SUM(IF(pembSPP.jumlah > 0, pembSPP.jumlah,0)))) as sisa
+                                FROM pembSPP 
+                                INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
+                                WHERE pembSPP.idSiswa = ' . $id . '
+                                GROUP BY pembSPP.idSpp ');
+        $data['rincian'] = $query->getResult();
 
         return view('/keuangan/pembayaran_spp/detailtagihan', $data);
     }
@@ -308,7 +307,7 @@ class Keuangan extends BaseController
 
         $tahun = date('Y');
         $bulan = date('m');
-        $tarikPeriode = $this->db->query("SELECT idPeriode  from periode_spp
+        $tarikPeriode = $this->db->query("SELECT idPeriode, jumlah from periode_spp
 		WHERE YEAR(awalPeriode) = $tahun 
 		AND MONTH(awalPeriode) = $bulan
 		AND YEAR (akhirPeriode) = $tahun
@@ -317,6 +316,7 @@ class Keuangan extends BaseController
 
         foreach ($tarikPeriode as $periode) :
             $usePeriode = $periode->idPeriode;
+            $tagihan = $periode->jumlah;
         endforeach;
         $waktuTransaksi = date('Y-m-d h:i:s');
 
@@ -327,7 +327,7 @@ class Keuangan extends BaseController
             $idPembayaran = md5($siswa->idSiswa . "0" . $usePeriode . "1" . $idTime);
             $this->db->query("INSERT INTO  pembSPP 
 							(idPembayaran, idSiswa, idSpp, jumlah, waktu, keterangan) VALUES
-							('$idPembayaran', $siswa->idSiswa, $usePeriode, 0, '$waktuTransaksi', 'Inisiasi Tagihan')");
+							('$idPembayaran', $siswa->idSiswa, $usePeriode, -$tagihan, '$waktuTransaksi', 'Inisiasi Tagihan')");
         endforeach;
 
         if ($this->db->transStatus() === false) {
@@ -350,14 +350,14 @@ class Keuangan extends BaseController
         }
 
         $builder = $this->db->query("SELECT namaTrx.jenisTrx  as jenis,
-                                                namaTrx.namaTransaksi  as nama,  
-												trx_keuangan.jumlah as jumlah, 
-												trx_keuangan.waktu as waktu, 
-												trx_keuangan.keterangan as ket 
-												FROM trx_keuangan 
-												INNER JOIN namaTrx on namaTrx.idNamaTrx = trx_keuangan.namaTrx 
-												WHERE trx_keuangan.waktu  BETWEEN  '$awal' AND '$akhir'
-												ORDER BY waktu DESC ");
+                                    namaTrx.namaTransaksi  as nama,  
+									trx_keuangan.jumlah as jumlah, 
+									trx_keuangan.waktu as waktu, 
+									trx_keuangan.keterangan as ket 
+									FROM trx_keuangan 
+									INNER JOIN namaTrx on namaTrx.idNamaTrx = trx_keuangan.namaTrx 
+									WHERE trx_keuangan.waktu  BETWEEN  '$awal' AND '$akhir'
+									ORDER BY waktu DESC ");
 
         $data['transaksi'] = $builder->getResult();
         $data['title'] = "Transaksi | Keuangan";

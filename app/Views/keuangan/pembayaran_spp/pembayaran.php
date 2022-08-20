@@ -9,12 +9,6 @@
                         <h4> Laporan Pembayaran SPP</h4>
                     </div>
                     <div class="col-lg-6 col-md-12 d-grid gap-2 d-md-flex justify-content-md-end ">
-                        <a href="<?= base_url('/keuangan/pembayaranspp/'); ?>">
-                            <button type="button" class="btn btn-primary btn-sm bg-gradient mx-auto">
-                                <i class="fas fa-plus-square"></i>
-                                Pembayaran SPP
-                            </button>
-                        </a>
                         <a href="<?= base_url('/keuangan/generatetagihan/'); ?>">
                             <button type="button" class="btn btn-warning text-dark btn-sm bg-gradient mx-auto">
                                 <i class="fas fa-tasks"></i>
