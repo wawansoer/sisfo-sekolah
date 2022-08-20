@@ -266,19 +266,19 @@ class Keuangan extends BaseController
             $idTime = date('Ymd');
             $idPembayaran = md5($this->request->getVar('idSiswa') . "" . $this->request->getVar('jumlah') . "" . $this->request->getVar('idSpp') . "2" . $idTime);
             $data = [
-                'idPembayaran'         => $idPembayaran,
-                'idSiswa'                    => $this->request->getVar('idSiswa'),
-                'idSpp'                      => $this->request->getVar('idSpp'),
-                'jumlah'                    => $this->request->getVar('jumlah'),
-                'waktu'                     => date('Y-m-d h:i:s'),
-                'keterangan'                 => $this->request->getVar('keterangan')
+                'idPembayaran'      => $idPembayaran,
+                'idSiswa'           => $this->request->getVar('idSiswa'),
+                'idSpp'             => $this->request->getVar('idSpp'),
+                'jumlah'            => $this->request->getVar('jumlah'),
+                'waktu'             => date('Y-m-d h:i:s'),
+                'keterangan'        => $this->request->getVar('keterangan')
             ];
             $dataTrx = [
-                'namaTrx'                     => 20000,
-                'jumlah'                         => $this->request->getVar('jumlah'),
-                'waktu'                         => date('Y-m-d h:i:s'),
-                'createdAt'                    => date('Y-m-d h:i:s'),
-                'keterangan'              => "Pembayaran SPP Siswa"
+                'namaTrx'           => 20000,
+                'jumlah'            => $this->request->getVar('jumlah'),
+                'waktu'             => date('Y-m-d h:i:s'),
+                'createdAt'         => date('Y-m-d h:i:s'),
+                'keterangan'        => "Pembayaran SPP Siswa"
             ];
             $this->db->transBegin();
 

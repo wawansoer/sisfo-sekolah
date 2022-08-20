@@ -54,3 +54,10 @@ CRITICAL - 2022-08-20 04:37:23 --> Duplicate entry '52481c92afc3fd041e5242461a94
 #7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
 #8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
 #9 {main}
+CRITICAL - 2022-08-20 07:24:07 --> Too few arguments to function App\Controllers\Keuangan::pembayaranspp(), 0 passed in /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php on line 832 and exactly 2 expected
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->pembayaranspp()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
