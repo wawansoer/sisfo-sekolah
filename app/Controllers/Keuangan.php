@@ -211,88 +211,12 @@ class Keuangan extends BaseController
         return view('/keuangan/pembayaran_spp/detailtagihan', $data);
     }
 
-    public function carisiswa()
+    public function bayartagihan($idSiswa, $idPeriode)
     {
-        helper(['form', 'url']);
-        $data = [];
-        $builder = $this->db->table('siswa')
-            ->select('idSiswa as id, nama as text')
-            ->where('status', 'Aktif');
-        if (empty($this->request->getVar('q'))) {
-            $query = $builder->limit(5)->get();
-        } else {
-            $query = $builder->like('nama', $this->request->getVar('q'))
-                ->limit(5)->get();
-        }
+        $siswa = md5($idSiswa);
+        $periode = md5($idPeriode);
 
-        $data = $query->getResult();
-
-        echo json_encode($data);
-    }
-
-    public function pembayaranspp()
-    {
-        $data['title'] = "Pembayaran SPP | Keuangan";
-        $data['keuangan'] = 3;
-        $query = $this->db->table('periode_spp')->select('idPeriode, namaPeriode')
-            ->orderBy('awalPeriode',  'DESC')->limit(12);
-        $hasilQuery = $query->get();
-        $data['periode'] = $hasilQuery->getResult();
-
-        return view('/keuangan/pembayaran_spp/tambahPembayaran', $data);
-    }
-
-    public function prosestambahpembayaran()
-    {
-        if (!$this->validate([
-            'idSiswa' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Silahkan Pilih Siswa ',
-                ]
-            ],
-            'jumlah' => [
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Jumlah Bayar SPP Harus diisi',
-                    'numeric' => 'Format Jumlah Bayar SPP Tidak Dikenali',
-                ]
-            ],
-        ])) {
-            session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->back()->withInput();
-        } else {
-            $idTime = date('Ymd');
-            $idPembayaran = md5($this->request->getVar('idSiswa') . "" . $this->request->getVar('jumlah') . "" . $this->request->getVar('idSpp') . "2" . $idTime);
-            $data = [
-                'idPembayaran'      => $idPembayaran,
-                'idSiswa'           => $this->request->getVar('idSiswa'),
-                'idSpp'             => $this->request->getVar('idSpp'),
-                'jumlah'            => $this->request->getVar('jumlah'),
-                'waktu'             => date('Y-m-d h:i:s'),
-                'keterangan'        => $this->request->getVar('keterangan')
-            ];
-            $dataTrx = [
-                'namaTrx'           => 20000,
-                'jumlah'            => $this->request->getVar('jumlah'),
-                'waktu'             => date('Y-m-d h:i:s'),
-                'createdAt'         => date('Y-m-d h:i:s'),
-                'keterangan'        => "Pembayaran SPP Siswa"
-            ];
-            $this->db->transBegin();
-
-            $this->db->table('pembSPP')->insert($data);
-            $this->db->table('trx_keuangan')->insert($dataTrx);
-
-            if ($this->db->transStatus() === false) {
-                $this->db->transRollback();
-                session()->setFlashdata('error', "Silahkan Periksa Kembali Inputan Anda");
-                return redirect()->back()->withInput();
-            } else {
-                $this->db->transCommit();
-                return redirect()->to(base_url('keuangan/bayarspp'))->with('message', 'Anda Telah Membuat Tagihan Bulan Ini');
-            }
-        }
+        echo $siswa . "/" . $periode;
     }
 
     public function generatetagihan()

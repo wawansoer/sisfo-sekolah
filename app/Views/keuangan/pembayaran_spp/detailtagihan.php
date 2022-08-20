@@ -35,7 +35,7 @@
                             <td> <?= rp($detSPP->bayar); ?> </td>
                             <td> <?= rp($detSPP->sisa); ?> </td>
                             <td>
-                                <a href="<?= base_url('/keuangan/bayar/' . $detSPP->idSiswa); ?>">
+                                <a href="<?= base_url('/keuangan/bayartagihan/' . md5($detSPP->idSiswa) . '/' . md5($detSPP->idPeriode)); ?>">
                                     <button type="button" class="btn btn-success btn-sm bg-gradient mx-auto">
                                         <i class="fas fa-eye"></i>
                                         Bayar
