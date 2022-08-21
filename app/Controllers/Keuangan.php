@@ -304,8 +304,8 @@ class Keuangan extends BaseController
     public function transaksi()
     {
         if (empty($this->request->getVar('awal')) && empty($this->request->getVar('akhir'))) {
-            $awal = date('Y-m-01 00:i:s');
-            $akhir = date('Y-m-d 23:i:s');
+            $awal = date('Y-m-01 00:00:01');
+            $akhir = date('Y-m-d 23:59:59');
         } else {
             $awal = $this->request->getVar('awal') . " 00:00:01";
             $akhir = $this->request->getVar('akhir') . " 23:59:59";
