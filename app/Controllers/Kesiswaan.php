@@ -193,10 +193,10 @@ class Kesiswaan extends BaseController
             ->save(WRITEPATH . '../public/assets/upload/siswa/thumbs/' . $namabaru);
 
         $data = [
-            'nama'                  => $this->request->getVar('nama'),
-            'nisn'                  => $this->request->getVar('nisn'),
-            'nis'                   => $this->request->getVar('nis'),
-            'id_kelas'                      => $this->request->getVar('id_kelas'),
+            'nama'              => $this->request->getVar('nama'),
+            'nisn'              => $this->request->getVar('nisn'),
+            'nis'               => $this->request->getVar('nis'),
+            'id_kelas'          => $this->request->getVar('id_kelas'),
             'alamat_domisili'   => $this->request->getVar('alamat_domisili'),
             'pos_domisili'      => $this->request->getVar('pos_domisili'),
             'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
@@ -211,8 +211,9 @@ class Kesiswaan extends BaseController
             'pos_orang_tua'     => $this->request->getVar('pos_orang_tua'),
             'kontak_orangtua'   => $this->request->getVar('kontak_orangtua'),
             'pendapatan_ortu'   => $this->request->getVar('pendapatan_ortu'),
-            'angkatan'               => $this->request->getVar('angkatan'),
-            'createdAt'           => date('Y-m-d h:i:s'),
+            'angkatan'          => $this->request->getVar('angkatan'),
+            'createdAt'         => date('Y-m-d h:i:s'),
+            'status'            => 'Aktif'
 
         ];
 
@@ -234,7 +235,7 @@ class Kesiswaan extends BaseController
         $bulan = date('m');
 
         //tarik periode saat ini 
-        $tarikPeriode = $this->db->query("SELECT idPeriode  from periode_spp
+        $tarikPeriode = $this->db->query("SELECT idPeriode, jumlah  from periode_spp
                                                         WHERE YEAR(awalPeriode) = $tahun 
                                                         AND MONTH(awalPeriode) = $bulan
                                                         AND YEAR (akhirPeriode) = $tahun
@@ -243,6 +244,7 @@ class Kesiswaan extends BaseController
 
         foreach ($tarikPeriode as $periode) :
             $usePeriode = $periode->idPeriode;
+            $useTagihan = $periode->jumlah;
         endforeach;
 
         // input tagihan pertama siswa baru
@@ -252,7 +254,7 @@ class Kesiswaan extends BaseController
             $idPembayaran = md5($siswa->idSiswa . "0" . $usePeriode . "1" . $idTime);
             $this->db->query("INSERT INTO  pembSPP 
 							(idPembayaran, idSiswa, idSpp, jumlah, waktu, keterangan) VALUES
-							('$idPembayaran', $siswa->idSiswa, $usePeriode, 0, '$waktuTransaksi', 'Inisiasi Tagihan')");
+							('$idPembayaran', $siswa->idSiswa, $usePeriode, -$useTagihan, '$waktuTransaksi', 'Inisiasi Tagihan')");
         endforeach;
 
 
