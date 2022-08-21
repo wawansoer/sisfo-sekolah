@@ -213,10 +213,31 @@ class Keuangan extends BaseController
 
     public function bayartagihan($idSiswa, $idPeriode)
     {
-        $siswa = md5($idSiswa);
-        $periode = md5($idPeriode);
+        $decIdSiswa     = base64_decode($idSiswa);
+        $decIdPeriode   = base64_decode($idPeriode);
 
-        echo $siswa . "/" . $periode;
+        $query = $this->db->query('SELECT periode_spp.idPeriode  as idPeriode, 
+                                    ABS(SUM(IF(pembSPP.jumlah < 0, pembSPP.jumlah,0))) as tagihan,
+                                    SUM(IF(pembSPP.jumlah > 0, pembSPP.jumlah,0)) as bayar, 
+                                    ((ABS(SUM(IF(pembSPP.jumlah < 0, pembSPP.jumlah,0))))-
+                                    (SUM(IF(pembSPP.jumlah > 0, pembSPP.jumlah,0)))) as sisa
+                                FROM pembSPP 
+                                INNER join periode_spp on pembSPP.idSpp = periode_spp.idPeriode
+                                WHERE pembSPP.idSiswa = ' . $decIdSiswa . ' AND pembSPP.idSpp = ' . $decIdPeriode . '
+                                GROUP BY pembSPP.idSpp ');
+        $data = $query->getResult();
+
+        foreach ($data as $datas) :
+            $idPeriode = $datas->idPeriode;
+            $tagihan = $datas->tagihan;
+            $sisa = $datas->sisa;
+        endforeach;
+
+        if ($sisa > 0) {
+            echo "SIAP BAYAR";
+        } else {
+            return redirect()->to(base_url('keuangan/detailtagihan/' . $decIdSiswa))->with('error', 'Tidak ada tagihan untuk periode ini');
+        }
     }
 
     public function generatetagihan()

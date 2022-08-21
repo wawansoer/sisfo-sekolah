@@ -35,12 +35,26 @@
                             <td> <?= rp($detSPP->bayar); ?> </td>
                             <td> <?= rp($detSPP->sisa); ?> </td>
                             <td>
-                                <a href="<?= base_url('/keuangan/bayartagihan/' . md5($detSPP->idSiswa) . '/' . md5($detSPP->idPeriode)); ?>">
+                                <?php
+                                if ($detSPP->sisa > 0) {
+                                ?>
+                                    <a href="<?= base_url('/keuangan/bayartagihan/' . base64_encode($detSPP->idSiswa) . '/' . base64_encode($detSPP->idPeriode)); ?>">
+                                        <button type="button" class="btn btn-warning btn-sm bg-gradient mx-auto text-dark">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                            Bayar
+                                        </button>
+                                    </a>
+                                <?php
+                                } else {
+                                ?>
                                     <button type="button" class="btn btn-success btn-sm bg-gradient mx-auto">
-                                        <i class="fas fa-eye"></i>
-                                        Bayar
+                                        <i class="fas fa-receipt"></i>
+                                        Lunas
                                     </button>
-                                </a>
+                                <?php
+                                }
+                                ?>
+
 
                             </td>
                         </tr>
