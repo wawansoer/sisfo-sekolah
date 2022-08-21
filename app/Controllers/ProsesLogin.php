@@ -31,6 +31,8 @@ class ProsesLogin extends BaseController
             return redirect()->to('kesiswaan');
         } elseif ($idRole == 6) {
             return redirect()->to('tatausaha');
+        } elseif ($idRole == 7) {
+            return redirect()->to('keuangan');
         }
     }
 }
