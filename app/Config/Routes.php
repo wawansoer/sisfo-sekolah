@@ -126,11 +126,31 @@ $routes->get('/tatausaha/ubahpengumuman/(:any)', 'Tatausaha::ubahpengumuman/$1',
 $routes->post('/tatausaha/prosesubahpengumuman/(:any)', 'Tatausaha::prosesubahpengumuman/$1', ['filter' => 'role:Tata Usaha']);
 $routes->post('/tatausaha/hapuspengumuman/(:any)', 'Tatausaha::hapuspengumuman/$1', ['filter' => 'role:Tata Usaha']);
 
-$routes->get('/tatausaha/pengumuman', 'Tatausaha::pengumuman', ['filter' => 'role:Tata Usaha']);
+
 
 // keuangan 
-$routes->get('/keuangan/carisiswa', 'Keuangan::carisiswa');
-$routes->post('keuangan/pembayaran', 'Keuangan::pembayaranSPP');
+$routes->get('/keuangan', 'Keuangan::index', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/periodespp', 'Keuangan::periodespp', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/prosestambahperiodespp', 'Keuangan::prosestambahperiodespp', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/hapusperiodespp/(:any)', 'Keuangan::hapusperiodespp/$1', ['filter' => 'role:Keuangan']);
+$routes->put('/keuangan/prosesubahperiodespp/(:any)', 'Keuangan::prosesubahperiodespp/$1', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/bayarspp', 'Keuangan::bayarspp', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/detailtagihan/(:any)', 'Keuangan::detailtagihan/$1', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/bayartagihan/(:any)/(:any)', 'Keuangan::bayartagihan/$1/$1', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/generatetagiahan', 'Keuangan::generatetagiahan', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/transaksi', 'Keuangan::transaksi', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/tambahtransaksi/(:any)', 'Keuangan::tambahtransaksi/$1', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/prosestambahtransaksi', 'Keuangan::prosestambahtransaksi', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/tambahjenistransaksi', 'Keuangan::tambahjenistransaksi', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/pengumuman', 'Keuangan::pengumuman', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/tambahpengumuman', 'Keuangan::tambahpengumuman', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/prosestambahpengumuman', 'Keuangan::prosestambahpengumuman', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/detailpengumuman/(:any)', 'Keuangan::detailpengumuman/$1', ['filter' => 'role:Keuangan']);
+$routes->get('/keuangan/ubahpengumuman/(:any)', 'Keuangan::ubahpengumuman/$1', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/prosesubahpengumuman/(:any)', 'Keuangan::prosesubahpengumuman/$1', ['filter' => 'role:Keuangan']);
+$routes->post('/keuangan/hapuspengumuman/(:any)', 'Keuangan::hapuspengumuman/$1', ['filter' => 'role:Keuangan']);
+
+
 // calon siswa
 $routes->get('/calonsiswa', 'Calonsiswa::index', ['filter' => 'role:Casis']);
 $routes->get('/calonsiswa/ubahData/(:num)', 'Calonsiswa::ubahData/$1', ['filter' => 'role:Casis']);
