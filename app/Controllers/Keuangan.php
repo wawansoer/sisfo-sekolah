@@ -234,7 +234,24 @@ class Keuangan extends BaseController
         endforeach;
 
         if ($sisa > 0) {
-            echo "SIAP BAYAR";
+            $idTime = date('Ymd');
+            $idPembayaran = md5($decIdSiswa . $tagihan . $decIdSiswa . "1" . $idTime);
+
+            $this->db->transBegin();
+            $date = date("Y-m-d h:i:s");
+            $this->db->query("INSERT INTO trx_keuangan (namaTrx, jumlah, createdAt, keterangan)
+                            VALUES (20000, $tagihan, '$date', 'Pembayaran SPP Siswa')");
+
+            $this->db->query("INSERT INTO pembSPP (idPembayaran, idSiswa, idSpp, jumlah, waktu, keterangan)
+                            VALUES ('$idPembayaran', $decIdSiswa, $decIdPeriode, $tagihan, '$date', 'Pembayaran SPP Siswa')");
+
+            if ($this->db->transStatus() === false) {
+                $this->db->transRollback();
+                return redirect()->to(base_url('keuangan/detailtagihan/' . $decIdSiswa))->with('error', 'Tidak dapat bayar tagihan.');
+            } else {
+                $this->db->transCommit();
+                return redirect()->to(base_url('keuangan/detailtagihan/' . $decIdSiswa))->with('message', 'Berhasil Melakukan Pembayaran SPP');
+            }
         } else {
             return redirect()->to(base_url('keuangan/detailtagihan/' . $decIdSiswa))->with('error', 'Tidak ada tagihan untuk periode ini');
         }
