@@ -6,3 +6,30 @@ CRITICAL - 2022-08-21 01:23:42 --> Undefined property: stdClass::$jumlah
 #4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
 #5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
 #6 {main}
+CRITICAL - 2022-08-21 01:39:37 --> Argument 1 passed to CodeIgniter\Database\BaseBuilder::update() must be of the type array or null, string given, called in /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php on line 166
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(166): CodeIgniter\Database\BaseBuilder->update()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->prosesubahperiodespp()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#6 {main}
+CRITICAL - 2022-08-21 01:47:09 --> Object of class CodeIgniter\HTTP\IncomingRequest could not be converted to string
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->prosesubahperiodespp()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#5 {main}
+ERROR - 2022-08-21 01:48:07 --> Duplicate entry '7474d6652375cdb4a3775df69d4f8db0' for key 'pembSPP.PRIMARY'
+CRITICAL - 2022-08-21 01:48:07 --> Duplicate entry '7474d6652375cdb4a3775df69d4f8db0' for key 'pembSPP.PRIMARY'
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(292): mysqli->query()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(299): CodeIgniter\Database\BaseConnection->query()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->generatetagihan()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#9 {main}

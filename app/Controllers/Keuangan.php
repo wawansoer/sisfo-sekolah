@@ -154,15 +154,22 @@ class Keuangan extends BaseController
             'keterangan'         => $this->request->getVar('keterangan')
         ];
 
-        $builder = $this->db->table('periode_spp');
-        $builder->where('idPeriode', $id);
-        $builder->update($data);
+        $jumlah = $this->request->getVar('jumlah');
+        $this->db->transBegin();
 
-        if ($builder) {
-            return redirect()->to(base_url('keuangan/periodespp'))->with('message', 'Data Berhasil Diubah');
+        $this->db->table('periode_spp')->where('idPeriode', $id)->update($data);
+
+        $this->db->query("UPDATE pembSPP set 
+                        jumlah = -$jumlah 
+                        WHERE idSpp = $id AND keterangan = 'Inisiasi Tagihan'");
+
+
+        if ($this->db->transStatus() === false) {
+            $this->db->transRollback();
+            return redirect()->back()->withInput()->with('error', 'Tidak dapat membuat tagihan. Anda Telah Membuat Tagihan Bulan Ini');
         } else {
-            session()->setFlashdata('error', "");
-            return redirect()->back()->withInput();
+            $this->db->transCommit();
+            return redirect()->to(base_url('keuangan/periodespp'))->with('message', 'Data Berhasil Diubah');
         }
     }
 
