@@ -445,4 +445,280 @@ class Keuangan extends BaseController
             }
         }
     }
+
+    public function detailpengumuman($id)
+    {
+        $query = $this->db->table('pengumuman');
+        $query->select('*');
+        $query->join('users', 'users.id = pengumuman.id_user');
+        $query->where('id_pengumuman', $id);
+        $hasilQuery = $query->get();
+        $dataPengumuman = $hasilQuery->getResult();
+        if (empty($hasilQuery)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Berita Tidak ditemukan !');
+        }
+
+        foreach ($dataPengumuman as $det) :
+            $data['id_pengumuman'] = $det->id_pengumuman;
+            $data['username'] = $det->username;
+            $data['pengumuman'] = $det->pengumuman;
+            $data['berkas'] = $det->berkas;
+            $data['gambar'] = $det->gambar;
+            $data['deskripsi'] = $det->deskripsi;
+            $data['keyword'] = $det->keyword;
+            $data['created_at'] = $det->created_at;
+        endforeach;
+
+        $data['keuangan'] = 5;
+
+        $data['title'] = "Detail Pengumuman | keuangan";
+        return view('/keuangan/pengumuman/detailpengumuman', $data);
+    }
+
+    public function ubahpengumuman($id)
+    {
+        $query = $this->db->table('pengumuman');
+        $query->select('*');
+        $query->join('users', 'users.id = pengumuman.id_user');
+        $query->where('id_pengumuman', $id);
+        $hasilQuery = $query->get();
+        $dataPengumuman = $hasilQuery->getResult();
+        if (empty($hasilQuery)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Berita Tidak ditemukan !');
+        }
+
+        foreach ($dataPengumuman as $det) :
+            $data['id_pengumuman'] = $det->id_pengumuman;
+            $data['username'] = $det->username;
+            $data['pengumuman'] = $det->pengumuman;
+            $data['berkas'] = $det->berkas;
+            $data['gambar'] = $det->gambar;
+            $data['deskripsi'] = $det->deskripsi;
+            $data['keyword'] = $det->keyword;
+            $data['created_at'] = $det->created_at;
+        endforeach;
+
+        $data['keuangan'] = 5;
+
+        $data['title'] = "Ubah Pengumuman | keuangan";
+        return view('/keuangan/pengumuman/ubahpengumuman', $data);
+    }
+
+    public function prosesubahpengumuman($id)
+    {
+        $idUser = user_id();
+
+        if (!$this->validate([
+            'gambar' => [
+                'mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[gambar,1024]',
+            ],
+            'berkas' => [
+                'mime_in[berkas,application/pdf]',
+                'max_size[berkas,1024]',
+            ],
+            'pengumuman' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Pengumuman Harus diisi',
+                ]
+            ],
+            'deskripsi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Deskripsi Pengumuman Harus diisi'
+                ]
+            ],
+            'keyword' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Keyword Pengumuman Harus diisi'
+                ]
+            ],
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
+
+        if (!empty($_FILES['gambar']['name']) && !empty($_FILES['berkas']['name'])) {
+            $avatar   = $this->request->getFile('gambar');
+            $namabaru = str_replace(' ', '-', $avatar->getName());
+            $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
+            // Create thumb
+            $image = \Config\Services::image()
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+
+            $dokumen   = $this->request->getFile('berkas');
+            $namaDok = str_replace(' ', '-', $dokumen->getName());
+            $dokumen->move(WRITEPATH . '../public/assets/upload/doc/', $namaDok);
+
+
+            $data = [
+                'id_user'           => $idUser,
+                'pengumuman'        => $this->request->getVar('pengumuman'),
+                'deskripsi'         => $this->request->getVar('deskripsi'),
+                'gambar'            => $namabaru,
+                'berkas'            => $namaDok,
+                'keyword'           => $this->request->getVar('keyword'),
+                'updated_at'        => date('Y-m-d H-i-s'),
+            ];
+        } elseif (!empty($_FILES['berkas']['name'])) {
+            $dokumen   = $this->request->getFile('berkas');
+            $namaDok = str_replace(' ', '-', $dokumen->getName());
+            $dokumen->move(WRITEPATH . '../public/assets/upload/doc/', $namaDok);
+
+            $data = [
+                'id_user'           => $idUser,
+                'pengumuman'        => $this->request->getVar('pengumuman'),
+                'deskripsi'         => $this->request->getVar('deskripsi'),
+                'berkas'            => $namaDok,
+                'keyword'           => $this->request->getVar('keyword'),
+                'updated_at'        => date('Y-m-d H-i-s'),
+            ];
+        } elseif (!empty($_FILES['gambar']['name'])) {
+            $avatar   = $this->request->getFile('gambar');
+            $namabaru = str_replace(' ', '-', $avatar->getName());
+            $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
+            // Create thumb
+            $image = \Config\Services::image()
+                ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+
+            $data = [
+                'id_user'           => user_id(),
+                'pengumuman'        => $this->request->getVar('pengumuman'),
+                'deskripsi'         => $this->request->getVar('deskripsi'),
+                'gambar'            => $namabaru,
+                'keyword'           => $this->request->getVar('keyword'),
+                'updated_at'        => date('Y-m-d H-i-s'),
+            ];
+        } else {
+            $data = [
+                'id_user'           => user_id(),
+                'pengumuman'        => $this->request->getVar('pengumuman'),
+                'deskripsi'         => $this->request->getVar('deskripsi'),
+                'keyword'           => $this->request->getVar('keyword'),
+                'updated_at'        => date('Y-m-d H-i-s'),
+            ];
+        }
+
+
+        $builder = $this->db->table('pengumuman');
+        $builder->where('id_pengumuman', $id);
+        $builder->update($data);
+
+        $data['keuangan'] = 5;
+
+        return redirect()->to(base_url('keuangan/pengumuman/'))->with('message', 'Data Pengumuman Berhasil Diubah');
+    }
+
+    public function hapuspengumuman($id)
+    {
+        $query = $this->db->table('pengumuman');
+        $query->where('id_pengumuman', $id);
+        $hasilQuery = $query->get();
+
+        if (empty($hasilQuery)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
+        }
+
+        $query = $this->db->table('pengumuman');
+        $query->delete(['id_pengumuman' => $id]);
+
+        $data['keuangan'] = 5;
+        $data['title'] = "Pengumuman | keuangan";
+        return redirect()->to(base_url('keuangan/pengumuman/'))->with('message', 'Data Berhasil Dihapus');
+    }
+
+    public function pengumuman()
+    {
+        $data['title'] = "Berkas & Pengumuman | keuangan";
+        $data['keuangan'] = 5;
+
+        $query = $this->db->table('pengumuman');
+        $query->select('*');
+        $hasilQuery = $query->get();
+        $data['pengumuman'] = $hasilQuery->getResult();
+
+        return view('/keuangan/pengumuman/pengumuman', $data);
+    }
+
+    public function tambahpengumuman()
+    {
+        $data['title'] = "Pengumuman & Berkas| keuangan";
+        $data['keuangan'] = 5;
+
+        return view('/keuangan/pengumuman/tambahpengumuman', $data);
+    }
+
+    public function prosestambahpengumuman()
+    {
+        if (!$this->validate([
+            'gambar' => [
+                'mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[gambar,1024]',
+            ],
+            'berkas' => [
+                'mime_in[berkas,application/pdf]',
+                'max_size[berkas,1024]',
+            ],
+            'pengumuman' => [
+                'rules' => 'required|is_unique[pengumuman.pengumuman]',
+                'errors' => [
+                    'required' => 'Nama Pengumuman Harus diisi',
+                    'is_unique' => 'Nama Pengumuman Tidak Boleh Sama'
+                ]
+            ],
+            'deskripsi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Deskripsi Pengumuman Harus diisi'
+                ]
+            ],
+            'keyword' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Keyword Pengumuman Harus diisi'
+                ]
+            ],
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
+
+        $avatar   = $this->request->getFile('gambar');
+        $namabaru = str_replace(' ', '-', $avatar->getName());
+        $avatar->move(WRITEPATH . '../public/assets/upload/image/', $namabaru);
+        // Create thumb
+        $image = \Config\Services::image()
+            ->withFile(WRITEPATH . '../public/assets/upload/image/' . $namabaru)
+            ->fit(100, 100, 'center')
+            ->save(WRITEPATH . '../public/assets/upload/image/thumbs/' . $namabaru);
+
+        $dokumen   = $this->request->getFile('berkas');
+        $namaDok = str_replace(' ', '-', $dokumen->getName());
+        $dokumen->move(WRITEPATH . '../public/assets/upload/doc/', $namaDok);
+
+        $idUser = user_id();
+
+        $data = [
+            'id_user'           => $idUser,
+            'pengumuman'        => $this->request->getVar('pengumuman'),
+            'deskripsi'         => $this->request->getVar('deskripsi'),
+            'gambar'            => $namabaru,
+            'berkas'            => $namaDok,
+            'keyword'           => $this->request->getVar('keyword'),
+            'created_at'        => date('Y-m-d H-i-s'),
+        ];
+
+        $builder = $this->db->table('pengumuman');
+        $builder->insert($data);
+
+        $data['keuangan'] = 5;
+
+        return redirect()->to(base_url('keuangan/pengumuman/'))->with('message', 'Data Berita Berhasil Ditambahkan');
+    }
 }

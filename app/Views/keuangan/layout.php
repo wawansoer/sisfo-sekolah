@@ -57,6 +57,13 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item <?= ($keuangan == 5 ? "active" : ""); ?>">
+                            <a href="<?= base_url('keuangan/pengumuman'); ?>" class="sidebar-link">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>Pengumuman</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item">
                             <a href="<?= base_url('logout'); ?>" class="sidebar-link">
                                 <i class="bi bi-box-arrow-left"></i>

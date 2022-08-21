@@ -33,3 +33,42 @@ CRITICAL - 2022-08-21 01:48:07 --> Duplicate entry '7474d6652375cdb4a3775df69d4f
 #7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
 #8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
 #9 {main}
+CRITICAL - 2022-08-21 07:07:07 --> Undefined variable: kesiswaan
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Views/kesiswaan/layout.php(29): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(210): include('/home/wawan/Doc...')
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(226): CodeIgniter\View\View->render()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(646): view()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->pengumuman()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#11 {main}
+CRITICAL - 2022-08-21 07:07:22 --> Undefined variable: kesiswaan
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Views/kesiswaan/layout.php(29): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(210): include('/home/wawan/Doc...')
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(226): CodeIgniter\View\View->render()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(646): view()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->pengumuman()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#11 {main}
+CRITICAL - 2022-08-21 07:08:27 --> Undefined variable: keuangan
+#0 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Views/keuangan/layout.php(32): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(210): include('/home/wawan/Doc...')
+#2 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/View/View.php(226): CodeIgniter\View\View->render()
+#4 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Common.php(1089): CodeIgniter\View\View->render()
+#5 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/app/Controllers/Keuangan.php(646): view()
+#6 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Keuangan->pengumuman()
+#7 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#8 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /home/wawan/Documents/CI4/masterSekolah/SISFO SEKOLAH/vendor/codeigniter4/framework/system/Commands/Server/rewrite.php(43): require_once('/home/wawan/Doc...')
+#11 {main}

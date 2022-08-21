@@ -65,13 +65,13 @@ $routes->get('/adminWeb/hapussarpras', 'AdminWeb::hapussarpras', ['filter' => 'r
 
 // kesiswaan 
 $routes->get('/kesiswaan', 'Kesiswaan::index', ['filter' => 'role:Kesiswaan']);
-$routes->get('/kesiswaan/siswa', 'Kesiswaan::siswa');
-$routes->get('/kesiswaan/tambahsiswa', 'Kesiswaan::tambahsiswa');
-$routes->post('/kesiswaan/prosestambahsiswa', 'Kesiswaan::prosestambahsiswa');
-$routes->get('/kesiswaan/detailsiswa/(:any)', 'Kesiswaan::detailsiswa/$1');
-$routes->get('/kesiswaan/ubahsiswa/(:any)', 'Kesiswaan::ubahsiswa/$1');
-$routes->post('/kesiswaan/prosesubahsiswa/(:any)', 'Kesiswaan::prosesubahsiswa/$1');
-$routes->get('/kesiswaan/hapussiswa/(:any)', 'Kesiswaan::hapussiswa/$1');
+$routes->get('/kesiswaan/siswa', 'Kesiswaan::siswa', ['filter' => 'role:Kesiswaan']);
+$routes->get('/kesiswaan/tambahsiswa', 'Kesiswaan::tambahsiswa', ['filter' => 'role:Kesiswaan']);
+$routes->post('/kesiswaan/prosestambahsiswa', 'Kesiswaan::prosestambahsiswa', ['filter' => 'role:Kesiswaan']);
+$routes->get('/kesiswaan/detailsiswa/(:any)', 'Kesiswaan::detailsiswa/$1', ['filter' => 'role:Kesiswaan']);
+$routes->get('/kesiswaan/ubahsiswa/(:any)', 'Kesiswaan::ubahsiswa/$1', ['filter' => 'role:Kesiswaan']);
+$routes->post('/kesiswaan/prosesubahsiswa/(:any)', 'Kesiswaan::prosesubahsiswa/$1', ['filter' => 'role:Kesiswaan']);
+$routes->get('/kesiswaan/hapussiswa/(:any)', 'Kesiswaan::hapussiswa/$1', ['filter' => 'role:Kesiswaan']);
 $routes->get('/kesiswaan/pengumuman', 'Kesiswaan::pengumuman', ['filter' => 'role:Kesiswaan']);
 $routes->get('/kesiswaan/tambahpengumuman', 'Kesiswaan::tambahpengumuman', ['filter' => 'role:Kesiswaan']);
 $routes->post('/kesiswaan/prosestambahpengumuman', 'Kesiswaan::prosestambahpengumuman', ['filter' => 'role:Kesiswaan']);
@@ -126,6 +126,7 @@ $routes->get('/tatausaha/ubahpengumuman/(:any)', 'Tatausaha::ubahpengumuman/$1',
 $routes->post('/tatausaha/prosesubahpengumuman/(:any)', 'Tatausaha::prosesubahpengumuman/$1', ['filter' => 'role:Tata Usaha']);
 $routes->post('/tatausaha/hapuspengumuman/(:any)', 'Tatausaha::hapuspengumuman/$1', ['filter' => 'role:Tata Usaha']);
 
+$routes->get('/tatausaha/pengumuman', 'Tatausaha::pengumuman', ['filter' => 'role:Tata Usaha']);
 
 // keuangan 
 $routes->get('/keuangan/carisiswa', 'Keuangan::carisiswa');
