@@ -83,8 +83,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="<?= base_url(''); ?>" class="nav-item nav-link active">Beranda</a>
-                <div class="nav-item dropdown">
+                <a href="<?= base_url(''); ?>" class="nav-item nav-link">Beranda</a>
+                <div class="nav-item dropdown ">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profil Sekolah</a>
                     <div class="dropdown-menu bg-light m-0">
                         <a href="#" class="dropdown-item">Sambutan Kepala Sekolah</a>

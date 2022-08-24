@@ -15,7 +15,7 @@ class Home extends BaseController
     public function index()
     {
         $data['title'] = "SMA Muhammadiyah Kendari";
-
+        $data['aktif'] = 1;
         $query = $this->db->table('berita');
         $query->select('judul_berita, slug_judul, gambar, ringkasan');
         $query->where('berita.status', 'Publish');
@@ -60,7 +60,7 @@ class Home extends BaseController
     public function berita($id)
     {
         $data['title'] = "Berita | SMA Muhammadiyah Kendari";
-
+        $data['aktif'] = 1;
         $query = $this->db->table('berita');
         $query->select('judul_berita, slug_judul, gambar, ringkasan');
         $query->where('berita.status', 'Publish');
@@ -78,19 +78,14 @@ class Home extends BaseController
     public function daftarberita()
     {
         $model = new \App\Models\BeritaModel();
-        $query = $this->db->table('berita');
-        $query->select('*');
-        $query->where('berita.status', 'Publish');
-        $query->like('kategori', 'Berita');
-        $query->orlike('kategori', 'Umum');
-        $query->orlike('kategori', 'Pengumuman');
-        $query->orderBy('tanggal', 'DESC');
-        $query->get();
 
         $data = [
-            'berita' => $query->paginate(12, 'berita'),
-            'pager' => $query->pager,
+            'berita' => $model->where('status', 'Publish')
+                ->whereIn('kategori', ['Berita', 'Umum'])
+                ->paginate(12, 'berita'),
+            'pager' => $model->pager,
             'title' => "Berita | SMA Muhammadiyah Kendari",
+            'aktif' => 3
         ];
         return view('/home/daftarberita', $data);
     }
