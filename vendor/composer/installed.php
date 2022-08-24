@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-sisfo-sekolah',
+        'version' => 'dev-sisfo-sekolah',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9164c2d1fc6f0db3d62476a304c057908d609273',
+        'reference' => 'd319f077d4235f450ca0e3d52ed12f485a95bd84',
         'name' => 'codeigniter4/appstarter',
         'dev' => true,
     ),
     'versions' => array(
         'codeigniter4/appstarter' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-sisfo-sekolah',
+            'version' => 'dev-sisfo-sekolah',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9164c2d1fc6f0db3d62476a304c057908d609273',
+            'reference' => 'd319f077d4235f450ca0e3d52ed12f485a95bd84',
             'dev_requirement' => false,
         ),
         'codeigniter4/framework' => array(
@@ -54,6 +54,15 @@
             'aliases' => array(),
             'reference' => 'd7f08a622b3346766325488aa32ddc93ccdecc75',
             'dev_requirement' => true,
+        ),
+        'kejawenlab/ci4pager' => array(
+            'pretty_version' => '1.1',
+            'version' => '1.1.0.0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../kejawenlab/ci4pager',
+            'aliases' => array(),
+            'reference' => '96e12bc27544fb2b22ba8cbd86a20924e1b33373',
+            'dev_requirement' => false,
         ),
         'kint-php/kint' => array(
             'pretty_version' => '4.1.2',

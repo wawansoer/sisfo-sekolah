@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title><?= $title;?></title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+    <meta charset="utf-8">
+    <title><?= $title; ?></title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-  <!-- Favicon -->
-  <!-- <link href="img/favicon.ico" rel="icon"> -->
+    <!-- Favicon -->
+    <!-- <link href="img/favicon.ico" rel="icon"> -->
 
-  <!-- Google Web Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
 
-  <!-- Icon Font Stylesheet -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Libraries Stylesheet -->
-  <link href="<?= base_url('assets/home/lib/animate/animate.min.css'); ?>" rel="stylesheet">
-  <link href="<?= base_url('assets/home/lib/owlcarousel/assets/owl.carousel.min.css'); ?>" rel="stylesheet">
-  <link href="<?= base_url('assets/home/lib/lightbox/css/lightbox.min.css'); ?>" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="<?= base_url('assets/home/lib/animate/animate.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/home/lib/owlcarousel/assets/owl.carousel.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/home/lib/lightbox/css/lightbox.min.css'); ?>" rel="stylesheet">
 
-  <!-- Customized Bootstrap Stylesheet -->
-  <link href="<?= base_url('assets/home/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="<?= base_url('assets/home/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
-  <!-- Template Stylesheet -->
-  <link href="<?= base_url('assets/home/css/style.css'); ?>" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="<?= base_url('assets/home/css/style.css'); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -74,15 +75,15 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="<?= base_url('');?>" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-            <img class = "rounded mx-auto d-block" src="<?= base_url('assets/images/logo/logo-utama.png'); ?>" width="200em"/>
+        <a href="<?= base_url(''); ?>" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+            <img class="rounded mx-auto d-block" src="<?= base_url('assets/images/logo/logo-utama.png'); ?>" width="200em" />
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="<?= base_url('');?>" class="nav-item nav-link active">Beranda</a>
+                <a href="<?= base_url(''); ?>" class="nav-item nav-link active">Beranda</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profil Sekolah</a>
                     <div class="dropdown-menu bg-light m-0">
@@ -93,12 +94,19 @@
                         <a href="#" class="dropdown-item">Tenaga Pendidik</a>
                     </div>
                 </div>
-                <a href="<?= base_url('');?>" class="nav-item nav-link">Berita</a>
-                
-                <a href="#" class="nav-item nav-link">PPDB Online</a>
-                <a href="http://www.exam.smamuhkendari.sch.id/" class="nav-item nav-link">CBT Online</a>
-                <a href="<?= base_url('/login');?>" class="nav-item nav-link"> <button type="button" class="btn btn-success btn-sm">Masuk</button> </a>
-                
+
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Informasi</a>
+                    <div class="dropdown-menu bg-light m-0">
+                        <a href="<?= base_url('daftarberita'); ?>" class="dropdown-item">Berita</a>
+                        <a href="#" class="dropdown-item">Pengumuman</a>
+                    </div>
+                </div>
+
+                <a href="#" class="nav-item nav-link">PPDB</a>
+                <a href="http://www.exam.smamuhkendari.sch.id/" class="nav-item nav-link">CBT</a>
+                <a href="<?= base_url('/login'); ?>" class="nav-item nav-link"> <button type="button" class="btn btn-success btn-sm">Masuk</button> </a>
+
             </div>
         </div>
     </nav>

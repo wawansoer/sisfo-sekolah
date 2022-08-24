@@ -9,6 +9,7 @@ class Home extends BaseController
         $this->db = \Config\Database::connect();
         helper('auth');
         helper('tgl');
+        $pager = \Config\Services::pager();
     }
 
     public function index()
@@ -25,7 +26,7 @@ class Home extends BaseController
         $query->limit(3);
         $hasilQuery = $query->get();
         $data['berita'] = $hasilQuery->getResult();
-        
+
         $query = $this->db->table('kepsek');
         $query->select('*');
         $hasilQuery = $query->get();
@@ -66,40 +67,31 @@ class Home extends BaseController
         $query->like('kategori', 'Berita');
         $query->orlike('kategori', 'Umum');
         $query->orlike('kategori', 'Pengumuman');
-        $query->orderBy('prioritas', 'DESC');
-        $query->limit(3);
+        $query->orderBy('tanggal', 'DESC');
         $hasilQuery = $query->get();
-        $data['berita'] = $hasilQuery->getResult();
-        
-        $query = $this->db->table('kepsek');
-        $query->select('*');
-        $hasilQuery = $query->get();
-        $data['sambutan'] = $hasilQuery->getResult();
 
+        $data['berita'] = $hasilQuery->getResult();
+
+        return view('/home/berita', $data);
+    }
+
+    public function daftarberita()
+    {
+        $model = new \App\Models\BeritaModel();
         $query = $this->db->table('berita');
         $query->select('*');
-        $query->where('berita.status', 'Publish');
         $query->where('berita.status', 'Publish');
         $query->like('kategori', 'Berita');
         $query->orlike('kategori', 'Umum');
         $query->orlike('kategori', 'Pengumuman');
-        $query->limit(12);
-        $hasilQuery = $query->get();
-        $data['berita2nd'] = $hasilQuery->getResult();
+        $query->orderBy('tanggal', 'DESC');
+        $query->get();
 
-        $query = $this->db->table('tendik');
-        $query->select('*');
-        $hasilQuery = $query->get();
-        $data['tendik'] = $hasilQuery->getResult();
-
-        $query = $this->db->table('sarpras');
-        $query->select('*');
-        $query->limit(6);
-        $hasilQuery = $query->get();
-        $data['sarpras'] = $hasilQuery->getResult();
-
-        return view('/home/halaman_utama', $data);
+        $data = [
+            'berita' => $query->paginate(12, 'berita'),
+            'pager' => $query->pager,
+            'title' => "Berita | SMA Muhammadiyah Kendari",
+        ];
+        return view('/home/daftarberita', $data);
     }
-
-
 }

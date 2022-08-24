@@ -32,6 +32,10 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/berita', 'Home::berita');
+$routes->get('/pengumuman', 'Home::pengumuman');
+$routes->get('/daftarberita', 'Home::daftarberita');
+
 $routes->get('/proses-login', 'ProsesLogin::index', ['filter' => 'login']);
 
 // admin web 
