@@ -34,7 +34,9 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/berita', 'Home::berita');
 $routes->get('/pengumuman', 'Home::pengumuman');
+$routes->post('/cariberita', 'Home::daftarberita');
 $routes->get('/daftarberita', 'Home::daftarberita');
+$routes->get('/berita/(:any)', 'Home::berita/$1');
 
 $routes->get('/proses-login', 'ProsesLogin::index', ['filter' => 'login']);
 

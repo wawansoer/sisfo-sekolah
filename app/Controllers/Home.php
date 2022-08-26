@@ -15,7 +15,6 @@ class Home extends BaseController
     public function index()
     {
         $data['title'] = "SMA Muhammadiyah Kendari";
-        $data['aktif'] = 1;
         $query = $this->db->table('berita');
         $query->select('judul_berita, slug_judul, gambar, ringkasan');
         $query->where('berita.status', 'Publish');
@@ -60,33 +59,44 @@ class Home extends BaseController
     public function berita($id)
     {
         $data['title'] = "Berita | SMA Muhammadiyah Kendari";
-        $data['aktif'] = 1;
         $query = $this->db->table('berita');
-        $query->select('judul_berita, slug_judul, gambar, ringkasan');
+        $query->select('*');
         $query->where('berita.status', 'Publish');
-        $query->like('kategori', 'Berita');
-        $query->orlike('kategori', 'Umum');
-        $query->orlike('kategori', 'Pengumuman');
-        $query->orderBy('tanggal', 'DESC');
+        $query->where('slug_judul', $id);
+        $query->limit(1);
         $hasilQuery = $query->get();
-
         $data['berita'] = $hasilQuery->getResult();
-
-        return view('/home/berita', $data);
+        if (empty($hasilQuery)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Beri Tidak ditemukan !');
+        } else {
+            return view('/home/berita', $data);
+        }
     }
+
 
     public function daftarberita()
     {
         $model = new \App\Models\BeritaModel();
+        $cari = $this->request->getVar('cari');
+        if (empty($cari)) {
+            $data = [
+                'berita' => $model->where('status', 'Publish')
+                    ->whereIn('kategori', ['Berita', 'Umum'])
+                    ->paginate(12, 'berita'),
+                'pager' => $model->pager,
+                'title' => "Berita | SMA Muhammadiyah Kendari",
+            ];
+        } else {
+            $data = [
+                'berita' => $model->where('status', 'Publish')
+                    ->whereIn('kategori', ['Berita', 'Umum'])
+                    ->like('judul_berita', $cari)->orLike('ringkasan', $cari)
+                    ->orLike('isi', $cari)->paginate(12, 'berita'),
+                'pager' => $model->pager,
+                'title' => "Berita | SMA Muhammadiyah Kendari",
+            ];
+        }
 
-        $data = [
-            'berita' => $model->where('status', 'Publish')
-                ->whereIn('kategori', ['Berita', 'Umum'])
-                ->paginate(12, 'berita'),
-            'pager' => $model->pager,
-            'title' => "Berita | SMA Muhammadiyah Kendari",
-            'aktif' => 3
-        ];
         return view('/home/daftarberita', $data);
     }
 }
