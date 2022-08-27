@@ -61,6 +61,7 @@ class Home extends BaseController
         $data['title'] = "Berita | SMA Muhammadiyah Kendari";
         $query = $this->db->table('berita');
         $query->select('*');
+        $query->join('users', 'users.id = berita.idUser');
         $query->where('berita.status', 'Publish');
         $query->where('slug_judul', $id);
         $query->limit(1);
