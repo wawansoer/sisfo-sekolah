@@ -99,7 +99,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Informasi</a>
                     <div class="dropdown-menu bg-light m-0">
                         <a href="<?= base_url('daftarberita'); ?>" class="dropdown-item">Berita</a>
-                        <a href="#" class="dropdown-item">Pengumuman</a>
+                        <a href="<?= base_url('daftarpengumuman'); ?>#" class="dropdown-item">Pengumuman</a>
                     </div>
                 </div>
 

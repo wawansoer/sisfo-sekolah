@@ -100,4 +100,45 @@ class Home extends BaseController
 
         return view('/home/daftarberita', $data);
     }
+
+    public function pengumuman($id)
+    {
+        $data['title'] = "Berita | SMA Muhammadiyah Kendari";
+        $query = $this->db->table('pengumuman');
+        $query->select('*');
+        $query->join('users', 'users.id = pengumuman.id_user');
+        $query->where('id_pengumuman', $id);
+        $query->limit(1);
+        $hasilQuery = $query->get();
+        $data['pengumuman'] = $hasilQuery->getResult('array');
+        if (empty($hasilQuery)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
+        } else {
+            return view('/home/pengumuman', $data);
+        }
+    }
+
+
+    public function daftarpengumuman()
+    {
+        $model = new \App\Models\PengumumanModel();
+        $cari = $this->request->getVar('cari');
+        if (empty($cari)) {
+            $data = [
+                'pengumuman' => $model->paginate(12, 'pengumuman'),
+                'pager' => $model->pager,
+                'title' => "Pengumuman | SMA Muhammadiyah Kendari",
+            ];
+        } else {
+            $data = [
+                'pengumuman' => $model->like('pengumuman', $cari)
+                    ->orLike('deskripsi', $cari)
+                    ->paginate(12, 'pengumuman'),
+                'pager' => $model->pager,
+                'title' => "Pengumuman | SMA Muhammadiyah Kendari",
+            ];
+        }
+
+        return view('/home/daftarpengumuman', $data);
+    }
 }
